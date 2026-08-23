@@ -2,7 +2,7 @@
 name: Requisito
 about: Requisito funcional o no funcional
 title: ''
-labels: ''
+labels: requisito
 assignees: ''
 
 ---
