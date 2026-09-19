@@ -1,0 +1,7 @@
+\copy proveedores.proveedor FROM '/tmp/retail-data/proveedores.csv' WITH (FORMAT csv, HEADER true)
+\copy proveedores.contrato FROM '/tmp/retail-data/contratos.csv' WITH (FORMAT csv, HEADER true)
+\copy catalogo.sku FROM '/tmp/retail-data/skus.csv' WITH (FORMAT csv, HEADER true)
+\copy logistica.franja_descargue FROM '/tmp/retail-data/franjas.csv' WITH (FORMAT csv, HEADER true)
+\copy ordenes.orden_compra FROM '/tmp/retail-data/ordenes.csv' WITH (FORMAT csv, HEADER true)
+\copy ordenes.linea_orden FROM '/tmp/retail-data/lineas.csv' WITH (FORMAT csv, HEADER true)
+\copy auditoria.evento FROM '/tmp/retail-data/eventos.csv' WITH (FORMAT csv, HEADER true)
