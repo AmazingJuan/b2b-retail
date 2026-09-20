@@ -1,0 +1,42 @@
+    tabla    |  filas  | veredicto 
+-------------+---------+-----------
+ contratos   |   15000 | PASA
+ proveedores |  100000 | PASA
+ franjas     |  150000 | PASA
+ skus        |  400000 | PASA
+ ordenes     |  505000 | PASA
+ eventos     |  800000 | PASA
+ lineas      | 3003817 | PASA
+(7 rows)
+
+        metrica        | valor 
+-----------------------+-------
+ top_1_pct_proveedores | 26.87
+(1 row)
+
+        metrica        | valor 
+-----------------------+-------
+ top_5_pct_proveedores | 45.99
+(1 row)
+
+   metrica   | orden_300_lineas | contrato_vencido | contrato_vence_hoy | ultima_franja_disponible | proveedor_sin_contrato | sku_fuera_catalogo | proveedor_hot | proveedor_activo_sin_ordenes | proveedor_mes_sin_ordenes 
+-------------+------------------+------------------+--------------------+--------------------------+------------------------+--------------------+---------------+------------------------------+---------------------------
+ casos_borde | t                | t                | t                  | t                        | t                      | t                  | t             | t                            | t
+(1 row)
+
+        metrica        |              valor               
+-----------------------+----------------------------------
+ determinismo_checksum | 861518300727dbe1fe923b587a2aa412
+(1 row)
+
+    metrica     | otif_pct | fill_rate_pct 
+----------------+----------+---------------
+ otif_fill_rate |    87.01 |         99.48
+(1 row)
+
+         metrica          | valor 
+--------------------------+-------
+ franjas_fecha_referencia |    96
+(1 row)
+
+DO

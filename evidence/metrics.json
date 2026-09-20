@@ -1,0 +1,111 @@
+{
+  "measured_at": "2026-09-20",
+  "executions_per_scenario": 200,
+  "queries": {
+    "Q1": {
+      "cold": {
+        "executions": 200,
+        "min_ms": 14.993,
+        "max_ms": 18.67,
+        "p50_ms": 16.601,
+        "p95_ms": 17.706,
+        "p99_ms": 18.28,
+        "mean_ms": 16.615
+      },
+      "hot": {
+        "executions": 200,
+        "min_ms": 14.46,
+        "max_ms": 18.363,
+        "p50_ms": 16.158,
+        "p95_ms": 17.478,
+        "p99_ms": 17.975,
+        "mean_ms": 16.177
+      },
+      "sql": "SELECT id FROM proveedores.contrato WHERE proveedor_id = {provider} AND inicia_en <= DATE '2026-09-20' AND vence_en >= DATE '2026-09-20' LIMIT 1"
+    },
+    "Q2": {
+      "cold": {
+        "executions": 200,
+        "min_ms": 14.386,
+        "max_ms": 32.55,
+        "p50_ms": 15.854,
+        "p95_ms": 18.363,
+        "p99_ms": 31.074,
+        "mean_ms": 16.348
+      },
+      "hot": {
+        "executions": 200,
+        "min_ms": 14.647,
+        "max_ms": 20.886,
+        "p50_ms": 15.915,
+        "p95_ms": 17.233,
+        "p99_ms": 18.373,
+        "mean_ms": 16.02
+      },
+      "sql": "SELECT id, precio FROM catalogo.sku WHERE proveedor_id = {provider} AND vigente_desde <= DATE '2026-09-20' AND vigente_hasta >= DATE '2026-09-20' LIMIT 20"
+    },
+    "Q3": {
+      "cold": {
+        "executions": 200,
+        "min_ms": 17.348,
+        "max_ms": 26.605,
+        "p50_ms": 19.553,
+        "p95_ms": 24.509,
+        "p99_ms": 25.535,
+        "mean_ms": 20.558
+      },
+      "hot": {
+        "executions": 200,
+        "min_ms": 17.329,
+        "max_ms": 21.852,
+        "p50_ms": 18.977,
+        "p95_ms": 20.626,
+        "p99_ms": 21.334,
+        "mean_ms": 19.033
+      },
+      "sql": "SELECT id FROM logistica.franja_descargue WHERE cedi_id = {cedi} AND inicia_en::date = DATE '2026-09-20' AND reservadas < capacidad ORDER BY inicia_en"
+    },
+    "Q4": {
+      "cold": {
+        "executions": 200,
+        "min_ms": 12.294,
+        "max_ms": 28.349,
+        "p50_ms": 15.22,
+        "p95_ms": 20.698,
+        "p99_ms": 22.461,
+        "mean_ms": 16.324
+      },
+      "hot": {
+        "executions": 200,
+        "min_ms": 46.457,
+        "max_ms": 93.63,
+        "p50_ms": 50.505,
+        "p95_ms": 59.197,
+        "p99_ms": 69.531,
+        "mean_ms": 51.527
+      },
+      "sql": "SELECT proveedor_id, date_trunc('month', creada_en) AS mes, round(100.0 * avg((entregada_en <= prometida_en)::int), 2) AS otif_pct, round(100.0 * sum(cantidad_recibida) / NULLIF(sum(cantidad_solicitada), 0), 2) AS fill_rate_pct FROM ordenes.orden_compra WHERE proveedor_id = {provider} GROUP BY proveedor_id, date_trunc('month', creada_en)"
+    },
+    "Q5": {
+      "cold": {
+        "executions": 200,
+        "min_ms": 15.668,
+        "max_ms": 39.781,
+        "p50_ms": 17.921,
+        "p95_ms": 23.71,
+        "p99_ms": 35.484,
+        "mean_ms": 18.738
+      },
+      "hot": {
+        "executions": 200,
+        "min_ms": 16.166,
+        "max_ms": 26.547,
+        "p50_ms": 18.09,
+        "p95_ms": 20.319,
+        "p99_ms": 22.597,
+        "mean_ms": 18.338
+      },
+      "sql": "SELECT id FROM ordenes.orden_compra WHERE proveedor_id = {provider} ORDER BY creada_en DESC, id DESC LIMIT 50"
+    }
+  }
+}
