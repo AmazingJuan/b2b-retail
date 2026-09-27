@@ -1,32 +1,78 @@
     tabla    |  filas  | veredicto 
 -------------+---------+-----------
- contratos   |   15000 | PASA
- proveedores |  100000 | PASA
- franjas     |  150000 | PASA
- skus        |  400000 | PASA
- ordenes     |  505000 | PASA
- eventos     |  800000 | PASA
- lineas      | 3003817 | PASA
+ contratos   |   16500 | PASA
+ proveedores |  105000 | PASA
+ franjas     |  160000 | PASA
+ skus        |  420000 | PASA
+ ordenes     |  510000 | PASA
+ eventos     |  850000 | PASA
+ lineas      | 3066892 | PASA
 (7 rows)
 
         metrica        | valor 
 -----------------------+-------
- top_1_pct_proveedores | 26.87
+ top_1_pct_proveedores | 26.13
 (1 row)
 
         metrica        | valor 
 -----------------------+-------
- top_5_pct_proveedores | 45.99
+ top_5_pct_proveedores | 45.50
 (1 row)
+
+        metrica         | valor 
+------------------------+-------
+ top_20_pct_proveedores | 72.98
+(1 row)
+
+          metrica          | valor | veredicto 
+---------------------------+-------+-----------
+ top_10_pct_skus_en_lineas | 59.99 | PASA
+(1 row)
+
+                    metrica                    | pct_ordenes | veredicto 
+-----------------------------------------------+-------------+-----------
+ estacionalidad_fin_mes_ultimos_3_dias_habiles |       25.02 | PASA
+(1 row)
+
+              metrica               | pct_pico_matutino | pct_valle_nocturno | veredicto 
+------------------------------------+-------------------+--------------------+-----------
+ estacionalidad_horaria_pico_8_a_11 |             49.97 |               3.50 | PASA
+(1 row)
+
+    dia     | total_ordenes 
+------------+---------------
+ 2025-12-31 |          1770
+ 2025-12-30 |          1803
+ 2025-12-29 |          1851
+ 2025-12-28 |           583
+ 2025-12-27 |           548
+ 2025-12-26 |           577
+ 2025-12-25 |           559
+ 2025-12-24 |           563
+ 2025-12-23 |           576
+ 2025-12-22 |           591
+(10 rows)
 
    metrica   | orden_300_lineas | contrato_vencido | contrato_vence_hoy | ultima_franja_disponible | proveedor_sin_contrato | sku_fuera_catalogo | proveedor_hot | proveedor_activo_sin_ordenes | proveedor_mes_sin_ordenes 
 -------------+------------------+------------------+--------------------+--------------------------+------------------------+--------------------+---------------+------------------------------+---------------------------
  casos_borde | t                | t                | t                  | t                        | t                      | t                  | t             | t                            | t
 (1 row)
 
+                 caso                 | identificador 
+--------------------------------------+---------------
+ ID_ORDEN_300_LINEAS                  | 1
+ ID_CONTRATO_VENCIDO_AYER             | 1
+ ID_CONTRATO_VENCE_HOY                | 2
+ ID_ULTIMA_FRANJA_DISPONIBLE          | 160000
+ ID_PROVEEDOR_SIN_CONTRATO            | 16501
+ ID_SKU_FUERA_CATALOGO                | 420000
+ ID_PROVEEDOR_HOT_5000_ORDENES        | 1
+ ID_PROVEEDOR_ACTIVO_SIN_ORDEN_EN_MES | 107
+(8 rows)
+
         metrica        |              valor               
 -----------------------+----------------------------------
- determinismo_checksum | 861518300727dbe1fe923b587a2aa412
+ determinismo_checksum | 6dfada0e8cbfe1e90f9ff51e91a03642
 (1 row)
 
     metrica     | otif_pct | fill_rate_pct 

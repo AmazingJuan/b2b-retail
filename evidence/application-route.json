@@ -2,8 +2,8 @@
   "attempted_rows": 5000,
   "accepted_rows": 5000,
   "rejected_rows": 0,
-  "seconds": 0.642,
-  "rows_per_second": 7792.73,
+  "seconds": 0.452,
+  "rows_per_second": 11067.43,
   "validations": [
     "proveedor existente",
     "SKU del proveedor",

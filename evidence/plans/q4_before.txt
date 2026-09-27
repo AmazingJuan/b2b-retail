@@ -1,24 +1,24 @@
-Finalize GroupAggregate  (cost=10152.03..16706.04 rows=43061 width=76) (actual time=28.293..33.453 rows=24 loops=1)
+Finalize GroupAggregate  (cost=10306.39..16857.27 rows=43044 width=76) (actual time=23.782..27.112 rows=24 loops=1)
   Group Key: (date_trunc('month'::text, creada_en))
-  Buffers: shared hit=5057 read=264
-  ->  Gather Merge  (cost=10152.03..14839.50 rows=35940 width=60) (actual time=28.010..33.375 rows=72 loops=1)
+  Buffers: shared hit=5256 read=168
+  ->  Gather Merge  (cost=10306.39..14991.51 rows=35922 width=60) (actual time=23.560..27.053 rows=72 loops=1)
         Workers Planned: 2
         Workers Launched: 2
-        Buffers: shared hit=5057 read=264
-        ->  Partial GroupAggregate  (cost=9152.01..9691.11 rows=17970 width=60) (actual time=21.558..25.114 rows=24 loops=3)
+        Buffers: shared hit=5256 read=168
+        ->  Partial GroupAggregate  (cost=9306.37..9845.20 rows=17961 width=60) (actual time=19.187..21.588 rows=24 loops=3)
               Group Key: (date_trunc('month'::text, creada_en))
-              Buffers: shared hit=5057 read=264
-              ->  Sort  (cost=9152.01..9196.94 rows=17970 width=36) (actual time=21.263..22.668 rows=13990 loops=3)
+              Buffers: shared hit=5256 read=168
+              ->  Sort  (cost=9306.37..9351.27 rows=17961 width=36) (actual time=19.033..19.951 rows=14303 loops=3)
                     Sort Key: (date_trunc('month'::text, creada_en))
-                    Sort Method: quicksort  Memory: 1981kB
-                    Buffers: shared hit=5057 read=264
-                    Worker 0:  Sort Method: quicksort  Memory: 1160kB
-                    Worker 1:  Sort Method: quicksort  Memory: 1020kB
-                    ->  Parallel Seq Scan on orden_compra  (cost=0.00..7882.13 rows=17970 width=36) (actual time=0.013..17.535 rows=13990 loops=3)
+                    Sort Method: quicksort  Memory: 1966kB
+                    Buffers: shared hit=5256 read=168
+                    Worker 0:  Sort Method: quicksort  Memory: 1116kB
+                    Worker 1:  Sort Method: quicksort  Memory: 1138kB
+                    ->  Parallel Seq Scan on orden_compra  (cost=0.00..8037.19 rows=17961 width=36) (actual time=0.012..15.968 rows=14303 loops=3)
                           Filter: (proveedor_id = 1)
-                          Rows Removed by Filter: 154343
-                          Buffers: shared hit=4943 read=264
+                          Rows Removed by Filter: 157364
+                          Buffers: shared hit=5142 read=168
 Planning:
   Buffers: shared hit=113
-Planning Time: 0.666 ms
-Execution Time: 33.761 ms
+Planning Time: 0.707 ms
+Execution Time: 27.475 ms

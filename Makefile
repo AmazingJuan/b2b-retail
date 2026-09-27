@@ -10,10 +10,10 @@ up:
 	$(COMPOSE) exec -T postgres sh -c 'until pg_isready -U retail -d retail; do sleep 1; done'
 
 db-reset: up
-	$(DB) -f /workspace/sql/schema.sql
+	$(DB) -f /workspace/modelo-fisico.sql
 
 datos: db-reset
-	$(PYTHON) datos/generar.py --output datos/generated --seed $${SEED:-42} --orders $${ORDERS:-500000} --as-of-date $${AS_OF_DATE:-2026-09-20}
+	$(PYTHON) datos/generar.py --output datos/generated --seed $${SEED:-42} --orders $${ORDERS:-510000} --as-of-date $${AS_OF_DATE:-2026-09-20}
 	$(COMPOSE) exec -T postgres sh -c 'rm -rf /tmp/retail-data && mkdir -p /tmp/retail-data'
 	$(COMPOSE) cp datos/generated/. postgres:/tmp/retail-data/
 	$(DB) -f /workspace/sql/load.sql

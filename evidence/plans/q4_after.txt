@@ -1,18 +1,18 @@
-GroupAggregate  (cost=10150.98..12323.55 rows=41360 width=76) (actual time=44.489..53.651 rows=24 loops=1)
+GroupAggregate  (cost=10409.51..12646.90 rows=42596 width=76) (actual time=34.072..43.307 rows=24 loops=1)
   Group Key: (date_trunc('month'::text, creada_en))
-  Buffers: shared hit=4806 read=209
-  ->  Sort  (cost=10150.98..10254.55 rows=41427 width=36) (actual time=43.941..47.894 rows=41970 loops=1)
+  Buffers: shared hit=4912 read=214
+  ->  Sort  (cost=10409.51..10516.16 rows=42659 width=36) (actual time=33.589..37.646 rows=42909 loops=1)
         Sort Key: (date_trunc('month'::text, creada_en))
-        Sort Method: quicksort  Memory: 3741kB
-        Buffers: shared hit=4806 read=209
-        ->  Bitmap Heap Scan on orden_compra  (cost=1145.48..6973.89 rows=41427 width=36) (actual time=6.620..32.939 rows=41970 loops=1)
+        Sort Method: quicksort  Memory: 3799kB
+        Buffers: shared hit=4912 read=214
+        ->  Bitmap Heap Scan on orden_compra  (cost=1179.03..7128.91 rows=42659 width=36) (actual time=4.166..24.809 rows=42909 loops=1)
               Recheck Cond: (proveedor_id = 1)
-              Heap Blocks: exact=4803
-              Buffers: shared hit=4803 read=209
-              ->  Bitmap Index Scan on orden_proveedor_fecha_idx  (cost=0.00..1135.12 rows=41427 width=0) (actual time=5.580..5.580 rows=41970 loops=1)
+              Heap Blocks: exact=4909
+              Buffers: shared hit=4909 read=214
+              ->  Bitmap Index Scan on orden_proveedor_fecha_idx  (cost=0.00..1168.37 rows=42659 width=0) (actual time=3.378..3.378 rows=42909 loops=1)
                     Index Cond: (proveedor_id = 1)
-                    Buffers: shared read=209
+                    Buffers: shared read=214
 Planning:
   Buffers: shared hit=140 read=1
-Planning Time: 0.862 ms
-Execution Time: 54.128 ms
+Planning Time: 0.813 ms
+Execution Time: 43.737 ms

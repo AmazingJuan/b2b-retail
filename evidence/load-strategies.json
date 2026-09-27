@@ -4,26 +4,26 @@
     "copy": {
       "attempted_rows": 50000,
       "inserted_rows": 50000,
-      "seconds": 0.368,
-      "rows_per_second": 135813.72
+      "seconds": 0.261,
+      "rows_per_second": 191793.62
     },
     "insert_batch_1000": {
       "attempted_rows": 50000,
       "inserted_rows": 50000,
-      "seconds": 0.596,
-      "rows_per_second": 83924.96
+      "seconds": 0.404,
+      "rows_per_second": 123771.26
     },
     "insert_row_autocommit": {
       "attempted_rows": 50000,
       "inserted_rows": 50000,
-      "seconds": 5.536,
-      "rows_per_second": 9032.49
+      "seconds": 3.792,
+      "rows_per_second": 13184.68
     },
     "application_transactional_route": {
       "attempted_rows": 50000,
-      "inserted_rows": 41005,
-      "seconds": 16.96,
-      "rows_per_second": 2948.18
+      "inserted_rows": 41430,
+      "seconds": 15.734,
+      "rows_per_second": 3177.79
     }
   }
 }
