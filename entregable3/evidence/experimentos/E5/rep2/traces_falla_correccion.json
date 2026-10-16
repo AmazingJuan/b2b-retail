@@ -1,0 +1,337 @@
+[
+ {
+  "trace_id": "1a5d6c534270a0224bcdd4c694973136",
+  "duration_ms": 92.87,
+  "root": "GET /consultas/{query_id}",
+  "spans": [
+   {
+    "op": "GET /consultas/{query_id}",
+    "ms": 92.87,
+    "offset_ms": 0.0,
+    "tags": {
+     "e3.query": "Q4",
+     "e3.scenario": "hot"
+    },
+    "events": []
+   },
+   {
+    "op": "consulta.intento",
+    "ms": 91.04,
+    "offset_ms": 0.41,
+    "tags": {
+     "pool.name": "app"
+    },
+    "events": []
+   },
+   {
+    "op": "pool.getconn",
+    "ms": 50.5,
+    "offset_ms": 0.45,
+    "tags": {
+     "pool.wait_ms": 50.485
+    },
+    "events": []
+   },
+   {
+    "op": "db.execute",
+    "ms": 40.38,
+    "offset_ms": 51.01,
+    "tags": {
+     "db.statement": "SELECT proveedor_id, date_trunc('month', creada_en) AS mes, round(100.0 * avg((entregada_en <= prometida_en)::int), 2) AS otif_pct, round(100.0 * sum(cantidad_recibida) / NULLIF(sum(cantidad_solicitada), 0), 2) AS fill_rate_pct FROM ordenes.orden_compra WHERE proveedor_id = 1 GROUP BY proveedor_id, date_trunc('month', creada_en)"
+    },
+    "events": []
+   },
+   {
+    "op": "SELECT",
+    "ms": 40.24,
+    "offset_ms": 51.06,
+    "tags": {
+     "db.statement": "SELECT proveedor_id, date_trunc('month', creada_en) AS mes, round(100.0 * avg((entregada_en <= prometida_en)::int), 2) AS otif_pct, round(100.0 * sum(cantidad_recibida) / NULLIF(sum(cantidad_solicitada), 0), 2) AS fill_rate_pct FROM ordenes.orden_compra WHERE proveedor_id = 1 GROUP BY proveedor_id, date_trunc('month', creada_en)"
+    },
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.04,
+    "offset_ms": 91.99,
+    "tags": {},
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.01,
+    "offset_ms": 92.12,
+    "tags": {},
+    "events": []
+   }
+  ]
+ },
+ {
+  "trace_id": "79389978d0aedcfee0c4941987afb549",
+  "duration_ms": 68.56,
+  "root": "GET /consultas/{query_id}",
+  "spans": [
+   {
+    "op": "GET /consultas/{query_id}",
+    "ms": 68.56,
+    "offset_ms": 0.0,
+    "tags": {
+     "e3.query": "Q4",
+     "e3.scenario": "hot"
+    },
+    "events": []
+   },
+   {
+    "op": "consulta.intento",
+    "ms": 67.21,
+    "offset_ms": 0.42,
+    "tags": {
+     "pool.name": "app"
+    },
+    "events": []
+   },
+   {
+    "op": "pool.getconn",
+    "ms": 34.29,
+    "offset_ms": 0.46,
+    "tags": {
+     "pool.wait_ms": 34.276
+    },
+    "events": []
+   },
+   {
+    "op": "db.execute",
+    "ms": 32.78,
+    "offset_ms": 34.81,
+    "tags": {
+     "db.statement": "SELECT proveedor_id, date_trunc('month', creada_en) AS mes, round(100.0 * avg((entregada_en <= prometida_en)::int), 2) AS otif_pct, round(100.0 * sum(cantidad_recibida) / NULLIF(sum(cantidad_solicitada), 0), 2) AS fill_rate_pct FROM ordenes.orden_compra WHERE proveedor_id = 1 GROUP BY proveedor_id, date_trunc('month', creada_en)"
+    },
+    "events": []
+   },
+   {
+    "op": "SELECT",
+    "ms": 32.65,
+    "offset_ms": 34.88,
+    "tags": {
+     "db.statement": "SELECT proveedor_id, date_trunc('month', creada_en) AS mes, round(100.0 * avg((entregada_en <= prometida_en)::int), 2) AS otif_pct, round(100.0 * sum(cantidad_recibida) / NULLIF(sum(cantidad_solicitada), 0), 2) AS fill_rate_pct FROM ordenes.orden_compra WHERE proveedor_id = 1 GROUP BY proveedor_id, date_trunc('month', creada_en)"
+    },
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.03,
+    "offset_ms": 68.14,
+    "tags": {},
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.01,
+    "offset_ms": 68.26,
+    "tags": {},
+    "events": []
+   }
+  ]
+ },
+ {
+  "trace_id": "cb701ab33016694bdcef9876a668093e",
+  "duration_ms": 67.12,
+  "root": "GET /consultas/{query_id}",
+  "spans": [
+   {
+    "op": "GET /consultas/{query_id}",
+    "ms": 67.12,
+    "offset_ms": 0.0,
+    "tags": {
+     "e3.query": "Q4",
+     "e3.scenario": "hot"
+    },
+    "events": []
+   },
+   {
+    "op": "consulta.intento",
+    "ms": 65.52,
+    "offset_ms": 0.48,
+    "tags": {
+     "pool.name": "app"
+    },
+    "events": []
+   },
+   {
+    "op": "pool.getconn",
+    "ms": 27.02,
+    "offset_ms": 0.52,
+    "tags": {
+     "pool.wait_ms": 26.999
+    },
+    "events": []
+   },
+   {
+    "op": "db.execute",
+    "ms": 38.32,
+    "offset_ms": 27.63,
+    "tags": {
+     "db.statement": "SELECT proveedor_id, date_trunc('month', creada_en) AS mes, round(100.0 * avg((entregada_en <= prometida_en)::int), 2) AS otif_pct, round(100.0 * sum(cantidad_recibida) / NULLIF(sum(cantidad_solicitada), 0), 2) AS fill_rate_pct FROM ordenes.orden_compra WHERE proveedor_id = 1 GROUP BY proveedor_id, date_trunc('month', creada_en)"
+    },
+    "events": []
+   },
+   {
+    "op": "SELECT",
+    "ms": 38.14,
+    "offset_ms": 27.73,
+    "tags": {
+     "db.statement": "SELECT proveedor_id, date_trunc('month', creada_en) AS mes, round(100.0 * avg((entregada_en <= prometida_en)::int), 2) AS otif_pct, round(100.0 * sum(cantidad_recibida) / NULLIF(sum(cantidad_solicitada), 0), 2) AS fill_rate_pct FROM ordenes.orden_compra WHERE proveedor_id = 1 GROUP BY proveedor_id, date_trunc('month', creada_en)"
+    },
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.03,
+    "offset_ms": 66.55,
+    "tags": {},
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.01,
+    "offset_ms": 66.67,
+    "tags": {},
+    "events": []
+   }
+  ]
+ },
+ {
+  "trace_id": "06aac984c7c2b59b91b6d2c5fd5f83e4",
+  "duration_ms": 66.73,
+  "root": "GET /consultas/{query_id}",
+  "spans": [
+   {
+    "op": "GET /consultas/{query_id}",
+    "ms": 66.73,
+    "offset_ms": 0.0,
+    "tags": {
+     "e3.query": "Q4",
+     "e3.scenario": "hot"
+    },
+    "events": []
+   },
+   {
+    "op": "consulta.intento",
+    "ms": 65.06,
+    "offset_ms": 0.73,
+    "tags": {
+     "pool.name": "app"
+    },
+    "events": []
+   },
+   {
+    "op": "pool.getconn",
+    "ms": 30.69,
+    "offset_ms": 0.8,
+    "tags": {
+     "pool.wait_ms": 30.698
+    },
+    "events": []
+   },
+   {
+    "op": "db.execute",
+    "ms": 34.19,
+    "offset_ms": 31.55,
+    "tags": {
+     "db.statement": "SELECT proveedor_id, date_trunc('month', creada_en) AS mes, round(100.0 * avg((entregada_en <= prometida_en)::int), 2) AS otif_pct, round(100.0 * sum(cantidad_recibida) / NULLIF(sum(cantidad_solicitada), 0), 2) AS fill_rate_pct FROM ordenes.orden_compra WHERE proveedor_id = 1 GROUP BY proveedor_id, date_trunc('month', creada_en)"
+    },
+    "events": []
+   },
+   {
+    "op": "SELECT",
+    "ms": 34.05,
+    "offset_ms": 31.62,
+    "tags": {
+     "db.statement": "SELECT proveedor_id, date_trunc('month', creada_en) AS mes, round(100.0 * avg((entregada_en <= prometida_en)::int), 2) AS otif_pct, round(100.0 * sum(cantidad_recibida) / NULLIF(sum(cantidad_solicitada), 0), 2) AS fill_rate_pct FROM ordenes.orden_compra WHERE proveedor_id = 1 GROUP BY proveedor_id, date_trunc('month', creada_en)"
+    },
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.03,
+    "offset_ms": 66.27,
+    "tags": {},
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.01,
+    "offset_ms": 66.39,
+    "tags": {},
+    "events": []
+   }
+  ]
+ },
+ {
+  "trace_id": "631f788ecc366e567636d2379fda5949",
+  "duration_ms": 66.01,
+  "root": "GET /consultas/{query_id}",
+  "spans": [
+   {
+    "op": "GET /consultas/{query_id}",
+    "ms": 66.01,
+    "offset_ms": 0.0,
+    "tags": {
+     "e3.query": "Q4",
+     "e3.scenario": "hot"
+    },
+    "events": []
+   },
+   {
+    "op": "consulta.intento",
+    "ms": 61.92,
+    "offset_ms": 1.43,
+    "tags": {
+     "pool.name": "app"
+    },
+    "events": []
+   },
+   {
+    "op": "pool.getconn",
+    "ms": 16.47,
+    "offset_ms": 1.47,
+    "tags": {
+     "pool.wait_ms": 16.459
+    },
+    "events": []
+   },
+   {
+    "op": "db.execute",
+    "ms": 45.33,
+    "offset_ms": 18.0,
+    "tags": {
+     "db.statement": "SELECT proveedor_id, date_trunc('month', creada_en) AS mes, round(100.0 * avg((entregada_en <= prometida_en)::int), 2) AS otif_pct, round(100.0 * sum(cantidad_recibida) / NULLIF(sum(cantidad_solicitada), 0), 2) AS fill_rate_pct FROM ordenes.orden_compra WHERE proveedor_id = 1 GROUP BY proveedor_id, date_trunc('month', creada_en)"
+    },
+    "events": []
+   },
+   {
+    "op": "SELECT",
+    "ms": 45.22,
+    "offset_ms": 18.05,
+    "tags": {
+     "db.statement": "SELECT proveedor_id, date_trunc('month', creada_en) AS mes, round(100.0 * avg((entregada_en <= prometida_en)::int), 2) AS otif_pct, round(100.0 * sum(cantidad_recibida) / NULLIF(sum(cantidad_solicitada), 0), 2) AS fill_rate_pct FROM ordenes.orden_compra WHERE proveedor_id = 1 GROUP BY proveedor_id, date_trunc('month', creada_en)"
+    },
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.02,
+    "offset_ms": 63.8,
+    "tags": {},
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.01,
+    "offset_ms": 63.97,
+    "tags": {},
+    "events": []
+   }
+  ]
+ }
+]

@@ -1,0 +1,15 @@
+Limit  (cost=1.30..46.62 rows=50 width=12) (actual time=1.811..2.496 rows=50 loops=1)
+  Buffers: shared hit=634
+  ->  Incremental Sort  (cost=1.30..40041.13 rows=44170 width=12) (actual time=1.808..2.489 rows=50 loops=1)
+        Sort Key: creada_en DESC, id DESC
+        Presorted Key: creada_en
+        Full-sort Groups: 2  Sort Method: quicksort  Average Memory: 26kB  Peak Memory: 26kB
+        Buffers: shared hit=634
+        ->  Index Scan Backward using orden_fecha_idx on orden_compra  (cost=0.42..38056.91 rows=44170 width=12) (actual time=0.105..2.389 rows=51 loops=1)
+              Filter: (proveedor_id = 1)
+              Rows Removed by Filter: 565
+              Buffers: shared hit=625
+Planning:
+  Buffers: shared hit=87
+Planning Time: 0.677 ms
+Execution Time: 2.554 ms

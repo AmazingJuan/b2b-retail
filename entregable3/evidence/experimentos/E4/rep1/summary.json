@@ -1,0 +1,820 @@
+{
+  "experiment": "E4",
+  "rep": 1,
+  "phase_s": 30.0,
+  "phases": {
+    "baseline": {
+      "requests": 2981,
+      "offered_rps": 99.37,
+      "throughput_rps": 99.37,
+      "error_rate": 0.0,
+      "p50_ms": 5.011,
+      "p95_ms": 27.167,
+      "p99_ms": 42.138,
+      "max_ms": 95.363,
+      "mean_ms": 7.929,
+      "ok_p95_ms": 27.167,
+      "status": {
+        "200": 2981
+      },
+      "errors": {},
+      "per_query_p95_ms": {
+        "Q1": 6.679,
+        "Q2": 8.654,
+        "Q3": 17.285,
+        "Q4": 43.756,
+        "Q5": 6.758
+      },
+      "per_query_p50_ms": {
+        "Q1": 3.603,
+        "Q2": 3.92,
+        "Q3": 10.625,
+        "Q4": 19.047,
+        "Q5": 3.587
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 377,
+          "p50_ms": 3.83,
+          "p95_ms": 6.912
+        },
+        "Q1/hot": {
+          "n": 352,
+          "p50_ms": 3.3,
+          "p95_ms": 6.216
+        },
+        "Q2/cold": {
+          "n": 364,
+          "p50_ms": 3.765,
+          "p95_ms": 7.903
+        },
+        "Q2/hot": {
+          "n": 369,
+          "p50_ms": 4.122,
+          "p95_ms": 10.094
+        },
+        "Q3/cold": {
+          "n": 311,
+          "p50_ms": 10.959,
+          "p95_ms": 17.285
+        },
+        "Q3/hot": {
+          "n": 300,
+          "p50_ms": 10.384,
+          "p95_ms": 17.082
+        },
+        "Q4/cold": {
+          "n": 188,
+          "p50_ms": 4.161,
+          "p95_ms": 7.992
+        },
+        "Q4/hot": {
+          "n": 252,
+          "p50_ms": 25.99,
+          "p95_ms": 47.023
+        },
+        "Q5/cold": {
+          "n": 223,
+          "p50_ms": 3.569,
+          "p95_ms": 6.694
+        },
+        "Q5/hot": {
+          "n": 245,
+          "p50_ms": 3.636,
+          "p95_ms": 7.05
+        }
+      }
+    },
+    "falla": {
+      "requests": 3000,
+      "offered_rps": 100.0,
+      "throughput_rps": 100.0,
+      "error_rate": 0.0,
+      "p50_ms": 4.786,
+      "p95_ms": 30.727,
+      "p99_ms": 804.318,
+      "max_ms": 832.075,
+      "mean_ms": 21.884,
+      "ok_p95_ms": 30.727,
+      "status": {
+        "200": 3000
+      },
+      "errors": {},
+      "per_query_p95_ms": {
+        "Q1": 8.005,
+        "Q2": 25.536,
+        "Q3": 19.174,
+        "Q4": 36.763,
+        "Q5": 17.335
+      },
+      "per_query_p50_ms": {
+        "Q1": 2.952,
+        "Q2": 3.291,
+        "Q3": 7.497,
+        "Q4": 13.14,
+        "Q5": 3.075
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 377,
+          "p50_ms": 3.015,
+          "p95_ms": 7.902
+        },
+        "Q1/hot": {
+          "n": 389,
+          "p50_ms": 2.897,
+          "p95_ms": 7.403
+        },
+        "Q2/cold": {
+          "n": 360,
+          "p50_ms": 3.345,
+          "p95_ms": 34.088
+        },
+        "Q2/hot": {
+          "n": 379,
+          "p50_ms": 3.289,
+          "p95_ms": 23.539
+        },
+        "Q3/cold": {
+          "n": 291,
+          "p50_ms": 7.106,
+          "p95_ms": 19.145
+        },
+        "Q3/hot": {
+          "n": 315,
+          "p50_ms": 7.74,
+          "p95_ms": 19.238
+        },
+        "Q4/cold": {
+          "n": 230,
+          "p50_ms": 3.357,
+          "p95_ms": 7.547
+        },
+        "Q4/hot": {
+          "n": 213,
+          "p50_ms": 23.597,
+          "p95_ms": 41.581
+        },
+        "Q5/cold": {
+          "n": 234,
+          "p50_ms": 3.01,
+          "p95_ms": 24.131
+        },
+        "Q5/hot": {
+          "n": 212,
+          "p50_ms": 3.157,
+          "p95_ms": 11.266
+        }
+      }
+    },
+    "recuperacion": {
+      "requests": 3001,
+      "offered_rps": 100.03,
+      "throughput_rps": 100.03,
+      "error_rate": 0.0,
+      "p50_ms": 4.793,
+      "p95_ms": 24.007,
+      "p99_ms": 32.555,
+      "max_ms": 66.198,
+      "mean_ms": 7.089,
+      "ok_p95_ms": 24.007,
+      "status": {
+        "200": 3001
+      },
+      "errors": {},
+      "per_query_p95_ms": {
+        "Q1": 6.334,
+        "Q2": 6.078,
+        "Q3": 17.197,
+        "Q4": 32.57,
+        "Q5": 8.734
+      },
+      "per_query_p50_ms": {
+        "Q1": 3.659,
+        "Q2": 3.501,
+        "Q3": 9.942,
+        "Q4": 18.105,
+        "Q5": 3.636
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 415,
+          "p50_ms": 3.775,
+          "p95_ms": 6.908
+        },
+        "Q1/hot": {
+          "n": 364,
+          "p50_ms": 3.614,
+          "p95_ms": 5.905
+        },
+        "Q2/cold": {
+          "n": 379,
+          "p50_ms": 3.691,
+          "p95_ms": 6.054
+        },
+        "Q2/hot": {
+          "n": 369,
+          "p50_ms": 3.403,
+          "p95_ms": 6.07
+        },
+        "Q3/cold": {
+          "n": 314,
+          "p50_ms": 10.704,
+          "p95_ms": 17.444
+        },
+        "Q3/hot": {
+          "n": 253,
+          "p50_ms": 9.248,
+          "p95_ms": 16.812
+        },
+        "Q4/cold": {
+          "n": 222,
+          "p50_ms": 3.54,
+          "p95_ms": 6.575
+        },
+        "Q4/hot": {
+          "n": 232,
+          "p50_ms": 25.81,
+          "p95_ms": 34.727
+        },
+        "Q5/cold": {
+          "n": 221,
+          "p50_ms": 3.56,
+          "p95_ms": 7.405
+        },
+        "Q5/hot": {
+          "n": 231,
+          "p50_ms": 3.81,
+          "p95_ms": 9.079
+        }
+      }
+    },
+    "correccion": {
+      "requests": 3000,
+      "offered_rps": 100.0,
+      "throughput_rps": 100.0,
+      "error_rate": 0.0,
+      "p50_ms": 5.19,
+      "p95_ms": 23.465,
+      "p99_ms": 32.181,
+      "max_ms": 47.106,
+      "mean_ms": 7.344,
+      "ok_p95_ms": 23.465,
+      "status": {
+        "200": 3000
+      },
+      "errors": {},
+      "per_query_p95_ms": {
+        "Q1": 7.041,
+        "Q2": 6.325,
+        "Q3": 17.207,
+        "Q4": 32.658,
+        "Q5": 6.474
+      },
+      "per_query_p50_ms": {
+        "Q1": 3.703,
+        "Q2": 3.928,
+        "Q3": 11.325,
+        "Q4": 18.337,
+        "Q5": 4.391
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 391,
+          "p50_ms": 3.732,
+          "p95_ms": 6.484
+        },
+        "Q1/hot": {
+          "n": 405,
+          "p50_ms": 3.609,
+          "p95_ms": 7.633
+        },
+        "Q2/cold": {
+          "n": 379,
+          "p50_ms": 3.774,
+          "p95_ms": 6.17
+        },
+        "Q2/hot": {
+          "n": 350,
+          "p50_ms": 4.222,
+          "p95_ms": 6.458
+        },
+        "Q3/cold": {
+          "n": 304,
+          "p50_ms": 10.412,
+          "p95_ms": 17.492
+        },
+        "Q3/hot": {
+          "n": 273,
+          "p50_ms": 12.557,
+          "p95_ms": 17.14
+        },
+        "Q4/cold": {
+          "n": 209,
+          "p50_ms": 4.015,
+          "p95_ms": 6.795
+        },
+        "Q4/hot": {
+          "n": 243,
+          "p50_ms": 24.714,
+          "p95_ms": 34.333
+        },
+        "Q5/cold": {
+          "n": 212,
+          "p50_ms": 4.097,
+          "p95_ms": 6.26
+        },
+        "Q5/hot": {
+          "n": 234,
+          "p50_ms": 4.548,
+          "p95_ms": 6.538
+        }
+      }
+    },
+    "falla_correccion": {
+      "requests": 3000,
+      "offered_rps": 100.0,
+      "throughput_rps": 100.0,
+      "error_rate": 0.0,
+      "p50_ms": 5.326,
+      "p95_ms": 30.173,
+      "p99_ms": 57.455,
+      "max_ms": 806.591,
+      "mean_ms": 9.056,
+      "ok_p95_ms": 30.173,
+      "status": {
+        "200": 3000
+      },
+      "errors": {},
+      "per_query_p95_ms": {
+        "Q1": 15.565,
+        "Q2": 19.158,
+        "Q3": 22.107,
+        "Q4": 35.943,
+        "Q5": 10.497
+      },
+      "per_query_p50_ms": {
+        "Q1": 3.994,
+        "Q2": 4.595,
+        "Q3": 10.126,
+        "Q4": 18.145,
+        "Q5": 4.181
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 385,
+          "p50_ms": 4.308,
+          "p95_ms": 18.207
+        },
+        "Q1/hot": {
+          "n": 376,
+          "p50_ms": 3.529,
+          "p95_ms": 7.152
+        },
+        "Q2/cold": {
+          "n": 363,
+          "p50_ms": 4.747,
+          "p95_ms": 14.857
+        },
+        "Q2/hot": {
+          "n": 418,
+          "p50_ms": 4.476,
+          "p95_ms": 24.976
+        },
+        "Q3/cold": {
+          "n": 293,
+          "p50_ms": 10.556,
+          "p95_ms": 24.655
+        },
+        "Q3/hot": {
+          "n": 296,
+          "p50_ms": 9.436,
+          "p95_ms": 17.494
+        },
+        "Q4/cold": {
+          "n": 221,
+          "p50_ms": 4.777,
+          "p95_ms": 23.418
+        },
+        "Q4/hot": {
+          "n": 217,
+          "p50_ms": 26.211,
+          "p95_ms": 37.135
+        },
+        "Q5/cold": {
+          "n": 211,
+          "p50_ms": 4.449,
+          "p95_ms": 13.736
+        },
+        "Q5/hot": {
+          "n": 220,
+          "p50_ms": 3.891,
+          "p95_ms": 10.353
+        }
+      }
+    },
+    "recuperacion_correccion": {
+      "requests": 3000,
+      "offered_rps": 100.0,
+      "throughput_rps": 100.0,
+      "error_rate": 0.0,
+      "p50_ms": 5.227,
+      "p95_ms": 24.344,
+      "p99_ms": 33.547,
+      "max_ms": 45.263,
+      "mean_ms": 7.458,
+      "ok_p95_ms": 24.344,
+      "status": {
+        "200": 3000
+      },
+      "errors": {},
+      "per_query_p95_ms": {
+        "Q1": 6.567,
+        "Q2": 6.608,
+        "Q3": 17.308,
+        "Q4": 33.551,
+        "Q5": 7.501
+      },
+      "per_query_p50_ms": {
+        "Q1": 4.131,
+        "Q2": 3.999,
+        "Q3": 11.049,
+        "Q4": 8.627,
+        "Q5": 4.038
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 390,
+          "p50_ms": 4.221,
+          "p95_ms": 6.563
+        },
+        "Q1/hot": {
+          "n": 375,
+          "p50_ms": 3.957,
+          "p95_ms": 6.537
+        },
+        "Q2/cold": {
+          "n": 380,
+          "p50_ms": 3.966,
+          "p95_ms": 6.306
+        },
+        "Q2/hot": {
+          "n": 361,
+          "p50_ms": 4.048,
+          "p95_ms": 6.845
+        },
+        "Q3/cold": {
+          "n": 270,
+          "p50_ms": 10.809,
+          "p95_ms": 17.125
+        },
+        "Q3/hot": {
+          "n": 317,
+          "p50_ms": 11.46,
+          "p95_ms": 17.442
+        },
+        "Q4/cold": {
+          "n": 241,
+          "p50_ms": 3.525,
+          "p95_ms": 6.535
+        },
+        "Q4/hot": {
+          "n": 231,
+          "p50_ms": 24.462,
+          "p95_ms": 36.791
+        },
+        "Q5/cold": {
+          "n": 245,
+          "p50_ms": 4.24,
+          "p95_ms": 7.545
+        },
+        "Q5/hot": {
+          "n": 190,
+          "p50_ms": 3.821,
+          "p95_ms": 6.974
+        }
+      }
+    }
+  },
+  "bounds": {
+    "baseline": [
+      -0.19,
+      29.81
+    ],
+    "falla": [
+      29.81,
+      59.81
+    ],
+    "recuperacion": [
+      59.81,
+      89.81
+    ],
+    "correccion": [
+      89.81,
+      119.81
+    ],
+    "falla_correccion": [
+      119.81,
+      149.81
+    ],
+    "recuperacion_correccion": [
+      149.81,
+      179.81
+    ]
+  },
+  "actions": [
+    {
+      "t": 1792141912.9032273,
+      "action": "enable app_latency",
+      "elapsed_ms": 13.3,
+      "result": {
+        "name": "app_latency",
+        "family": "aplicacion",
+        "description": "Latencia de cola: una fracción de solicitudes sufre una pausa larga (dependencia lenta / pausa de GC)",
+        "active": true,
+        "params": {
+          "probability": 0.02,
+          "delay_ms": 800,
+          "queries": [
+            "Q1",
+            "Q2",
+            "Q3",
+            "Q4",
+            "Q5"
+          ]
+        },
+        "defaults": {
+          "probability": 0.1,
+          "delay_ms": 800,
+          "queries": [
+            "Q1",
+            "Q2",
+            "Q3",
+            "Q4",
+            "Q5"
+          ]
+        },
+        "enabled_at": 1792141912.9141002,
+        "expires_at": null
+      },
+      "t_rel": 29.81
+    },
+    {
+      "t": 1792141942.9033017,
+      "action": "kill-switch",
+      "elapsed_ms": 3.1,
+      "result": {
+        "kill_switch": true,
+        "elapsed_ms": 0.0,
+        "errors": {},
+        "active": []
+      },
+      "t_rel": 59.81
+    },
+    {
+      "t": 1792141972.9033763,
+      "action": "arm",
+      "elapsed_ms": 3.8,
+      "result": {
+        "kill_switch": false
+      },
+      "t_rel": 89.81
+    },
+    {
+      "t": 1792141972.9071524,
+      "action": "resilience",
+      "elapsed_ms": 2.3,
+      "result": {
+        "retry": {
+          "enabled": false,
+          "max_attempts": 3,
+          "base_ms": 10,
+          "max_ms": 200
+        },
+        "circuit_breaker": {
+          "enabled": false,
+          "failure_threshold": 5,
+          "open_seconds": 2.0
+        },
+        "timeouts": {
+          "enabled": false,
+          "pool_timeout_s": 1.0,
+          "statement_ms": 2000,
+          "lock_ms": 250
+        },
+        "pool_check": {
+          "enabled": false
+        },
+        "cache": {
+          "enabled": false,
+          "ttl_s": 30,
+          "queries": [
+            "Q1",
+            "Q2"
+          ]
+        },
+        "bulkhead": {
+          "enabled": false,
+          "limits": {
+            "Q1": 8,
+            "Q2": 8,
+            "Q3": 3,
+            "Q4": 4,
+            "Q5": 8,
+            "report": 1
+          }
+        },
+        "pool_bulkhead": {
+          "enabled": false,
+          "queries": [
+            "Q1",
+            "Q2"
+          ]
+        },
+        "hedging": {
+          "enabled": true,
+          "after_ms": 50
+        },
+        "report_limits": {
+          "enabled": false,
+          "max_parallel_workers_per_gather": 0
+        }
+      },
+      "t_rel": 89.81
+    },
+    {
+      "t": 1792142002.9034905,
+      "action": "enable app_latency",
+      "elapsed_ms": 3.8,
+      "result": {
+        "name": "app_latency",
+        "family": "aplicacion",
+        "description": "Latencia de cola: una fracción de solicitudes sufre una pausa larga (dependencia lenta / pausa de GC)",
+        "active": true,
+        "params": {
+          "probability": 0.02,
+          "delay_ms": 800,
+          "queries": [
+            "Q1",
+            "Q2",
+            "Q3",
+            "Q4",
+            "Q5"
+          ]
+        },
+        "defaults": {
+          "probability": 0.1,
+          "delay_ms": 800,
+          "queries": [
+            "Q1",
+            "Q2",
+            "Q3",
+            "Q4",
+            "Q5"
+          ]
+        },
+        "enabled_at": 1792142002.9062855,
+        "expires_at": null
+      },
+      "t_rel": 119.81
+    },
+    {
+      "t": 1792142032.903596,
+      "action": "kill-switch",
+      "elapsed_ms": 3.0,
+      "result": {
+        "kill_switch": true,
+        "elapsed_ms": 0.1,
+        "errors": {},
+        "active": []
+      },
+      "t_rel": 149.81
+    }
+  ],
+  "recovery": {
+    "recuperacion": 0.2,
+    "recuperacion_correccion": 0.2
+  },
+  "predictions": [
+    {
+      "metric": "p50_ms",
+      "phase": "falla",
+      "relative_to": "baseline",
+      "mode": "delta",
+      "expect": "between",
+      "low": -3,
+      "high": 3,
+      "observed": -0.225,
+      "ok": true
+    },
+    {
+      "metric": "mean_ms",
+      "phase": "falla",
+      "relative_to": "baseline",
+      "mode": "delta",
+      "expect": "between",
+      "low": 8,
+      "high": 30,
+      "observed": 13.955,
+      "ok": true
+    },
+    {
+      "metric": "p99_ms",
+      "phase": "falla",
+      "expect": ">=",
+      "value": 700,
+      "observed": 804.318,
+      "ok": true
+    },
+    {
+      "metric": "p99_ms",
+      "phase": "falla_correccion",
+      "expect": "<=",
+      "value": 150,
+      "observed": 57.455,
+      "ok": true
+    },
+    {
+      "metric": "p95_ms",
+      "phase": "correccion",
+      "relative_to": "baseline",
+      "mode": "ratio",
+      "expect": "<=",
+      "value": 1.2,
+      "observed": 0.864,
+      "ok": true
+    }
+  ],
+  "host": {
+    "antes": {
+      "mem_available_mb": 6577,
+      "loadavg": [
+        "3.43",
+        "2.42",
+        "2.15"
+      ],
+      "cpu_mhz_median": 800,
+      "ac_online": "1"
+    },
+    "despues": {
+      "mem_available_mb": 6073,
+      "loadavg": [
+        "0.90",
+        "1.80",
+        "1.97"
+      ],
+      "cpu_mhz_median": 2401,
+      "ac_online": "1"
+    }
+  },
+  "predictions_reevaluadas": [
+    {
+      "metric": "p50_ms",
+      "phase": "falla",
+      "relative_to": "baseline",
+      "mode": "delta",
+      "expect": "between",
+      "low": -3,
+      "high": 3,
+      "observed": -0.225,
+      "ok": true
+    },
+    {
+      "metric": "mean_ms",
+      "phase": "falla",
+      "relative_to": "baseline",
+      "mode": "delta",
+      "expect": "between",
+      "low": 8,
+      "high": 30,
+      "observed": 13.955,
+      "ok": true
+    },
+    {
+      "metric": "p99_ms",
+      "phase": "falla",
+      "expect": ">=",
+      "value": 700,
+      "observed": 804.318,
+      "ok": true
+    },
+    {
+      "metric": "p99_ms",
+      "phase": "falla_correccion",
+      "expect": "<=",
+      "value": 150,
+      "observed": 57.455,
+      "ok": true
+    },
+    {
+      "metric": "p95_ms",
+      "phase": "correccion",
+      "relative_to": "baseline",
+      "mode": "ratio",
+      "expect": "<=",
+      "value": 1.2,
+      "observed": 0.864,
+      "ok": true
+    }
+  ]
+}

@@ -1,0 +1,754 @@
+{
+  "experiment": "E2",
+  "rep": 3,
+  "phase_s": 30.0,
+  "phases": {
+    "baseline": {
+      "requests": 2981,
+      "offered_rps": 99.37,
+      "throughput_rps": 99.37,
+      "error_rate": 0.0,
+      "p50_ms": 4.85,
+      "p95_ms": 38.691,
+      "p99_ms": 51.147,
+      "max_ms": 72.258,
+      "mean_ms": 9.252,
+      "ok_p95_ms": 38.691,
+      "status": {
+        "200": 2981
+      },
+      "errors": {},
+      "per_query_p95_ms": {
+        "Q1": 8.103,
+        "Q2": 12.372,
+        "Q3": 22.023,
+        "Q4": 54.19,
+        "Q5": 5.994
+      },
+      "per_query_p50_ms": {
+        "Q1": 3.705,
+        "Q2": 3.92,
+        "Q3": 13.559,
+        "Q4": 6.139,
+        "Q5": 3.642
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 373,
+          "p50_ms": 3.577,
+          "p95_ms": 6.373
+        },
+        "Q1/hot": {
+          "n": 376,
+          "p50_ms": 3.79,
+          "p95_ms": 9.839
+        },
+        "Q2/cold": {
+          "n": 359,
+          "p50_ms": 3.971,
+          "p95_ms": 14.275
+        },
+        "Q2/hot": {
+          "n": 378,
+          "p50_ms": 3.829,
+          "p95_ms": 9.124
+        },
+        "Q3/cold": {
+          "n": 291,
+          "p50_ms": 13.696,
+          "p95_ms": 21.861
+        },
+        "Q3/hot": {
+          "n": 293,
+          "p50_ms": 13.546,
+          "p95_ms": 23.222
+        },
+        "Q4/cold": {
+          "n": 238,
+          "p50_ms": 3.947,
+          "p95_ms": 6.936
+        },
+        "Q4/hot": {
+          "n": 206,
+          "p50_ms": 42.285,
+          "p95_ms": 60.144
+        },
+        "Q5/cold": {
+          "n": 227,
+          "p50_ms": 3.52,
+          "p95_ms": 5.939
+        },
+        "Q5/hot": {
+          "n": 239,
+          "p50_ms": 3.668,
+          "p95_ms": 6.058
+        }
+      }
+    },
+    "falla": {
+      "requests": 3000,
+      "offered_rps": 100.0,
+      "throughput_rps": 98.87,
+      "error_rate": 0.0113,
+      "p50_ms": 18522.056,
+      "p95_ms": 29321.043,
+      "p99_ms": 29960.162,
+      "max_ms": 30009.319,
+      "mean_ms": 18387.976,
+      "ok_p95_ms": 29171.482,
+      "status": {
+        "503": 34,
+        "200": 2966
+      },
+      "errors": {
+        "db_unavailable": 10,
+        "pool_timeout": 24
+      },
+      "per_query_p95_ms": {
+        "Q1": 29204.107,
+        "Q2": 29381.593,
+        "Q3": 29422.613,
+        "Q4": 29313.488,
+        "Q5": 29294.669
+      },
+      "per_query_p50_ms": {
+        "Q1": 18753.661,
+        "Q2": 18124.626,
+        "Q3": 18154.629,
+        "Q4": 18921.742,
+        "Q5": 18726.416
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 354,
+          "p50_ms": 19239.444,
+          "p95_ms": 29251.294
+        },
+        "Q1/hot": {
+          "n": 349,
+          "p50_ms": 18419.453,
+          "p95_ms": 29170.412
+        },
+        "Q2/cold": {
+          "n": 389,
+          "p50_ms": 18124.626,
+          "p95_ms": 29449.556
+        },
+        "Q2/hot": {
+          "n": 372,
+          "p50_ms": 18181.067,
+          "p95_ms": 29243.245
+        },
+        "Q3/cold": {
+          "n": 311,
+          "p50_ms": 18511.051,
+          "p95_ms": 29369.758
+        },
+        "Q3/hot": {
+          "n": 337,
+          "p50_ms": 17588.902,
+          "p95_ms": 29576.085
+        },
+        "Q4/cold": {
+          "n": 207,
+          "p50_ms": 18760.327,
+          "p95_ms": 28938.248
+        },
+        "Q4/hot": {
+          "n": 234,
+          "p50_ms": 19025.634,
+          "p95_ms": 29598.059
+        },
+        "Q5/cold": {
+          "n": 230,
+          "p50_ms": 17979.574,
+          "p95_ms": 29285.472
+        },
+        "Q5/hot": {
+          "n": 217,
+          "p50_ms": 19408.921,
+          "p95_ms": 29183.776
+        }
+      }
+    },
+    "recuperacion": {
+      "requests": 3000,
+      "offered_rps": 100.0,
+      "throughput_rps": 100.0,
+      "error_rate": 0.0,
+      "p50_ms": 6.194,
+      "p95_ms": 5014.701,
+      "p99_ms": 5914.137,
+      "max_ms": 6321.281,
+      "mean_ms": 843.698,
+      "ok_p95_ms": 5014.701,
+      "status": {
+        "200": 3000
+      },
+      "errors": {},
+      "per_query_p95_ms": {
+        "Q1": 5018.319,
+        "Q2": 4754.335,
+        "Q3": 4885.388,
+        "Q4": 5308.997,
+        "Q5": 5021.38
+      },
+      "per_query_p50_ms": {
+        "Q1": 4.833,
+        "Q2": 4.803,
+        "Q3": 16.073,
+        "Q4": 28.692,
+        "Q5": 4.836
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 370,
+          "p50_ms": 4.898,
+          "p95_ms": 5077.929
+        },
+        "Q1/hot": {
+          "n": 369,
+          "p50_ms": 4.779,
+          "p95_ms": 4853.831
+        },
+        "Q2/cold": {
+          "n": 395,
+          "p50_ms": 4.796,
+          "p95_ms": 4877.082
+        },
+        "Q2/hot": {
+          "n": 372,
+          "p50_ms": 4.831,
+          "p95_ms": 4523.884
+        },
+        "Q3/cold": {
+          "n": 320,
+          "p50_ms": 15.492,
+          "p95_ms": 4550.394
+        },
+        "Q3/hot": {
+          "n": 310,
+          "p50_ms": 16.545,
+          "p95_ms": 5266.802
+        },
+        "Q4/cold": {
+          "n": 229,
+          "p50_ms": 5.099,
+          "p95_ms": 5283.714
+        },
+        "Q4/hot": {
+          "n": 211,
+          "p50_ms": 35.696,
+          "p95_ms": 5351.041
+        },
+        "Q5/cold": {
+          "n": 201,
+          "p50_ms": 4.401,
+          "p95_ms": 5104.669
+        },
+        "Q5/hot": {
+          "n": 223,
+          "p50_ms": 4.989,
+          "p95_ms": 4967.976
+        }
+      }
+    },
+    "correccion": {
+      "requests": 3000,
+      "offered_rps": 100.0,
+      "throughput_rps": 99.97,
+      "error_rate": 0.0003,
+      "p50_ms": 4.956,
+      "p95_ms": 28.49,
+      "p99_ms": 39.198,
+      "max_ms": 1049.284,
+      "mean_ms": 8.181,
+      "ok_p95_ms": 28.483,
+      "status": {
+        "200": 2999,
+        "503": 1
+      },
+      "errors": {
+        "circuit_open": 1
+      },
+      "per_query_p95_ms": {
+        "Q1": 6.532,
+        "Q2": 7.828,
+        "Q3": 20.211,
+        "Q4": 39.697,
+        "Q5": 6.353
+      },
+      "per_query_p50_ms": {
+        "Q1": 3.161,
+        "Q2": 3.176,
+        "Q3": 9.873,
+        "Q4": 23.535,
+        "Q5": 3.107
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 394,
+          "p50_ms": 3.155,
+          "p95_ms": 6.545
+        },
+        "Q1/hot": {
+          "n": 372,
+          "p50_ms": 3.161,
+          "p95_ms": 6.425
+        },
+        "Q2/cold": {
+          "n": 410,
+          "p50_ms": 3.127,
+          "p95_ms": 8.234
+        },
+        "Q2/hot": {
+          "n": 359,
+          "p50_ms": 3.269,
+          "p95_ms": 6.603
+        },
+        "Q3/cold": {
+          "n": 309,
+          "p50_ms": 9.765,
+          "p95_ms": 20.41
+        },
+        "Q3/hot": {
+          "n": 290,
+          "p50_ms": 9.976,
+          "p95_ms": 19.753
+        },
+        "Q4/cold": {
+          "n": 239,
+          "p50_ms": 4.056,
+          "p95_ms": 8.597
+        },
+        "Q4/hot": {
+          "n": 231,
+          "p50_ms": 29.701,
+          "p95_ms": 43.27
+        },
+        "Q5/cold": {
+          "n": 186,
+          "p50_ms": 3.187,
+          "p95_ms": 6.166
+        },
+        "Q5/hot": {
+          "n": 210,
+          "p50_ms": 2.948,
+          "p95_ms": 6.379
+        }
+      }
+    },
+    "falla_correccion": {
+      "requests": 3000,
+      "offered_rps": 100.0,
+      "throughput_rps": 0.0,
+      "error_rate": 1.0,
+      "p50_ms": 3.819,
+      "p95_ms": 4.871,
+      "p99_ms": 21.605,
+      "max_ms": 1016.411,
+      "mean_ms": 8.021,
+      "ok_p95_ms": null,
+      "status": {
+        "503": 3000
+      },
+      "errors": {
+        "circuit_open": 3000
+      },
+      "per_query_p95_ms": {
+        "Q1": 4.928,
+        "Q2": 4.994,
+        "Q3": 4.843,
+        "Q4": 4.634,
+        "Q5": 5.321
+      },
+      "per_query_p50_ms": {
+        "Q1": 3.816,
+        "Q2": 3.788,
+        "Q3": 3.832,
+        "Q4": 3.842,
+        "Q5": 3.839
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 401,
+          "p50_ms": 3.856,
+          "p95_ms": 5.721
+        },
+        "Q1/hot": {
+          "n": 380,
+          "p50_ms": 3.764,
+          "p95_ms": 4.685
+        },
+        "Q2/cold": {
+          "n": 352,
+          "p50_ms": 3.752,
+          "p95_ms": 4.864
+        },
+        "Q2/hot": {
+          "n": 413,
+          "p50_ms": 3.791,
+          "p95_ms": 5.029
+        },
+        "Q3/cold": {
+          "n": 305,
+          "p50_ms": 3.824,
+          "p95_ms": 4.724
+        },
+        "Q3/hot": {
+          "n": 278,
+          "p50_ms": 3.864,
+          "p95_ms": 4.921
+        },
+        "Q4/cold": {
+          "n": 223,
+          "p50_ms": 3.829,
+          "p95_ms": 4.612
+        },
+        "Q4/hot": {
+          "n": 189,
+          "p50_ms": 3.877,
+          "p95_ms": 4.663
+        },
+        "Q5/cold": {
+          "n": 247,
+          "p50_ms": 3.836,
+          "p95_ms": 5.232
+        },
+        "Q5/hot": {
+          "n": 212,
+          "p50_ms": 3.844,
+          "p95_ms": 5.365
+        }
+      }
+    },
+    "recuperacion_correccion": {
+      "requests": 3000,
+      "offered_rps": 100.0,
+      "throughput_rps": 98.7,
+      "error_rate": 0.013,
+      "p50_ms": 4.954,
+      "p95_ms": 42.757,
+      "p99_ms": 61.254,
+      "max_ms": 275.095,
+      "mean_ms": 10.372,
+      "ok_p95_ms": 42.922,
+      "status": {
+        "503": 39,
+        "200": 2961
+      },
+      "errors": {
+        "circuit_open": 39
+      },
+      "per_query_p95_ms": {
+        "Q1": 12.435,
+        "Q2": 14.322,
+        "Q3": 24.579,
+        "Q4": 61.967,
+        "Q5": 22.7
+      },
+      "per_query_p50_ms": {
+        "Q1": 3.969,
+        "Q2": 4.04,
+        "Q3": 13.819,
+        "Q4": 12.761,
+        "Q5": 4.01
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 371,
+          "p50_ms": 3.917,
+          "p95_ms": 12.134
+        },
+        "Q1/hot": {
+          "n": 370,
+          "p50_ms": 4.039,
+          "p95_ms": 11.633
+        },
+        "Q2/cold": {
+          "n": 384,
+          "p50_ms": 4.16,
+          "p95_ms": 13.555
+        },
+        "Q2/hot": {
+          "n": 345,
+          "p50_ms": 3.942,
+          "p95_ms": 14.12
+        },
+        "Q3/cold": {
+          "n": 307,
+          "p50_ms": 13.872,
+          "p95_ms": 25.973
+        },
+        "Q3/hot": {
+          "n": 283,
+          "p50_ms": 13.738,
+          "p95_ms": 21.635
+        },
+        "Q4/cold": {
+          "n": 244,
+          "p50_ms": 4.203,
+          "p95_ms": 10.077
+        },
+        "Q4/hot": {
+          "n": 229,
+          "p50_ms": 43.924,
+          "p95_ms": 69.859
+        },
+        "Q5/cold": {
+          "n": 248,
+          "p50_ms": 3.882,
+          "p95_ms": 18.74
+        },
+        "Q5/hot": {
+          "n": 219,
+          "p50_ms": 4.057,
+          "p95_ms": 22.946
+        }
+      }
+    }
+  },
+  "bounds": {
+    "baseline": [
+      -0.2,
+      29.8
+    ],
+    "falla": [
+      29.8,
+      59.8
+    ],
+    "recuperacion": [
+      59.8,
+      89.8
+    ],
+    "correccion": [
+      89.8,
+      119.8
+    ],
+    "falla_correccion": [
+      119.8,
+      149.8
+    ],
+    "recuperacion_correccion": [
+      149.8,
+      179.8
+    ]
+  },
+  "actions": [
+    {
+      "t": 1792136179.924097,
+      "action": "enable net_partition",
+      "elapsed_ms": 12.6,
+      "result": {
+        "name": "net_partition",
+        "family": "red",
+        "description": "Partición de red app→PostgreSQL: el proxy se deshabilita y cierra/rechaza conexiones",
+        "active": true,
+        "params": {},
+        "defaults": {},
+        "enabled_at": 1792136179.9299984,
+        "expires_at": null
+      },
+      "t_rel": 29.8
+    },
+    {
+      "t": 1792136209.9242074,
+      "action": "kill-switch",
+      "elapsed_ms": 7.7,
+      "result": {
+        "kill_switch": true,
+        "elapsed_ms": 2.4,
+        "errors": {},
+        "active": []
+      },
+      "t_rel": 59.8
+    },
+    {
+      "t": 1792136239.9242918,
+      "action": "arm",
+      "elapsed_ms": 4.4,
+      "result": {
+        "kill_switch": false
+      },
+      "t_rel": 89.8
+    },
+    {
+      "t": 1792136239.9286904,
+      "action": "resilience",
+      "elapsed_ms": 6.4,
+      "result": {
+        "retry": {
+          "enabled": true,
+          "max_attempts": 3,
+          "base_ms": 10,
+          "max_ms": 200
+        },
+        "circuit_breaker": {
+          "enabled": true,
+          "failure_threshold": 5,
+          "open_seconds": 2.0
+        },
+        "timeouts": {
+          "enabled": true,
+          "pool_timeout_s": 1.0,
+          "statement_ms": 2000,
+          "lock_ms": 250
+        },
+        "pool_check": {
+          "enabled": true
+        },
+        "cache": {
+          "enabled": false,
+          "ttl_s": 30,
+          "queries": [
+            "Q1",
+            "Q2"
+          ]
+        },
+        "bulkhead": {
+          "enabled": false,
+          "limits": {
+            "Q1": 8,
+            "Q2": 8,
+            "Q3": 3,
+            "Q4": 4,
+            "Q5": 8,
+            "report": 1
+          }
+        },
+        "pool_bulkhead": {
+          "enabled": false,
+          "queries": [
+            "Q1",
+            "Q2"
+          ]
+        },
+        "hedging": {
+          "enabled": false,
+          "after_ms": 40
+        },
+        "report_limits": {
+          "enabled": false,
+          "max_parallel_workers_per_gather": 0
+        }
+      },
+      "t_rel": 89.81
+    },
+    {
+      "t": 1792136269.92438,
+      "action": "enable net_partition",
+      "elapsed_ms": 18.8,
+      "result": {
+        "name": "net_partition",
+        "family": "red",
+        "description": "Partición de red app→PostgreSQL: el proxy se deshabilita y cierra/rechaza conexiones",
+        "active": true,
+        "params": {},
+        "defaults": {},
+        "enabled_at": 1792136269.939799,
+        "expires_at": null
+      },
+      "t_rel": 119.8
+    },
+    {
+      "t": 1792136299.9244561,
+      "action": "kill-switch",
+      "elapsed_ms": 2.4,
+      "result": {
+        "kill_switch": true,
+        "elapsed_ms": 0.8,
+        "errors": {},
+        "active": []
+      },
+      "t_rel": 149.8
+    }
+  ],
+  "recovery": {
+    "recuperacion": 8.2,
+    "recuperacion_correccion": 1.2
+  },
+  "predictions": [
+    {
+      "metric": "error_rate",
+      "phase": "falla",
+      "expect": ">=",
+      "value": 0.9,
+      "observed": 0.0113,
+      "ok": false
+    },
+    {
+      "metric": "p99_ms",
+      "phase": "falla",
+      "expect": ">=",
+      "value": 20000,
+      "observed": 29960.162,
+      "ok": true
+    },
+    {
+      "metric": "recovery_s",
+      "phase": "recuperacion",
+      "expect": ">=",
+      "value": 5,
+      "observed": 8.2,
+      "ok": true
+    },
+    {
+      "metric": "error_rate",
+      "phase": "falla_correccion",
+      "expect": ">=",
+      "value": 0.9,
+      "observed": 1.0,
+      "ok": true
+    },
+    {
+      "metric": "p99_ms",
+      "phase": "falla_correccion",
+      "expect": "<=",
+      "value": 1500,
+      "observed": 21.605,
+      "ok": true
+    }
+  ],
+  "predictions_reevaluadas": [
+    {
+      "metric": "error_rate",
+      "phase": "falla",
+      "expect": ">=",
+      "value": 0.9,
+      "observed": 0.0113,
+      "ok": false
+    },
+    {
+      "metric": "p99_ms",
+      "phase": "falla",
+      "expect": ">=",
+      "value": 20000,
+      "observed": 29960.162,
+      "ok": true
+    },
+    {
+      "metric": "recovery_s",
+      "phase": "recuperacion",
+      "expect": ">=",
+      "value": 5,
+      "observed": 8.2,
+      "ok": true
+    },
+    {
+      "metric": "error_rate",
+      "phase": "falla_correccion",
+      "expect": ">=",
+      "value": 0.9,
+      "observed": 1.0,
+      "ok": true
+    },
+    {
+      "metric": "p99_ms",
+      "phase": "falla_correccion",
+      "expect": "<=",
+      "value": 1500,
+      "observed": 21.605,
+      "ok": true
+    }
+  ]
+}

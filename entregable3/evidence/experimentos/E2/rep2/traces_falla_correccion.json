@@ -1,0 +1,307 @@
+[
+ {
+  "trace_id": "d02b72f9136a15fe396a574ec34da7c8",
+  "duration_ms": 1029.04,
+  "root": "GET /consultas/{query_id}",
+  "spans": [
+   {
+    "op": "GET /consultas/{query_id}",
+    "ms": 1029.04,
+    "offset_ms": 0.0,
+    "tags": {
+     "e3.error": "circuit_open",
+     "e3.query": "Q5",
+     "e3.scenario": "hot",
+     "error": true
+    },
+    "events": [
+     "retry"
+    ]
+   },
+   {
+    "op": "consulta.intento",
+    "ms": 1002.66,
+    "offset_ms": 0.82,
+    "tags": {
+     "error": true,
+     "pool.name": "app"
+    },
+    "events": [
+     "exception"
+    ]
+   },
+   {
+    "op": "pool.getconn",
+    "ms": 1001.94,
+    "offset_ms": 0.89,
+    "tags": {
+     "error": true,
+     "pool.wait_ms": 1000.523
+    },
+    "events": [
+     "exception"
+    ]
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.05,
+    "offset_ms": 1012.89,
+    "tags": {
+     "error": true
+    },
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.03,
+    "offset_ms": 1013.24,
+    "tags": {},
+    "events": []
+   }
+  ]
+ },
+ {
+  "trace_id": "062e79e324f200798684eddea8e98980",
+  "duration_ms": 1015.42,
+  "root": "GET /consultas/{query_id}",
+  "spans": [
+   {
+    "op": "GET /consultas/{query_id}",
+    "ms": 1015.42,
+    "offset_ms": 0.0,
+    "tags": {
+     "e3.error": "circuit_open",
+     "e3.query": "Q1",
+     "e3.scenario": "hot",
+     "error": true
+    },
+    "events": [
+     "retry"
+    ]
+   },
+   {
+    "op": "consulta.intento",
+    "ms": 1003.51,
+    "offset_ms": 0.92,
+    "tags": {
+     "error": true,
+     "pool.name": "app"
+    },
+    "events": [
+     "exception"
+    ]
+   },
+   {
+    "op": "pool.getconn",
+    "ms": 1002.53,
+    "offset_ms": 1.0,
+    "tags": {
+     "error": true,
+     "pool.wait_ms": 1000.873
+    },
+    "events": [
+     "exception"
+    ]
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.06,
+    "offset_ms": 1014.64,
+    "tags": {
+     "error": true
+    },
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.02,
+    "offset_ms": 1014.87,
+    "tags": {},
+    "events": []
+   }
+  ]
+ },
+ {
+  "trace_id": "a7652aa57c986d4b6fbd2efa7e675715",
+  "duration_ms": 1014.48,
+  "root": "GET /consultas/{query_id}",
+  "spans": [
+   {
+    "op": "GET /consultas/{query_id}",
+    "ms": 1014.48,
+    "offset_ms": 0.0,
+    "tags": {
+     "e3.error": "circuit_open",
+     "e3.query": "Q2",
+     "e3.scenario": "hot",
+     "error": true
+    },
+    "events": [
+     "retry"
+    ]
+   },
+   {
+    "op": "consulta.intento",
+    "ms": 1003.24,
+    "offset_ms": 0.89,
+    "tags": {
+     "error": true,
+     "pool.name": "app"
+    },
+    "events": [
+     "exception"
+    ]
+   },
+   {
+    "op": "pool.getconn",
+    "ms": 1001.95,
+    "offset_ms": 0.97,
+    "tags": {
+     "error": true,
+     "pool.wait_ms": 1000.378
+    },
+    "events": [
+     "exception"
+    ]
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.05,
+    "offset_ms": 1013.74,
+    "tags": {
+     "error": true
+    },
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.02,
+    "offset_ms": 1013.94,
+    "tags": {},
+    "events": []
+   }
+  ]
+ },
+ {
+  "trace_id": "cad5a6ab42160bd0c3a06a980c52c779",
+  "duration_ms": 1013.67,
+  "root": "GET /consultas/{query_id}",
+  "spans": [
+   {
+    "op": "GET /consultas/{query_id}",
+    "ms": 1013.67,
+    "offset_ms": 0.0,
+    "tags": {
+     "e3.error": "circuit_open",
+     "e3.query": "Q4",
+     "e3.scenario": "cold",
+     "error": true
+    },
+    "events": [
+     "retry"
+    ]
+   },
+   {
+    "op": "consulta.intento",
+    "ms": 1001.74,
+    "offset_ms": 1.03,
+    "tags": {
+     "error": true,
+     "pool.name": "app"
+    },
+    "events": [
+     "exception"
+    ]
+   },
+   {
+    "op": "pool.getconn",
+    "ms": 1000.97,
+    "offset_ms": 1.12,
+    "tags": {
+     "error": true,
+     "pool.wait_ms": 1000.257
+    },
+    "events": [
+     "exception"
+    ]
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.06,
+    "offset_ms": 1012.83,
+    "tags": {
+     "error": true
+    },
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.03,
+    "offset_ms": 1013.05,
+    "tags": {},
+    "events": []
+   }
+  ]
+ },
+ {
+  "trace_id": "5695df1bf6a14689a6ac1eb86424842b",
+  "duration_ms": 1013.41,
+  "root": "GET /consultas/{query_id}",
+  "spans": [
+   {
+    "op": "GET /consultas/{query_id}",
+    "ms": 1013.41,
+    "offset_ms": 0.0,
+    "tags": {
+     "e3.error": "circuit_open",
+     "e3.query": "Q1",
+     "e3.scenario": "cold",
+     "error": true
+    },
+    "events": [
+     "retry"
+    ]
+   },
+   {
+    "op": "consulta.intento",
+    "ms": 1002.55,
+    "offset_ms": 0.95,
+    "tags": {
+     "error": true,
+     "pool.name": "app"
+    },
+    "events": [
+     "exception"
+    ]
+   },
+   {
+    "op": "pool.getconn",
+    "ms": 1001.46,
+    "offset_ms": 1.39,
+    "tags": {
+     "error": true,
+     "pool.wait_ms": 1000.697
+    },
+    "events": [
+     "exception"
+    ]
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.04,
+    "offset_ms": 1011.87,
+    "tags": {
+     "error": true
+    },
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.02,
+    "offset_ms": 1012.16,
+    "tags": {},
+    "events": []
+   }
+  ]
+ }
+]

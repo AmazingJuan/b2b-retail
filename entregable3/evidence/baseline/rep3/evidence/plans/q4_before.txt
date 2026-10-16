@@ -1,0 +1,24 @@
+Finalize GroupAggregate  (cost=10308.08..16866.72 rows=43097 width=76) (actual time=42.763..49.008 rows=24 loops=1)
+  Group Key: (date_trunc('month'::text, creada_en))
+  Buffers: shared hit=5424
+  ->  Gather Merge  (cost=10308.08..14998.68 rows=35964 width=60) (actual time=42.441..48.884 rows=72 loops=1)
+        Workers Planned: 2
+        Workers Launched: 2
+        Buffers: shared hit=5424
+        ->  Partial GroupAggregate  (cost=9308.06..9847.52 rows=17982 width=60) (actual time=34.729..39.242 rows=24 loops=3)
+              Group Key: (date_trunc('month'::text, creada_en))
+              Buffers: shared hit=5424
+              ->  Sort  (cost=9308.06..9353.01 rows=17982 width=36) (actual time=34.466..36.079 rows=14303 loops=3)
+                    Sort Key: (date_trunc('month'::text, creada_en))
+                    Sort Method: quicksort  Memory: 1904kB
+                    Buffers: shared hit=5424
+                    Worker 0:  Sort Method: quicksort  Memory: 1141kB
+                    Worker 1:  Sort Method: quicksort  Memory: 1175kB
+                    ->  Parallel Seq Scan on orden_compra  (cost=0.00..8037.25 rows=17982 width=36) (actual time=0.024..28.423 rows=14303 loops=3)
+                          Filter: (proveedor_id = 1)
+                          Rows Removed by Filter: 157364
+                          Buffers: shared hit=5310
+Planning:
+  Buffers: shared hit=113
+Planning Time: 1.059 ms
+Execution Time: 49.470 ms

@@ -1,0 +1,313 @@
+{
+  "experiment": {
+    "id": "E1",
+    "familia": "red",
+    "titulo": "Latencia de red app→PostgreSQL (30 ms ± 10 ms)",
+    "hipotesis": "Cada consulta hace un único viaje de ida y vuelta a la BD con autocommit, así que la latencia de red se suma casi 1:1 a cada solicitud. Con 100 rps y ~35 ms por conexión ocupada solo se usan ~4 de 10 conexiones: no habrá saturación ni errores.",
+    "load": {
+      "rate": 100,
+      "workers": 64,
+      "scenarios": {
+        "zipf": 1.0
+      }
+    },
+    "fault": {
+      "name": "net_latency",
+      "params": {
+        "latency_ms": 30,
+        "jitter_ms": 10
+      }
+    },
+    "correction": {
+      "descripcion": "Caché TTL 30 s para datos maestros (Q1 contrato vigente, Q2 precios), que cambian poco. Proveedores con sesgo Zipf s=1.08, como en el E2.",
+      "resilience": {
+        "cache": {
+          "enabled": true,
+          "ttl_s": 30
+        }
+      }
+    },
+    "prediccion": {
+      "texto": "p50 +20..45 ms sobre el baseline; 0% errores; la recuperación tras el kill switch es inmediata (≤ 3 s). Con caché, la media baja ≥ 10% (los aciertos evitan la red), pero el p95 casi no cambia: lo dominan Q3–Q5, que no se cachean, y los fallos de caché de la cola Zipf.",
+      "checks": [
+        {
+          "metric": "p50_ms",
+          "phase": "falla",
+          "relative_to": "baseline",
+          "mode": "delta",
+          "expect": "between",
+          "low": 20,
+          "high": 45
+        },
+        {
+          "metric": "error_rate",
+          "phase": "falla",
+          "expect": "<=",
+          "value": 0.01
+        },
+        {
+          "metric": "recovery_s",
+          "phase": "recuperacion",
+          "expect": "<=",
+          "value": 3
+        },
+        {
+          "metric": "mean_ms",
+          "phase": "falla_correccion",
+          "relative_to": "falla",
+          "mode": "ratio",
+          "expect": "<=",
+          "value": 0.9
+        },
+        {
+          "metric": "p95_ms",
+          "phase": "falla_correccion",
+          "relative_to": "falla",
+          "mode": "ratio",
+          "expect": "between",
+          "low": 0.8,
+          "high": 1.1
+        }
+      ]
+    },
+    "senales": {
+      "utiles": [
+        "latencia SQL (e3_db_query_duration) sube igual que la del servicio: el tiempo se va en la BD/red, no en el pool",
+        "span db.execute en Jaeger"
+      ],
+      "dudosas": [
+        "CPU de app y BD: no cambia"
+      ]
+    }
+  },
+  "started_at": "2026-10-16T07:19:47.377314+00:00",
+  "reps": 3,
+  "phase_s": 30.0,
+  "warmup_s": 10,
+  "phases": [
+    "baseline",
+    "falla",
+    "recuperacion",
+    "correccion",
+    "falla_correccion",
+    "recuperacion_correccion"
+  ],
+  "git_commit": "543408f6122c88fc922123238af31ebb63ea8636",
+  "state_before": {
+    "faults": {
+      "kill_switch": false,
+      "faults": {
+        "net_latency": {
+          "name": "net_latency",
+          "family": "red",
+          "description": "Latencia y jitter en la red app→PostgreSQL (toxic latency de Toxiproxy, sentido downstream)",
+          "active": false,
+          "params": {
+            "latency_ms": 60,
+            "jitter_ms": 0
+          },
+          "defaults": {
+            "latency_ms": 30,
+            "jitter_ms": 10
+          },
+          "enabled_at": 1792135142.7178168,
+          "expires_at": null
+        },
+        "net_partition": {
+          "name": "net_partition",
+          "family": "red",
+          "description": "Partición de red app→PostgreSQL: el proxy se deshabilita y cierra/rechaza conexiones",
+          "active": false,
+          "params": {},
+          "defaults": {},
+          "enabled_at": 1792135146.1579154,
+          "expires_at": null
+        },
+        "app_error": {
+          "name": "app_error",
+          "family": "aplicacion",
+          "description": "Excepciones intermitentes en el procesamiento de la consulta (HTTP 500)",
+          "active": false,
+          "params": {
+            "probability": 0.5,
+            "queries": [
+              "Q2"
+            ]
+          },
+          "defaults": {
+            "probability": 0.2,
+            "queries": [
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4",
+              "Q5"
+            ]
+          },
+          "enabled_at": 1792135158.4202156,
+          "expires_at": null
+        },
+        "app_latency": {
+          "name": "app_latency",
+          "family": "aplicacion",
+          "description": "Latencia de cola: una fracción de solicitudes sufre una pausa larga (dependencia lenta / pausa de GC)",
+          "active": false,
+          "params": {
+            "probability": 1.0,
+            "delay_ms": 200,
+            "queries": [
+              "Q1"
+            ]
+          },
+          "defaults": {
+            "probability": 0.1,
+            "delay_ms": 800,
+            "queries": [
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4",
+              "Q5"
+            ]
+          },
+          "enabled_at": 1792135184.1563199,
+          "expires_at": null
+        },
+        "pool_shrink": {
+          "name": "pool_shrink",
+          "family": "recursos",
+          "description": "Agotamiento de recursos: fuga de conexiones; solo max_size conexiones del pool quedan utilizables",
+          "active": false,
+          "params": {
+            "max_size": 1
+          },
+          "defaults": {
+            "max_size": 2
+          },
+          "enabled_at": 1792135164.6151004,
+          "expires_at": null
+        },
+        "noisy_neighbor": {
+          "name": "noisy_neighbor",
+          "family": "recursos",
+          "description": "Vecino ruidoso: N sesiones ejecutan en bucle el reporte analítico pesado sobre ~3M líneas",
+          "active": false,
+          "params": {
+            "sessions": 2
+          },
+          "defaults": {
+            "sessions": 4
+          },
+          "enabled_at": 1792135170.4234488,
+          "expires_at": null
+        },
+        "index_drop": {
+          "name": "index_drop",
+          "family": "datos",
+          "description": "Regresión de esquema: se elimina un índice crítico (se recrea con su definición original al desactivar)",
+          "active": false,
+          "params": {
+            "schema": "ordenes",
+            "index": "orden_proveedor_fecha_idx"
+          },
+          "defaults": {
+            "schema": "ordenes",
+            "index": "orden_proveedor_fecha_idx"
+          },
+          "enabled_at": 1792135178.9476235,
+          "expires_at": null
+        },
+        "table_lock": {
+          "name": "table_lock",
+          "family": "datos",
+          "description": "Contención de bloqueos: una transacción retiene un lock exclusivo sobre la tabla de franjas",
+          "active": false,
+          "params": {
+            "table": "logistica.franja_descargue",
+            "mode": "ACCESS EXCLUSIVE"
+          },
+          "defaults": {
+            "table": "logistica.franja_descargue",
+            "mode": "ACCESS EXCLUSIVE"
+          },
+          "enabled_at": 1792135181.9890232,
+          "expires_at": null
+        }
+      }
+    },
+    "resilience": {
+      "retry": {
+        "enabled": false,
+        "max_attempts": 3,
+        "base_ms": 10,
+        "max_ms": 200
+      },
+      "circuit_breaker": {
+        "enabled": false,
+        "failure_threshold": 5,
+        "open_seconds": 2.0
+      },
+      "timeouts": {
+        "enabled": false,
+        "pool_timeout_s": 1.0,
+        "statement_ms": 2000,
+        "lock_ms": 250
+      },
+      "pool_check": {
+        "enabled": false
+      },
+      "cache": {
+        "enabled": false,
+        "ttl_s": 30,
+        "queries": [
+          "Q1",
+          "Q2"
+        ]
+      },
+      "bulkhead": {
+        "enabled": false,
+        "limits": {
+          "Q1": 8,
+          "Q2": 8,
+          "Q3": 3,
+          "Q4": 4,
+          "Q5": 8,
+          "report": 1
+        }
+      },
+      "pool_bulkhead": {
+        "enabled": false,
+        "queries": [
+          "Q1",
+          "Q2"
+        ]
+      },
+      "hedging": {
+        "enabled": false,
+        "after_ms": 40
+      },
+      "report_limits": {
+        "enabled": false,
+        "max_parallel_workers_per_gather": 0
+      }
+    },
+    "circuit_breaker": "closed",
+    "pool": {
+      "connections_num": 40,
+      "connections_ms": 834,
+      "requests_num": 1083,
+      "returns_bad": 20,
+      "connections_errors": 10,
+      "requests_queued": 193,
+      "requests_wait_ms": 47807,
+      "usage_ms": 28401,
+      "pool_min": 10,
+      "pool_max": 10,
+      "pool_size": 10,
+      "pool_available": 10,
+      "requests_waiting": 0
+    },
+    "pool_max_size": 10
+  },
+  "finished_at": "2026-10-16T07:29:18.916462+00:00"
+}

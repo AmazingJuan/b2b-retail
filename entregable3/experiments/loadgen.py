@@ -69,10 +69,21 @@ class LoadGenerator:
             sent = time.monotonic()
             status, kind = 0, ''
             try:
-                if conn is None:
-                    conn = http.client.HTTPConnection(self.host, self.port, timeout=self.timeout_s)
-                conn.request('GET', path)
-                response = conn.getresponse()
+                for attempt in range(2):
+                    reused = conn is not None
+                    if conn is None:
+                        conn = http.client.HTTPConnection(self.host, self.port, timeout=self.timeout_s)
+                    try:
+                        conn.request('GET', path)
+                        response = conn.getresponse()
+                        break
+                    except (http.client.RemoteDisconnected, BrokenPipeError, ConnectionResetError):
+                        # Conexión keep-alive que el servidor cerró por inactividad (uvicorn: 5 s). Con
+                        # muchos workers cada uno queda inactivo más tiempo; se reconecta una sola vez.
+                        conn.close()
+                        conn = None
+                        if not reused or attempt:
+                            raise
                 body = response.read()
                 status = response.status
                 if status != 200:

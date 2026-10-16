@@ -1,0 +1,737 @@
+{
+  "experiment": "E7",
+  "rep": 3,
+  "phase_s": 30.0,
+  "phases": {
+    "baseline": {
+      "requests": 2981,
+      "offered_rps": 99.37,
+      "throughput_rps": 99.37,
+      "error_rate": 0.0,
+      "p50_ms": 4.99,
+      "p95_ms": 28.853,
+      "p99_ms": 38.712,
+      "max_ms": 52.388,
+      "mean_ms": 8.063,
+      "ok_p95_ms": 28.853,
+      "status": {
+        "200": 2981
+      },
+      "errors": {},
+      "per_query_p95_ms": {
+        "Q1": 6.251,
+        "Q2": 6.366,
+        "Q3": 19.718,
+        "Q4": 39.255,
+        "Q5": 6.3
+      },
+      "per_query_p50_ms": {
+        "Q1": 3.702,
+        "Q2": 4.158,
+        "Q3": 12.984,
+        "Q4": 6.253,
+        "Q5": 3.909
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 373,
+          "p50_ms": 3.603,
+          "p95_ms": 5.985
+        },
+        "Q1/hot": {
+          "n": 376,
+          "p50_ms": 3.71,
+          "p95_ms": 7.149
+        },
+        "Q2/cold": {
+          "n": 359,
+          "p50_ms": 4.171,
+          "p95_ms": 6.22
+        },
+        "Q2/hot": {
+          "n": 378,
+          "p50_ms": 4.146,
+          "p95_ms": 6.604
+        },
+        "Q3/cold": {
+          "n": 291,
+          "p50_ms": 12.797,
+          "p95_ms": 19.31
+        },
+        "Q3/hot": {
+          "n": 293,
+          "p50_ms": 13.547,
+          "p95_ms": 20.315
+        },
+        "Q4/cold": {
+          "n": 238,
+          "p50_ms": 4.305,
+          "p95_ms": 6.291
+        },
+        "Q4/hot": {
+          "n": 206,
+          "p50_ms": 33.306,
+          "p95_ms": 42.522
+        },
+        "Q5/cold": {
+          "n": 227,
+          "p50_ms": 3.721,
+          "p95_ms": 6.149
+        },
+        "Q5/hot": {
+          "n": 239,
+          "p50_ms": 4.129,
+          "p95_ms": 6.798
+        }
+      }
+    },
+    "falla": {
+      "requests": 3000,
+      "offered_rps": 100.0,
+      "throughput_rps": 100.0,
+      "error_rate": 0.0,
+      "p50_ms": 7.095,
+      "p95_ms": 60.015,
+      "p99_ms": 77.772,
+      "max_ms": 138.323,
+      "mean_ms": 16.797,
+      "ok_p95_ms": 60.015,
+      "status": {
+        "200": 3000
+      },
+      "errors": {},
+      "per_query_p95_ms": {
+        "Q1": 11.757,
+        "Q2": 9.764,
+        "Q3": 30.594,
+        "Q4": 79.022,
+        "Q5": 64.283
+      },
+      "per_query_p50_ms": {
+        "Q1": 3.744,
+        "Q2": 3.691,
+        "Q3": 13.445,
+        "Q4": 47.127,
+        "Q5": 25.391
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 354,
+          "p50_ms": 3.664,
+          "p95_ms": 10.605
+        },
+        "Q1/hot": {
+          "n": 349,
+          "p50_ms": 3.908,
+          "p95_ms": 13.506
+        },
+        "Q2/cold": {
+          "n": 389,
+          "p50_ms": 3.649,
+          "p95_ms": 9.203
+        },
+        "Q2/hot": {
+          "n": 372,
+          "p50_ms": 3.79,
+          "p95_ms": 10.541
+        },
+        "Q3/cold": {
+          "n": 311,
+          "p50_ms": 13.449,
+          "p95_ms": 30.837
+        },
+        "Q3/hot": {
+          "n": 337,
+          "p50_ms": 13.444,
+          "p95_ms": 30.102
+        },
+        "Q4/cold": {
+          "n": 207,
+          "p50_ms": 39.91,
+          "p95_ms": 67.144
+        },
+        "Q4/hot": {
+          "n": 234,
+          "p50_ms": 53.267,
+          "p95_ms": 84.402
+        },
+        "Q5/cold": {
+          "n": 230,
+          "p50_ms": 39.186,
+          "p95_ms": 68.979
+        },
+        "Q5/hot": {
+          "n": 217,
+          "p50_ms": 4.758,
+          "p95_ms": 8.493
+        }
+      }
+    },
+    "recuperacion": {
+      "requests": 3000,
+      "offered_rps": 100.0,
+      "throughput_rps": 100.0,
+      "error_rate": 0.0,
+      "p50_ms": 4.998,
+      "p95_ms": 31.34,
+      "p99_ms": 45.759,
+      "max_ms": 190.514,
+      "mean_ms": 8.732,
+      "ok_p95_ms": 31.34,
+      "status": {
+        "200": 3000
+      },
+      "errors": {},
+      "per_query_p95_ms": {
+        "Q1": 9.341,
+        "Q2": 7.422,
+        "Q3": 20.483,
+        "Q4": 45.769,
+        "Q5": 9.641
+      },
+      "per_query_p50_ms": {
+        "Q1": 4.014,
+        "Q2": 3.611,
+        "Q3": 12.316,
+        "Q4": 16.197,
+        "Q5": 3.888
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 370,
+          "p50_ms": 3.929,
+          "p95_ms": 12.296
+        },
+        "Q1/hot": {
+          "n": 369,
+          "p50_ms": 4.243,
+          "p95_ms": 7.099
+        },
+        "Q2/cold": {
+          "n": 395,
+          "p50_ms": 3.437,
+          "p95_ms": 7.964
+        },
+        "Q2/hot": {
+          "n": 372,
+          "p50_ms": 3.735,
+          "p95_ms": 7.335
+        },
+        "Q3/cold": {
+          "n": 320,
+          "p50_ms": 11.876,
+          "p95_ms": 20.013
+        },
+        "Q3/hot": {
+          "n": 310,
+          "p50_ms": 12.794,
+          "p95_ms": 20.809
+        },
+        "Q4/cold": {
+          "n": 229,
+          "p50_ms": 3.57,
+          "p95_ms": 7.274
+        },
+        "Q4/hot": {
+          "n": 211,
+          "p50_ms": 32.486,
+          "p95_ms": 51.728
+        },
+        "Q5/cold": {
+          "n": 201,
+          "p50_ms": 3.948,
+          "p95_ms": 14.33
+        },
+        "Q5/hot": {
+          "n": 223,
+          "p50_ms": 3.847,
+          "p95_ms": 8.534
+        }
+      }
+    },
+    "correccion": {
+      "requests": 3000,
+      "offered_rps": 100.0,
+      "throughput_rps": 100.0,
+      "error_rate": 0.0,
+      "p50_ms": 5.101,
+      "p95_ms": 23.879,
+      "p99_ms": 31.872,
+      "max_ms": 44.104,
+      "mean_ms": 7.377,
+      "ok_p95_ms": 23.879,
+      "status": {
+        "200": 3000
+      },
+      "errors": {},
+      "per_query_p95_ms": {
+        "Q1": 7.76,
+        "Q2": 6.136,
+        "Q3": 17.597,
+        "Q4": 31.67,
+        "Q5": 6.352
+      },
+      "per_query_p50_ms": {
+        "Q1": 4.271,
+        "Q2": 4.2,
+        "Q3": 12.384,
+        "Q4": 16.383,
+        "Q5": 4.196
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 394,
+          "p50_ms": 4.391,
+          "p95_ms": 7.148
+        },
+        "Q1/hot": {
+          "n": 372,
+          "p50_ms": 4.213,
+          "p95_ms": 10.909
+        },
+        "Q2/cold": {
+          "n": 410,
+          "p50_ms": 4.146,
+          "p95_ms": 6.112
+        },
+        "Q2/hot": {
+          "n": 359,
+          "p50_ms": 4.285,
+          "p95_ms": 6.326
+        },
+        "Q3/cold": {
+          "n": 309,
+          "p50_ms": 12.579,
+          "p95_ms": 20.836
+        },
+        "Q3/hot": {
+          "n": 290,
+          "p50_ms": 10.609,
+          "p95_ms": 17.078
+        },
+        "Q4/cold": {
+          "n": 239,
+          "p50_ms": 4.574,
+          "p95_ms": 6.84
+        },
+        "Q4/hot": {
+          "n": 231,
+          "p50_ms": 23.466,
+          "p95_ms": 32.506
+        },
+        "Q5/cold": {
+          "n": 186,
+          "p50_ms": 3.696,
+          "p95_ms": 6.01
+        },
+        "Q5/hot": {
+          "n": 210,
+          "p50_ms": 4.672,
+          "p95_ms": 7.424
+        }
+      }
+    },
+    "falla_correccion": {
+      "requests": 3000,
+      "offered_rps": 100.0,
+      "throughput_rps": 100.0,
+      "error_rate": 0.0,
+      "p50_ms": 4.741,
+      "p95_ms": 20.505,
+      "p99_ms": 30.311,
+      "max_ms": 46.084,
+      "mean_ms": 6.508,
+      "ok_p95_ms": 20.505,
+      "status": {
+        "200": 3000
+      },
+      "errors": {},
+      "per_query_p95_ms": {
+        "Q1": 6.718,
+        "Q2": 6.678,
+        "Q3": 16.616,
+        "Q4": 31.76,
+        "Q5": 5.96
+      },
+      "per_query_p50_ms": {
+        "Q1": 3.358,
+        "Q2": 3.333,
+        "Q3": 7.979,
+        "Q4": 6.692,
+        "Q5": 3.067
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 401,
+          "p50_ms": 3.47,
+          "p95_ms": 7.419
+        },
+        "Q1/hot": {
+          "n": 380,
+          "p50_ms": 3.147,
+          "p95_ms": 6.076
+        },
+        "Q2/cold": {
+          "n": 352,
+          "p50_ms": 3.375,
+          "p95_ms": 6.945
+        },
+        "Q2/hot": {
+          "n": 413,
+          "p50_ms": 3.289,
+          "p95_ms": 6.296
+        },
+        "Q3/cold": {
+          "n": 305,
+          "p50_ms": 8.064,
+          "p95_ms": 16.619
+        },
+        "Q3/hot": {
+          "n": 278,
+          "p50_ms": 7.955,
+          "p95_ms": 16.582
+        },
+        "Q4/cold": {
+          "n": 223,
+          "p50_ms": 3.681,
+          "p95_ms": 7.888
+        },
+        "Q4/hot": {
+          "n": 189,
+          "p50_ms": 23.335,
+          "p95_ms": 34.73
+        },
+        "Q5/cold": {
+          "n": 247,
+          "p50_ms": 3.1,
+          "p95_ms": 6.154
+        },
+        "Q5/hot": {
+          "n": 212,
+          "p50_ms": 2.962,
+          "p95_ms": 5.883
+        }
+      }
+    },
+    "recuperacion_correccion": {
+      "requests": 3000,
+      "offered_rps": 100.0,
+      "throughput_rps": 100.0,
+      "error_rate": 0.0,
+      "p50_ms": 5.109,
+      "p95_ms": 24.965,
+      "p99_ms": 31.913,
+      "max_ms": 41.844,
+      "mean_ms": 7.475,
+      "ok_p95_ms": 24.965,
+      "status": {
+        "200": 3000
+      },
+      "errors": {},
+      "per_query_p95_ms": {
+        "Q1": 6.107,
+        "Q2": 7.499,
+        "Q3": 16.651,
+        "Q4": 32.098,
+        "Q5": 9.142
+      },
+      "per_query_p50_ms": {
+        "Q1": 4.469,
+        "Q2": 4.692,
+        "Q3": 12.173,
+        "Q4": 6.709,
+        "Q5": 4.516
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 371,
+          "p50_ms": 4.43,
+          "p95_ms": 6.056
+        },
+        "Q1/hot": {
+          "n": 370,
+          "p50_ms": 4.518,
+          "p95_ms": 6.135
+        },
+        "Q2/cold": {
+          "n": 384,
+          "p50_ms": 4.742,
+          "p95_ms": 6.694
+        },
+        "Q2/hot": {
+          "n": 345,
+          "p50_ms": 4.608,
+          "p95_ms": 9.001
+        },
+        "Q3/cold": {
+          "n": 307,
+          "p50_ms": 11.626,
+          "p95_ms": 16.626
+        },
+        "Q3/hot": {
+          "n": 283,
+          "p50_ms": 12.403,
+          "p95_ms": 16.703
+        },
+        "Q4/cold": {
+          "n": 244,
+          "p50_ms": 4.642,
+          "p95_ms": 6.222
+        },
+        "Q4/hot": {
+          "n": 229,
+          "p50_ms": 26.402,
+          "p95_ms": 35.839
+        },
+        "Q5/cold": {
+          "n": 248,
+          "p50_ms": 4.473,
+          "p95_ms": 6.281
+        },
+        "Q5/hot": {
+          "n": 219,
+          "p50_ms": 4.622,
+          "p95_ms": 10.21
+        }
+      }
+    }
+  },
+  "bounds": {
+    "baseline": [
+      -0.2,
+      29.8
+    ],
+    "falla": [
+      29.8,
+      59.8
+    ],
+    "recuperacion": [
+      59.8,
+      89.8
+    ],
+    "correccion": [
+      89.8,
+      119.8
+    ],
+    "falla_correccion": [
+      119.8,
+      149.8
+    ],
+    "recuperacion_correccion": [
+      149.8,
+      179.8
+    ]
+  },
+  "actions": [
+    {
+      "t": 1792139852.7131078,
+      "action": "enable index_drop",
+      "elapsed_ms": 15.0,
+      "result": {
+        "name": "index_drop",
+        "family": "datos",
+        "description": "Regresión de esquema: se elimina un índice crítico (se recrea con su definición original al desactivar)",
+        "active": true,
+        "params": {
+          "schema": "ordenes",
+          "index": "orden_proveedor_fecha_idx"
+        },
+        "defaults": {
+          "schema": "ordenes",
+          "index": "orden_proveedor_fecha_idx"
+        },
+        "enabled_at": 1792139852.7272162,
+        "expires_at": null
+      },
+      "t_rel": 29.8
+    },
+    {
+      "t": 1792139882.7131739,
+      "action": "kill-switch",
+      "elapsed_ms": 894.5,
+      "result": {
+        "kill_switch": true,
+        "elapsed_ms": 891.9,
+        "errors": {},
+        "active": []
+      },
+      "t_rel": 59.8
+    },
+    {
+      "t": 1792139912.7132459,
+      "action": "arm",
+      "elapsed_ms": 4.1,
+      "result": {
+        "kill_switch": false
+      },
+      "t_rel": 89.8
+    },
+    {
+      "t": 1792139912.7173998,
+      "action": "sql sql/mejoras.sql",
+      "elapsed_ms": 546.9,
+      "result": "CREATE INDEX\nCREATE INDEX\nVACUUM\nVACUUM\n",
+      "t_rel": 89.81
+    },
+    {
+      "t": 1792139942.7133336,
+      "action": "enable index_drop",
+      "elapsed_ms": 39.4,
+      "result": {
+        "name": "index_drop",
+        "family": "datos",
+        "description": "Regresión de esquema: se elimina un índice crítico (se recrea con su definición original al desactivar)",
+        "active": true,
+        "params": {
+          "schema": "ordenes",
+          "index": "orden_proveedor_fecha_idx"
+        },
+        "defaults": {
+          "schema": "ordenes",
+          "index": "orden_proveedor_fecha_idx"
+        },
+        "enabled_at": 1792139942.751687,
+        "expires_at": null
+      },
+      "t_rel": 119.8
+    },
+    {
+      "t": 1792139972.7134287,
+      "action": "kill-switch",
+      "elapsed_ms": 412.6,
+      "result": {
+        "kill_switch": true,
+        "elapsed_ms": 408.6,
+        "errors": {},
+        "active": []
+      },
+      "t_rel": 149.8
+    }
+  ],
+  "recovery": {
+    "recuperacion": 1.2,
+    "recuperacion_correccion": 0.2
+  },
+  "predictions": [
+    {
+      "metric": "query_p95:Q5",
+      "phase": "falla",
+      "relative_to": "baseline",
+      "mode": "ratio",
+      "expect": ">=",
+      "value": 3,
+      "observed": 10.204,
+      "ok": true
+    },
+    {
+      "metric": "query_p95:Q1",
+      "phase": "falla",
+      "relative_to": "baseline",
+      "mode": "ratio",
+      "expect": "<=",
+      "value": 1.3,
+      "observed": 1.881,
+      "ok": false
+    },
+    {
+      "metric": "recovery_s",
+      "phase": "recuperacion",
+      "expect": "<=",
+      "value": 5,
+      "observed": 1.2,
+      "ok": true
+    },
+    {
+      "metric": "query_p50:Q4",
+      "phase": "correccion",
+      "relative_to": "baseline",
+      "mode": "ratio",
+      "expect": "<=",
+      "value": 0.9,
+      "observed": 2.62,
+      "ok": false
+    },
+    {
+      "metric": "query_p95:Q5",
+      "phase": "falla_correccion",
+      "relative_to": "baseline",
+      "mode": "ratio",
+      "expect": "<=",
+      "value": 1.3,
+      "observed": 0.946,
+      "ok": true
+    }
+  ],
+  "host": {
+    "antes": {
+      "mem_available_mb": 5844,
+      "loadavg": [
+        "0.91",
+        "1.82",
+        "4.31"
+      ],
+      "cpu_mhz_median": 2892,
+      "ac_online": "1"
+    },
+    "despues": {
+      "mem_available_mb": 5792,
+      "loadavg": [
+        "1.46",
+        "1.80",
+        "3.84"
+      ],
+      "cpu_mhz_median": 2525,
+      "ac_online": "1"
+    }
+  },
+  "predictions_reevaluadas": [
+    {
+      "metric": "query_p95:Q5",
+      "phase": "falla",
+      "relative_to": "baseline",
+      "mode": "ratio",
+      "expect": ">=",
+      "value": 3,
+      "observed": 10.204,
+      "ok": true
+    },
+    {
+      "metric": "query_p95:Q1",
+      "phase": "falla",
+      "relative_to": "baseline",
+      "mode": "ratio",
+      "expect": "<=",
+      "value": 1.3,
+      "observed": 1.881,
+      "ok": false
+    },
+    {
+      "metric": "recovery_s",
+      "phase": "recuperacion",
+      "expect": "<=",
+      "value": 5,
+      "observed": 1.2,
+      "ok": true
+    },
+    {
+      "metric": "query_p50:Q4",
+      "phase": "correccion",
+      "relative_to": "baseline",
+      "mode": "ratio",
+      "expect": "<=",
+      "value": 0.9,
+      "observed": 2.62,
+      "ok": false
+    },
+    {
+      "metric": "query_p95:Q5",
+      "phase": "falla_correccion",
+      "relative_to": "baseline",
+      "mode": "ratio",
+      "expect": "<=",
+      "value": 1.3,
+      "observed": 0.946,
+      "ok": true
+    }
+  ]
+}

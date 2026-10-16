@@ -1,0 +1,808 @@
+{
+  "experiment": "E5",
+  "rep": 2,
+  "phase_s": 30.0,
+  "phases": {
+    "baseline": {
+      "requests": 2981,
+      "offered_rps": 99.37,
+      "throughput_rps": 99.37,
+      "error_rate": 0.0,
+      "p50_ms": 4.963,
+      "p95_ms": 28.937,
+      "p99_ms": 38.184,
+      "max_ms": 57.287,
+      "mean_ms": 7.974,
+      "ok_p95_ms": 28.937,
+      "status": {
+        "200": 2981
+      },
+      "errors": {},
+      "per_query_p95_ms": {
+        "Q1": 6.003,
+        "Q2": 6.255,
+        "Q3": 19.414,
+        "Q4": 38.498,
+        "Q5": 6.105
+      },
+      "per_query_p50_ms": {
+        "Q1": 3.625,
+        "Q2": 3.749,
+        "Q3": 12.824,
+        "Q4": 6.303,
+        "Q5": 3.656
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 352,
+          "p50_ms": 3.776,
+          "p95_ms": 6.271
+        },
+        "Q1/hot": {
+          "n": 380,
+          "p50_ms": 3.498,
+          "p95_ms": 5.937
+        },
+        "Q2/cold": {
+          "n": 368,
+          "p50_ms": 3.804,
+          "p95_ms": 6.046
+        },
+        "Q2/hot": {
+          "n": 365,
+          "p50_ms": 3.726,
+          "p95_ms": 7.958
+        },
+        "Q3/cold": {
+          "n": 294,
+          "p50_ms": 12.864,
+          "p95_ms": 19.234
+        },
+        "Q3/hot": {
+          "n": 295,
+          "p50_ms": 12.76,
+          "p95_ms": 19.738
+        },
+        "Q4/cold": {
+          "n": 250,
+          "p50_ms": 4.292,
+          "p95_ms": 6.375
+        },
+        "Q4/hot": {
+          "n": 220,
+          "p50_ms": 32.273,
+          "p95_ms": 41.857
+        },
+        "Q5/cold": {
+          "n": 216,
+          "p50_ms": 3.668,
+          "p95_ms": 5.93
+        },
+        "Q5/hot": {
+          "n": 240,
+          "p50_ms": 3.603,
+          "p95_ms": 6.343
+        }
+      }
+    },
+    "falla": {
+      "requests": 3000,
+      "offered_rps": 100.0,
+      "throughput_rps": 100.0,
+      "error_rate": 0.0,
+      "p50_ms": 5.799,
+      "p95_ms": 32.275,
+      "p99_ms": 43.161,
+      "max_ms": 73.404,
+      "mean_ms": 10.414,
+      "ok_p95_ms": 32.275,
+      "status": {
+        "200": 3000
+      },
+      "errors": {},
+      "per_query_p95_ms": {
+        "Q1": 24.734,
+        "Q2": 24.122,
+        "Q3": 28.115,
+        "Q4": 40.583,
+        "Q5": 19.668
+      },
+      "per_query_p50_ms": {
+        "Q1": 4.848,
+        "Q2": 4.867,
+        "Q3": 13.571,
+        "Q4": 23.465,
+        "Q5": 4.85
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 343,
+          "p50_ms": 4.926,
+          "p95_ms": 26.256
+        },
+        "Q1/hot": {
+          "n": 384,
+          "p50_ms": 4.809,
+          "p95_ms": 23.785
+        },
+        "Q2/cold": {
+          "n": 362,
+          "p50_ms": 4.794,
+          "p95_ms": 24.77
+        },
+        "Q2/hot": {
+          "n": 395,
+          "p50_ms": 5.031,
+          "p95_ms": 23.756
+        },
+        "Q3/cold": {
+          "n": 315,
+          "p50_ms": 13.389,
+          "p95_ms": 28.017
+        },
+        "Q3/hot": {
+          "n": 269,
+          "p50_ms": 13.908,
+          "p95_ms": 27.805
+        },
+        "Q4/cold": {
+          "n": 242,
+          "p50_ms": 4.97,
+          "p95_ms": 26.399
+        },
+        "Q4/hot": {
+          "n": 233,
+          "p50_ms": 29.899,
+          "p95_ms": 47.182
+        },
+        "Q5/cold": {
+          "n": 235,
+          "p50_ms": 4.907,
+          "p95_ms": 21.823
+        },
+        "Q5/hot": {
+          "n": 222,
+          "p50_ms": 4.812,
+          "p95_ms": 18.422
+        }
+      }
+    },
+    "recuperacion": {
+      "requests": 3000,
+      "offered_rps": 100.0,
+      "throughput_rps": 100.0,
+      "error_rate": 0.0,
+      "p50_ms": 4.333,
+      "p95_ms": 27.984,
+      "p99_ms": 37.999,
+      "max_ms": 55.138,
+      "mean_ms": 7.566,
+      "ok_p95_ms": 27.984,
+      "status": {
+        "200": 3000
+      },
+      "errors": {},
+      "per_query_p95_ms": {
+        "Q1": 6.055,
+        "Q2": 6.617,
+        "Q3": 19.011,
+        "Q4": 38.385,
+        "Q5": 6.171
+      },
+      "per_query_p50_ms": {
+        "Q1": 2.863,
+        "Q2": 3.0,
+        "Q3": 9.22,
+        "Q4": 23.486,
+        "Q5": 2.912
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 380,
+          "p50_ms": 2.862,
+          "p95_ms": 5.987
+        },
+        "Q1/hot": {
+          "n": 388,
+          "p50_ms": 2.863,
+          "p95_ms": 6.208
+        },
+        "Q2/cold": {
+          "n": 347,
+          "p50_ms": 2.849,
+          "p95_ms": 6.076
+        },
+        "Q2/hot": {
+          "n": 389,
+          "p50_ms": 3.102,
+          "p95_ms": 8.016
+        },
+        "Q3/cold": {
+          "n": 310,
+          "p50_ms": 9.169,
+          "p95_ms": 19.453
+        },
+        "Q3/hot": {
+          "n": 296,
+          "p50_ms": 9.261,
+          "p95_ms": 18.84
+        },
+        "Q4/cold": {
+          "n": 238,
+          "p50_ms": 2.949,
+          "p95_ms": 6.237
+        },
+        "Q4/hot": {
+          "n": 241,
+          "p50_ms": 30.265,
+          "p95_ms": 41.457
+        },
+        "Q5/cold": {
+          "n": 203,
+          "p50_ms": 3.021,
+          "p95_ms": 8.314
+        },
+        "Q5/hot": {
+          "n": 208,
+          "p50_ms": 2.827,
+          "p95_ms": 5.954
+        }
+      }
+    },
+    "correccion": {
+      "requests": 3000,
+      "offered_rps": 100.0,
+      "throughput_rps": 100.0,
+      "error_rate": 0.0,
+      "p50_ms": 4.625,
+      "p95_ms": 27.306,
+      "p99_ms": 38.475,
+      "max_ms": 59.458,
+      "mean_ms": 7.536,
+      "ok_p95_ms": 27.306,
+      "status": {
+        "200": 3000
+      },
+      "errors": {},
+      "per_query_p95_ms": {
+        "Q1": 6.845,
+        "Q2": 7.587,
+        "Q3": 19.035,
+        "Q4": 38.944,
+        "Q5": 6.022
+      },
+      "per_query_p50_ms": {
+        "Q1": 2.905,
+        "Q2": 2.924,
+        "Q3": 8.895,
+        "Q4": 16.014,
+        "Q5": 3.118
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 382,
+          "p50_ms": 2.928,
+          "p95_ms": 6.165
+        },
+        "Q1/hot": {
+          "n": 366,
+          "p50_ms": 2.875,
+          "p95_ms": 7.349
+        },
+        "Q2/cold": {
+          "n": 345,
+          "p50_ms": 2.84,
+          "p95_ms": 6.027
+        },
+        "Q2/hot": {
+          "n": 366,
+          "p50_ms": 3.037,
+          "p95_ms": 9.089
+        },
+        "Q3/cold": {
+          "n": 316,
+          "p50_ms": 8.742,
+          "p95_ms": 19.036
+        },
+        "Q3/hot": {
+          "n": 284,
+          "p50_ms": 9.198,
+          "p95_ms": 18.928
+        },
+        "Q4/cold": {
+          "n": 240,
+          "p50_ms": 3.204,
+          "p95_ms": 6.269
+        },
+        "Q4/hot": {
+          "n": 234,
+          "p50_ms": 29.297,
+          "p95_ms": 42.473
+        },
+        "Q5/cold": {
+          "n": 227,
+          "p50_ms": 2.957,
+          "p95_ms": 6.0
+        },
+        "Q5/hot": {
+          "n": 240,
+          "p50_ms": 3.172,
+          "p95_ms": 6.03
+        }
+      }
+    },
+    "falla_correccion": {
+      "requests": 3000,
+      "offered_rps": 100.0,
+      "throughput_rps": 100.0,
+      "error_rate": 0.0,
+      "p50_ms": 5.065,
+      "p95_ms": 36.761,
+      "p99_ms": 52.044,
+      "max_ms": 93.247,
+      "mean_ms": 10.177,
+      "ok_p95_ms": 36.761,
+      "status": {
+        "200": 3000
+      },
+      "errors": {},
+      "per_query_p95_ms": {
+        "Q1": 6.814,
+        "Q2": 6.262,
+        "Q3": 35.923,
+        "Q4": 52.951,
+        "Q5": 29.912
+      },
+      "per_query_p50_ms": {
+        "Q1": 3.498,
+        "Q2": 3.343,
+        "Q3": 15.371,
+        "Q4": 25.5,
+        "Q5": 4.903
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 406,
+          "p50_ms": 3.404,
+          "p95_ms": 6.116
+        },
+        "Q1/hot": {
+          "n": 403,
+          "p50_ms": 3.655,
+          "p95_ms": 7.966
+        },
+        "Q2/cold": {
+          "n": 353,
+          "p50_ms": 3.29,
+          "p95_ms": 6.224
+        },
+        "Q2/hot": {
+          "n": 381,
+          "p50_ms": 3.375,
+          "p95_ms": 6.267
+        },
+        "Q3/cold": {
+          "n": 304,
+          "p50_ms": 15.359,
+          "p95_ms": 37.889
+        },
+        "Q3/hot": {
+          "n": 290,
+          "p50_ms": 15.419,
+          "p95_ms": 35.401
+        },
+        "Q4/cold": {
+          "n": 208,
+          "p50_ms": 5.442,
+          "p95_ms": 32.377
+        },
+        "Q4/hot": {
+          "n": 219,
+          "p50_ms": 36.705,
+          "p95_ms": 59.754
+        },
+        "Q5/cold": {
+          "n": 218,
+          "p50_ms": 4.893,
+          "p95_ms": 30.049
+        },
+        "Q5/hot": {
+          "n": 218,
+          "p50_ms": 4.915,
+          "p95_ms": 29.286
+        }
+      }
+    },
+    "recuperacion_correccion": {
+      "requests": 3000,
+      "offered_rps": 100.0,
+      "throughput_rps": 100.0,
+      "error_rate": 0.0,
+      "p50_ms": 5.027,
+      "p95_ms": 33.247,
+      "p99_ms": 42.315,
+      "max_ms": 69.042,
+      "mean_ms": 8.396,
+      "ok_p95_ms": 33.247,
+      "status": {
+        "200": 3000
+      },
+      "errors": {},
+      "per_query_p95_ms": {
+        "Q1": 7.63,
+        "Q2": 6.803,
+        "Q3": 19.954,
+        "Q4": 43.096,
+        "Q5": 7.599
+      },
+      "per_query_p50_ms": {
+        "Q1": 4.153,
+        "Q2": 4.019,
+        "Q3": 13.195,
+        "Q4": 6.101,
+        "Q5": 4.431
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 352,
+          "p50_ms": 4.133,
+          "p95_ms": 6.145
+        },
+        "Q1/hot": {
+          "n": 377,
+          "p50_ms": 4.249,
+          "p95_ms": 14.339
+        },
+        "Q2/cold": {
+          "n": 387,
+          "p50_ms": 3.919,
+          "p95_ms": 6.986
+        },
+        "Q2/hot": {
+          "n": 373,
+          "p50_ms": 4.198,
+          "p95_ms": 6.301
+        },
+        "Q3/cold": {
+          "n": 280,
+          "p50_ms": 13.474,
+          "p95_ms": 20.012
+        },
+        "Q3/hot": {
+          "n": 287,
+          "p50_ms": 12.773,
+          "p95_ms": 19.847
+        },
+        "Q4/cold": {
+          "n": 233,
+          "p50_ms": 4.14,
+          "p95_ms": 6.151
+        },
+        "Q4/hot": {
+          "n": 201,
+          "p50_ms": 35.882,
+          "p95_ms": 45.832
+        },
+        "Q5/cold": {
+          "n": 262,
+          "p50_ms": 4.454,
+          "p95_ms": 7.296
+        },
+        "Q5/hot": {
+          "n": 248,
+          "p50_ms": 4.37,
+          "p95_ms": 8.562
+        }
+      }
+    }
+  },
+  "bounds": {
+    "baseline": [
+      -0.2,
+      29.8
+    ],
+    "falla": [
+      29.8,
+      59.8
+    ],
+    "recuperacion": [
+      59.8,
+      89.8
+    ],
+    "correccion": [
+      89.8,
+      119.8
+    ],
+    "falla_correccion": [
+      119.8,
+      149.8
+    ],
+    "recuperacion_correccion": [
+      149.8,
+      179.8
+    ]
+  },
+  "actions": [
+    {
+      "t": 1792138517.861872,
+      "action": "enable pool_shrink",
+      "elapsed_ms": 1.8,
+      "result": {
+        "name": "pool_shrink",
+        "family": "recursos",
+        "description": "Agotamiento de recursos: fuga de conexiones; solo max_size conexiones del pool quedan utilizables",
+        "active": true,
+        "params": {
+          "max_size": 1
+        },
+        "defaults": {
+          "max_size": 2
+        },
+        "enabled_at": 1792138517.8630855,
+        "expires_at": null
+      },
+      "t_rel": 29.8
+    },
+    {
+      "t": 1792138547.8619568,
+      "action": "kill-switch",
+      "elapsed_ms": 4.0,
+      "result": {
+        "kill_switch": true,
+        "elapsed_ms": 0.1,
+        "errors": {},
+        "active": []
+      },
+      "t_rel": 59.8
+    },
+    {
+      "t": 1792138577.8620417,
+      "action": "arm",
+      "elapsed_ms": 1.8,
+      "result": {
+        "kill_switch": false
+      },
+      "t_rel": 89.8
+    },
+    {
+      "t": 1792138577.86387,
+      "action": "resilience",
+      "elapsed_ms": 2.6,
+      "result": {
+        "retry": {
+          "enabled": false,
+          "max_attempts": 3,
+          "base_ms": 10,
+          "max_ms": 200
+        },
+        "circuit_breaker": {
+          "enabled": false,
+          "failure_threshold": 5,
+          "open_seconds": 2.0
+        },
+        "timeouts": {
+          "enabled": false,
+          "pool_timeout_s": 1.0,
+          "statement_ms": 2000,
+          "lock_ms": 250
+        },
+        "pool_check": {
+          "enabled": false
+        },
+        "cache": {
+          "enabled": false,
+          "ttl_s": 30,
+          "queries": [
+            "Q1",
+            "Q2"
+          ]
+        },
+        "bulkhead": {
+          "enabled": false,
+          "limits": {
+            "Q1": 8,
+            "Q2": 8,
+            "Q3": 3,
+            "Q4": 4,
+            "Q5": 8,
+            "report": 1
+          }
+        },
+        "pool_bulkhead": {
+          "enabled": true,
+          "queries": [
+            "Q1",
+            "Q2"
+          ]
+        },
+        "hedging": {
+          "enabled": false,
+          "after_ms": 40
+        },
+        "report_limits": {
+          "enabled": false,
+          "max_parallel_workers_per_gather": 0
+        }
+      },
+      "t_rel": 89.8
+    },
+    {
+      "t": 1792138607.8621266,
+      "action": "enable pool_shrink",
+      "elapsed_ms": 21.6,
+      "result": {
+        "name": "pool_shrink",
+        "family": "recursos",
+        "description": "Agotamiento de recursos: fuga de conexiones; solo max_size conexiones del pool quedan utilizables",
+        "active": true,
+        "params": {
+          "max_size": 1
+        },
+        "defaults": {
+          "max_size": 2
+        },
+        "enabled_at": 1792138607.8827271,
+        "expires_at": null
+      },
+      "t_rel": 119.8
+    },
+    {
+      "t": 1792138637.862193,
+      "action": "kill-switch",
+      "elapsed_ms": 29.4,
+      "result": {
+        "kill_switch": true,
+        "elapsed_ms": 0.1,
+        "errors": {},
+        "active": []
+      },
+      "t_rel": 149.8
+    }
+  ],
+  "recovery": {
+    "recuperacion": 0.2,
+    "recuperacion_correccion": 0.2
+  },
+  "predictions": [
+    {
+      "metric": "p95_ms",
+      "phase": "falla",
+      "relative_to": "baseline",
+      "mode": "ratio",
+      "expect": ">=",
+      "value": 2,
+      "observed": 1.115,
+      "ok": false
+    },
+    {
+      "metric": "error_rate",
+      "phase": "falla",
+      "expect": "<=",
+      "value": 0.01,
+      "observed": 0.0,
+      "ok": true
+    },
+    {
+      "metric": "query_p95:Q1",
+      "phase": "falla",
+      "relative_to": "baseline",
+      "mode": "ratio",
+      "expect": ">=",
+      "value": 2,
+      "observed": 4.12,
+      "ok": true
+    },
+    {
+      "metric": "query_p95:Q1",
+      "phase": "falla_correccion",
+      "relative_to": "baseline",
+      "mode": "ratio",
+      "expect": "<=",
+      "value": 1.3,
+      "observed": 1.135,
+      "ok": true
+    },
+    {
+      "metric": "query_p95:Q2",
+      "phase": "falla_correccion",
+      "relative_to": "baseline",
+      "mode": "ratio",
+      "expect": "<=",
+      "value": 1.3,
+      "observed": 1.001,
+      "ok": true
+    },
+    {
+      "metric": "query_p95:Q4",
+      "phase": "falla_correccion",
+      "relative_to": "baseline",
+      "mode": "ratio",
+      "expect": ">=",
+      "value": 2,
+      "observed": 1.375,
+      "ok": false
+    }
+  ],
+  "host": {
+    "antes": {
+      "mem_available_mb": 5738,
+      "loadavg": [
+        "0.86",
+        "3.18",
+        "10.77"
+      ],
+      "cpu_mhz_median": 4071,
+      "ac_online": "1"
+    },
+    "despues": {
+      "mem_available_mb": 5678,
+      "loadavg": [
+        "0.99",
+        "2.20",
+        "8.98"
+      ],
+      "cpu_mhz_median": 1646,
+      "ac_online": "1"
+    }
+  },
+  "predictions_reevaluadas": [
+    {
+      "metric": "p95_ms",
+      "phase": "falla",
+      "relative_to": "baseline",
+      "mode": "ratio",
+      "expect": ">=",
+      "value": 2,
+      "observed": 1.115,
+      "ok": false
+    },
+    {
+      "metric": "error_rate",
+      "phase": "falla",
+      "expect": "<=",
+      "value": 0.01,
+      "observed": 0.0,
+      "ok": true
+    },
+    {
+      "metric": "query_p95:Q1",
+      "phase": "falla",
+      "relative_to": "baseline",
+      "mode": "ratio",
+      "expect": ">=",
+      "value": 2,
+      "observed": 4.12,
+      "ok": true
+    },
+    {
+      "metric": "query_p95:Q1",
+      "phase": "falla_correccion",
+      "relative_to": "baseline",
+      "mode": "ratio",
+      "expect": "<=",
+      "value": 1.3,
+      "observed": 1.135,
+      "ok": true
+    },
+    {
+      "metric": "query_p95:Q2",
+      "phase": "falla_correccion",
+      "relative_to": "baseline",
+      "mode": "ratio",
+      "expect": "<=",
+      "value": 1.3,
+      "observed": 1.001,
+      "ok": true
+    },
+    {
+      "metric": "query_p95:Q4",
+      "phase": "falla_correccion",
+      "relative_to": "baseline",
+      "mode": "ratio",
+      "expect": ">=",
+      "value": 2,
+      "observed": 1.375,
+      "ok": false
+    }
+  ]
+}

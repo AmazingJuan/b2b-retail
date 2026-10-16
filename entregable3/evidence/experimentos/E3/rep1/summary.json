@@ -1,0 +1,802 @@
+{
+  "experiment": "E3",
+  "rep": 1,
+  "phase_s": 30.0,
+  "phases": {
+    "baseline": {
+      "requests": 2981,
+      "offered_rps": 99.37,
+      "throughput_rps": 99.37,
+      "error_rate": 0.0,
+      "p50_ms": 4.809,
+      "p95_ms": 40.92,
+      "p99_ms": 54.049,
+      "max_ms": 93.749,
+      "mean_ms": 10.064,
+      "ok_p95_ms": 40.92,
+      "status": {
+        "200": 2981
+      },
+      "errors": {},
+      "per_query_p95_ms": {
+        "Q1": 9.653,
+        "Q2": 8.639,
+        "Q3": 22.046,
+        "Q4": 55.047,
+        "Q5": 9.06
+      },
+      "per_query_p50_ms": {
+        "Q1": 3.576,
+        "Q2": 3.647,
+        "Q3": 13.645,
+        "Q4": 35.425,
+        "Q5": 3.625
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 377,
+          "p50_ms": 3.594,
+          "p95_ms": 9.56
+        },
+        "Q1/hot": {
+          "n": 352,
+          "p50_ms": 3.57,
+          "p95_ms": 8.976
+        },
+        "Q2/cold": {
+          "n": 364,
+          "p50_ms": 3.799,
+          "p95_ms": 13.426
+        },
+        "Q2/hot": {
+          "n": 369,
+          "p50_ms": 3.549,
+          "p95_ms": 7.688
+        },
+        "Q3/cold": {
+          "n": 311,
+          "p50_ms": 13.624,
+          "p95_ms": 22.727
+        },
+        "Q3/hot": {
+          "n": 300,
+          "p50_ms": 13.737,
+          "p95_ms": 20.876
+        },
+        "Q4/cold": {
+          "n": 188,
+          "p50_ms": 4.406,
+          "p95_ms": 16.759
+        },
+        "Q4/hot": {
+          "n": 252,
+          "p50_ms": 42.14,
+          "p95_ms": 59.664
+        },
+        "Q5/cold": {
+          "n": 223,
+          "p50_ms": 3.566,
+          "p95_ms": 6.391
+        },
+        "Q5/hot": {
+          "n": 245,
+          "p50_ms": 3.663,
+          "p95_ms": 10.026
+        }
+      }
+    },
+    "falla": {
+      "requests": 3000,
+      "offered_rps": 100.0,
+      "throughput_rps": 79.77,
+      "error_rate": 0.2023,
+      "p50_ms": 4.756,
+      "p95_ms": 35.042,
+      "p99_ms": 42.977,
+      "max_ms": 59.47,
+      "mean_ms": 8.146,
+      "ok_p95_ms": 36.505,
+      "status": {
+        "500": 607,
+        "200": 2393
+      },
+      "errors": {
+        "injected_error": 607
+      },
+      "per_query_p95_ms": {
+        "Q1": 6.504,
+        "Q2": 7.669,
+        "Q3": 20.043,
+        "Q4": 43.86,
+        "Q5": 8.476
+      },
+      "per_query_p50_ms": {
+        "Q1": 4.099,
+        "Q2": 4.054,
+        "Q3": 11.542,
+        "Q4": 5.718,
+        "Q5": 3.639
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 377,
+          "p50_ms": 4.048,
+          "p95_ms": 6.458
+        },
+        "Q1/hot": {
+          "n": 389,
+          "p50_ms": 4.1,
+          "p95_ms": 6.366
+        },
+        "Q2/cold": {
+          "n": 360,
+          "p50_ms": 3.92,
+          "p95_ms": 6.168
+        },
+        "Q2/hot": {
+          "n": 379,
+          "p50_ms": 4.214,
+          "p95_ms": 9.916
+        },
+        "Q3/cold": {
+          "n": 291,
+          "p50_ms": 12.075,
+          "p95_ms": 19.5
+        },
+        "Q3/hot": {
+          "n": 315,
+          "p50_ms": 11.41,
+          "p95_ms": 20.486
+        },
+        "Q4/cold": {
+          "n": 230,
+          "p50_ms": 4.428,
+          "p95_ms": 9.657
+        },
+        "Q4/hot": {
+          "n": 213,
+          "p50_ms": 36.565,
+          "p95_ms": 50.014
+        },
+        "Q5/cold": {
+          "n": 234,
+          "p50_ms": 3.638,
+          "p95_ms": 8.746
+        },
+        "Q5/hot": {
+          "n": 212,
+          "p50_ms": 3.673,
+          "p95_ms": 7.888
+        }
+      }
+    },
+    "recuperacion": {
+      "requests": 3000,
+      "offered_rps": 100.0,
+      "throughput_rps": 100.0,
+      "error_rate": 0.0,
+      "p50_ms": 4.768,
+      "p95_ms": 38.727,
+      "p99_ms": 47.347,
+      "max_ms": 72.573,
+      "mean_ms": 9.218,
+      "ok_p95_ms": 38.727,
+      "status": {
+        "200": 3000
+      },
+      "errors": {},
+      "per_query_p95_ms": {
+        "Q1": 8.047,
+        "Q2": 7.58,
+        "Q3": 22.318,
+        "Q4": 49.133,
+        "Q5": 6.575
+      },
+      "per_query_p50_ms": {
+        "Q1": 3.699,
+        "Q2": 3.614,
+        "Q3": 13.902,
+        "Q4": 32.209,
+        "Q5": 3.558
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 415,
+          "p50_ms": 3.522,
+          "p95_ms": 7.634
+        },
+        "Q1/hot": {
+          "n": 364,
+          "p50_ms": 3.83,
+          "p95_ms": 7.968
+        },
+        "Q2/cold": {
+          "n": 379,
+          "p50_ms": 3.535,
+          "p95_ms": 6.558
+        },
+        "Q2/hot": {
+          "n": 369,
+          "p50_ms": 3.757,
+          "p95_ms": 8.534
+        },
+        "Q3/cold": {
+          "n": 314,
+          "p50_ms": 14.285,
+          "p95_ms": 20.476
+        },
+        "Q3/hot": {
+          "n": 253,
+          "p50_ms": 13.592,
+          "p95_ms": 23.124
+        },
+        "Q4/cold": {
+          "n": 222,
+          "p50_ms": 3.577,
+          "p95_ms": 6.501
+        },
+        "Q4/hot": {
+          "n": 232,
+          "p50_ms": 40.236,
+          "p95_ms": 53.608
+        },
+        "Q5/cold": {
+          "n": 221,
+          "p50_ms": 3.548,
+          "p95_ms": 7.114
+        },
+        "Q5/hot": {
+          "n": 231,
+          "p50_ms": 3.561,
+          "p95_ms": 6.199
+        }
+      }
+    },
+    "correccion": {
+      "requests": 3000,
+      "offered_rps": 100.0,
+      "throughput_rps": 100.0,
+      "error_rate": 0.0,
+      "p50_ms": 4.931,
+      "p95_ms": 43.847,
+      "p99_ms": 60.641,
+      "max_ms": 113.217,
+      "mean_ms": 10.663,
+      "ok_p95_ms": 43.847,
+      "status": {
+        "200": 3000
+      },
+      "errors": {},
+      "per_query_p95_ms": {
+        "Q1": 11.893,
+        "Q2": 7.755,
+        "Q3": 28.827,
+        "Q4": 63.963,
+        "Q5": 17.635
+      },
+      "per_query_p50_ms": {
+        "Q1": 3.882,
+        "Q2": 4.214,
+        "Q3": 14.92,
+        "Q4": 33.844,
+        "Q5": 4.112
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 391,
+          "p50_ms": 3.96,
+          "p95_ms": 12.389
+        },
+        "Q1/hot": {
+          "n": 405,
+          "p50_ms": 3.863,
+          "p95_ms": 10.717
+        },
+        "Q2/cold": {
+          "n": 379,
+          "p50_ms": 4.231,
+          "p95_ms": 9.837
+        },
+        "Q2/hot": {
+          "n": 350,
+          "p50_ms": 4.189,
+          "p95_ms": 6.494
+        },
+        "Q3/cold": {
+          "n": 304,
+          "p50_ms": 14.839,
+          "p95_ms": 30.388
+        },
+        "Q3/hot": {
+          "n": 273,
+          "p50_ms": 14.931,
+          "p95_ms": 24.186
+        },
+        "Q4/cold": {
+          "n": 209,
+          "p50_ms": 4.237,
+          "p95_ms": 6.405
+        },
+        "Q4/hot": {
+          "n": 243,
+          "p50_ms": 44.504,
+          "p95_ms": 70.473
+        },
+        "Q5/cold": {
+          "n": 212,
+          "p50_ms": 4.278,
+          "p95_ms": 16.822
+        },
+        "Q5/hot": {
+          "n": 234,
+          "p50_ms": 4.023,
+          "p95_ms": 18.83
+        }
+      }
+    },
+    "falla_correccion": {
+      "requests": 3000,
+      "offered_rps": 100.0,
+      "throughput_rps": 99.37,
+      "error_rate": 0.0063,
+      "p50_ms": 5.524,
+      "p95_ms": 38.837,
+      "p99_ms": 49.657,
+      "max_ms": 79.357,
+      "mean_ms": 10.853,
+      "ok_p95_ms": 38.863,
+      "status": {
+        "200": 2981,
+        "500": 19
+      },
+      "errors": {
+        "injected_error": 19
+      },
+      "per_query_p95_ms": {
+        "Q1": 17.42,
+        "Q2": 16.312,
+        "Q3": 32.105,
+        "Q4": 52.115,
+        "Q5": 17.566
+      },
+      "per_query_p50_ms": {
+        "Q1": 4.566,
+        "Q2": 4.519,
+        "Q3": 14.738,
+        "Q4": 28.48,
+        "Q5": 4.66
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 385,
+          "p50_ms": 4.602,
+          "p95_ms": 22.641
+        },
+        "Q1/hot": {
+          "n": 376,
+          "p50_ms": 4.533,
+          "p95_ms": 16.209
+        },
+        "Q2/cold": {
+          "n": 363,
+          "p50_ms": 4.654,
+          "p95_ms": 17.063
+        },
+        "Q2/hot": {
+          "n": 418,
+          "p50_ms": 4.403,
+          "p95_ms": 15.819
+        },
+        "Q3/cold": {
+          "n": 293,
+          "p50_ms": 14.576,
+          "p95_ms": 32.035
+        },
+        "Q3/hot": {
+          "n": 296,
+          "p50_ms": 14.88,
+          "p95_ms": 31.851
+        },
+        "Q4/cold": {
+          "n": 221,
+          "p50_ms": 4.867,
+          "p95_ms": 19.353
+        },
+        "Q4/hot": {
+          "n": 217,
+          "p50_ms": 40.866,
+          "p95_ms": 57.635
+        },
+        "Q5/cold": {
+          "n": 211,
+          "p50_ms": 4.872,
+          "p95_ms": 18.543
+        },
+        "Q5/hot": {
+          "n": 220,
+          "p50_ms": 4.467,
+          "p95_ms": 16.819
+        }
+      }
+    },
+    "recuperacion_correccion": {
+      "requests": 3000,
+      "offered_rps": 100.0,
+      "throughput_rps": 100.0,
+      "error_rate": 0.0,
+      "p50_ms": 4.968,
+      "p95_ms": 37.271,
+      "p99_ms": 47.316,
+      "max_ms": 76.441,
+      "mean_ms": 9.326,
+      "ok_p95_ms": 37.271,
+      "status": {
+        "200": 3000
+      },
+      "errors": {},
+      "per_query_p95_ms": {
+        "Q1": 6.276,
+        "Q2": 7.776,
+        "Q3": 19.72,
+        "Q4": 49.063,
+        "Q5": 8.544
+      },
+      "per_query_p50_ms": {
+        "Q1": 3.483,
+        "Q2": 3.891,
+        "Q3": 13.633,
+        "Q4": 26.095,
+        "Q5": 3.859
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 390,
+          "p50_ms": 3.462,
+          "p95_ms": 6.173
+        },
+        "Q1/hot": {
+          "n": 375,
+          "p50_ms": 3.561,
+          "p95_ms": 7.035
+        },
+        "Q2/cold": {
+          "n": 380,
+          "p50_ms": 3.792,
+          "p95_ms": 7.889
+        },
+        "Q2/hot": {
+          "n": 361,
+          "p50_ms": 3.962,
+          "p95_ms": 6.511
+        },
+        "Q3/cold": {
+          "n": 270,
+          "p50_ms": 13.339,
+          "p95_ms": 19.292
+        },
+        "Q3/hot": {
+          "n": 317,
+          "p50_ms": 14.069,
+          "p95_ms": 20.194
+        },
+        "Q4/cold": {
+          "n": 241,
+          "p50_ms": 4.237,
+          "p95_ms": 18.904
+        },
+        "Q4/hot": {
+          "n": 231,
+          "p50_ms": 39.495,
+          "p95_ms": 54.823
+        },
+        "Q5/cold": {
+          "n": 245,
+          "p50_ms": 3.815,
+          "p95_ms": 5.91
+        },
+        "Q5/hot": {
+          "n": 190,
+          "p50_ms": 4.027,
+          "p95_ms": 10.896
+        }
+      }
+    }
+  },
+  "bounds": {
+    "baseline": [
+      -0.19,
+      29.81
+    ],
+    "falla": [
+      29.81,
+      59.81
+    ],
+    "recuperacion": [
+      59.81,
+      89.81
+    ],
+    "correccion": [
+      89.81,
+      119.81
+    ],
+    "falla_correccion": [
+      119.81,
+      149.81
+    ],
+    "recuperacion_correccion": [
+      149.81,
+      179.81
+    ]
+  },
+  "actions": [
+    {
+      "t": 1792136370.4915109,
+      "action": "enable app_error",
+      "elapsed_ms": 8.2,
+      "result": {
+        "name": "app_error",
+        "family": "aplicacion",
+        "description": "Excepciones intermitentes en el procesamiento de la consulta (HTTP 500)",
+        "active": true,
+        "params": {
+          "probability": 0.2,
+          "queries": [
+            "Q1",
+            "Q2",
+            "Q3",
+            "Q4",
+            "Q5"
+          ]
+        },
+        "defaults": {
+          "probability": 0.2,
+          "queries": [
+            "Q1",
+            "Q2",
+            "Q3",
+            "Q4",
+            "Q5"
+          ]
+        },
+        "enabled_at": 1792136370.495024,
+        "expires_at": null
+      },
+      "t_rel": 29.81
+    },
+    {
+      "t": 1792136400.4916234,
+      "action": "kill-switch",
+      "elapsed_ms": 7.1,
+      "result": {
+        "kill_switch": true,
+        "elapsed_ms": 0.1,
+        "errors": {},
+        "active": []
+      },
+      "t_rel": 59.81
+    },
+    {
+      "t": 1792136430.4916937,
+      "action": "arm",
+      "elapsed_ms": 8.4,
+      "result": {
+        "kill_switch": false
+      },
+      "t_rel": 89.81
+    },
+    {
+      "t": 1792136430.5000842,
+      "action": "resilience",
+      "elapsed_ms": 2.4,
+      "result": {
+        "retry": {
+          "enabled": true,
+          "max_attempts": 3,
+          "base_ms": 10,
+          "max_ms": 200
+        },
+        "circuit_breaker": {
+          "enabled": false,
+          "failure_threshold": 5,
+          "open_seconds": 2.0
+        },
+        "timeouts": {
+          "enabled": false,
+          "pool_timeout_s": 1.0,
+          "statement_ms": 2000,
+          "lock_ms": 250
+        },
+        "pool_check": {
+          "enabled": false
+        },
+        "cache": {
+          "enabled": false,
+          "ttl_s": 30,
+          "queries": [
+            "Q1",
+            "Q2"
+          ]
+        },
+        "bulkhead": {
+          "enabled": false,
+          "limits": {
+            "Q1": 8,
+            "Q2": 8,
+            "Q3": 3,
+            "Q4": 4,
+            "Q5": 8,
+            "report": 1
+          }
+        },
+        "pool_bulkhead": {
+          "enabled": false,
+          "queries": [
+            "Q1",
+            "Q2"
+          ]
+        },
+        "hedging": {
+          "enabled": false,
+          "after_ms": 40
+        },
+        "report_limits": {
+          "enabled": false,
+          "max_parallel_workers_per_gather": 0
+        }
+      },
+      "t_rel": 89.82
+    },
+    {
+      "t": 1792136460.4917607,
+      "action": "enable app_error",
+      "elapsed_ms": 10.1,
+      "result": {
+        "name": "app_error",
+        "family": "aplicacion",
+        "description": "Excepciones intermitentes en el procesamiento de la consulta (HTTP 500)",
+        "active": true,
+        "params": {
+          "probability": 0.2,
+          "queries": [
+            "Q1",
+            "Q2",
+            "Q3",
+            "Q4",
+            "Q5"
+          ]
+        },
+        "defaults": {
+          "probability": 0.2,
+          "queries": [
+            "Q1",
+            "Q2",
+            "Q3",
+            "Q4",
+            "Q5"
+          ]
+        },
+        "enabled_at": 1792136460.5005069,
+        "expires_at": null
+      },
+      "t_rel": 119.81
+    },
+    {
+      "t": 1792136490.491828,
+      "action": "kill-switch",
+      "elapsed_ms": 4.9,
+      "result": {
+        "kill_switch": true,
+        "elapsed_ms": 0.1,
+        "errors": {},
+        "active": []
+      },
+      "t_rel": 149.81
+    }
+  ],
+  "recovery": {
+    "recuperacion": 0.2,
+    "recuperacion_correccion": 0.2
+  },
+  "predictions": [
+    {
+      "metric": "error_rate",
+      "phase": "falla",
+      "expect": "between",
+      "low": 0.17,
+      "high": 0.23,
+      "observed": 0.2023,
+      "ok": true
+    },
+    {
+      "metric": "p50_ms",
+      "phase": "falla",
+      "relative_to": "baseline",
+      "mode": "delta",
+      "expect": "between",
+      "low": -3,
+      "high": 3,
+      "observed": -0.053,
+      "ok": true
+    },
+    {
+      "metric": "error_rate",
+      "phase": "falla_correccion",
+      "expect": "<=",
+      "value": 0.015,
+      "observed": 0.0063,
+      "ok": true
+    },
+    {
+      "metric": "p99_ms",
+      "phase": "falla_correccion",
+      "relative_to": "baseline",
+      "mode": "delta",
+      "expect": "<=",
+      "value": 40,
+      "observed": -4.392,
+      "ok": true
+    },
+    {
+      "metric": "p95_ms",
+      "phase": "correccion",
+      "relative_to": "baseline",
+      "mode": "ratio",
+      "expect": "between",
+      "low": 0.85,
+      "high": 1.15,
+      "observed": 1.072,
+      "ok": true
+    }
+  ],
+  "predictions_reevaluadas": [
+    {
+      "metric": "error_rate",
+      "phase": "falla",
+      "expect": "between",
+      "low": 0.17,
+      "high": 0.23,
+      "observed": 0.2023,
+      "ok": true
+    },
+    {
+      "metric": "p50_ms",
+      "phase": "falla",
+      "relative_to": "baseline",
+      "mode": "delta",
+      "expect": "between",
+      "low": -3,
+      "high": 3,
+      "observed": -0.053,
+      "ok": true
+    },
+    {
+      "metric": "error_rate",
+      "phase": "falla_correccion",
+      "expect": "<=",
+      "value": 0.015,
+      "observed": 0.0063,
+      "ok": true
+    },
+    {
+      "metric": "p99_ms",
+      "phase": "falla_correccion",
+      "relative_to": "baseline",
+      "mode": "delta",
+      "expect": "<=",
+      "value": 40,
+      "observed": -4.392,
+      "ok": true
+    },
+    {
+      "metric": "p95_ms",
+      "phase": "correccion",
+      "relative_to": "baseline",
+      "mode": "ratio",
+      "expect": "between",
+      "low": 0.85,
+      "high": 1.15,
+      "observed": 1.072,
+      "ok": true
+    }
+  ]
+}

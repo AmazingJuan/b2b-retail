@@ -25,8 +25,10 @@ def phase_stats(rows, start, end, settle_s=0.0):
     statuses = Counter(str(r[3]) for r in window)
     kinds = Counter(r[4] for r in window if r[3] != 200)
     per_query = defaultdict(list)
+    per_query_scenario = defaultdict(list)
     for r in window:
         per_query[r[1]].append(r[5])
+        per_query_scenario[f'{r[1]}/{r[2]}'].append(r[5])
     return {
         'requests': len(window),
         'offered_rps': round(len(window) / duration, 2),
@@ -42,6 +44,10 @@ def phase_stats(rows, start, end, settle_s=0.0):
         'errors': dict(kinds),
         'per_query_p95_ms': {q: round(percentile(v, .95), 3) for q, v in sorted(per_query.items())},
         'per_query_p50_ms': {q: round(percentile(v, .50), 3) for q, v in sorted(per_query.items())},
+        # La mezcla frío/caliente es bimodal (p. ej. Q4: ~5 ms vs ~35 ms): la mediana por consulta cae en el
+        # hueco entre poblaciones y es inestable. Por eso también se reporta por consulta y escenario.
+        'per_query_scenario': {k: {'n': len(v), 'p50_ms': round(percentile(v, .50), 3), 'p95_ms': round(percentile(v, .95), 3)}
+                               for k, v in sorted(per_query_scenario.items())},
     }
 
 
@@ -85,6 +91,9 @@ def metric_value(summary, phase, metric):
         return data.get('per_query_p95_ms', {}).get(metric.split(':', 1)[1])
     if metric.startswith('query_p50:'):
         return data.get('per_query_p50_ms', {}).get(metric.split(':', 1)[1])
+    if metric.startswith('qs_p50:') or metric.startswith('qs_p95:'):
+        kind, key = metric.split(':', 1)
+        return data.get('per_query_scenario', {}).get(key, {}).get('p50_ms' if kind == 'qs_p50' else 'p95_ms')
     if metric.startswith('status_share:'):
         code = metric.split(':', 1)[1]
         total = data.get('requests') or 1

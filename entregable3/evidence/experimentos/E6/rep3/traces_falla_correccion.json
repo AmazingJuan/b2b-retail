@@ -1,0 +1,85 @@
+[
+ {
+  "trace_id": "27e7785e74152b403e401b0bbdebb633",
+  "duration_ms": 4860.76,
+  "root": "SELECT",
+  "spans": [
+   {
+    "op": "SELECT",
+    "ms": 4860.76,
+    "offset_ms": 0.0,
+    "tags": {
+     "db.statement": "SELECT sku_id, sum(cantidad * precio_unitario) AS ventas FROM ordenes.linea_orden GROUP BY sku_id ORDER BY ventas DESC LIMIT 20"
+    },
+    "events": []
+   }
+  ]
+ },
+ {
+  "trace_id": "ac32d2b176620bc8d81e1aaa75e6c256",
+  "duration_ms": 4708.33,
+  "root": "SELECT",
+  "spans": [
+   {
+    "op": "SELECT",
+    "ms": 4708.33,
+    "offset_ms": 0.0,
+    "tags": {
+     "db.statement": "SELECT sku_id, sum(cantidad * precio_unitario) AS ventas FROM ordenes.linea_orden GROUP BY sku_id ORDER BY ventas DESC LIMIT 20"
+    },
+    "events": []
+   }
+  ]
+ },
+ {
+  "trace_id": "1f310ea68e10de1a69822acbccf1ca4f",
+  "duration_ms": 4305.41,
+  "root": "SELECT",
+  "spans": [
+   {
+    "op": "SELECT",
+    "ms": 4305.41,
+    "offset_ms": 0.0,
+    "tags": {
+     "db.statement": "SELECT sku_id, sum(cantidad * precio_unitario) AS ventas FROM ordenes.linea_orden GROUP BY sku_id ORDER BY ventas DESC LIMIT 20",
+     "error": true
+    },
+    "events": [
+     "exception"
+    ]
+   }
+  ]
+ },
+ {
+  "trace_id": "9ef78c6f303294d00a6cfea7fb59739f",
+  "duration_ms": 4274.05,
+  "root": "SELECT",
+  "spans": [
+   {
+    "op": "SELECT",
+    "ms": 4274.05,
+    "offset_ms": 0.0,
+    "tags": {
+     "db.statement": "SELECT sku_id, sum(cantidad * precio_unitario) AS ventas FROM ordenes.linea_orden GROUP BY sku_id ORDER BY ventas DESC LIMIT 20"
+    },
+    "events": []
+   }
+  ]
+ },
+ {
+  "trace_id": "3f09b3f3cfb580bed26ec05062593688",
+  "duration_ms": 3992.39,
+  "root": "SELECT",
+  "spans": [
+   {
+    "op": "SELECT",
+    "ms": 3992.39,
+    "offset_ms": 0.0,
+    "tags": {
+     "db.statement": "SELECT sku_id, sum(cantidad * precio_unitario) AS ventas FROM ordenes.linea_orden GROUP BY sku_id ORDER BY ventas DESC LIMIT 20"
+    },
+    "events": []
+   }
+  ]
+ }
+]

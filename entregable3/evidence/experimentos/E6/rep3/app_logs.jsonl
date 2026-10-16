@@ -1,0 +1,17 @@
+{"ts": "2026-10-16T08:27:59.312Z", "level": "INFO", "logger": "e3.faults", "msg": "fault_enabled", "trace_id": "47d60f65b81bb5213f98e3ab9efe1bc0", "span_id": "98ea17dbc1c120cf", "fault": "noisy_neighbor", "family": "recursos", "params": {"sessions": 4}, "duration_s": null}
+{"ts": "2026-10-16T08:27:59.312Z", "level": "INFO", "logger": "e3", "msg": "admin_call", "method": "POST", "path": "/admin/faults/noisy_neighbor", "status": 200}
+{"ts": "2026-10-16T08:28:29.390Z", "level": "WARNING", "logger": "e3.core", "msg": "report_failed", "error": "QueryCanceled('canceling statement due to user request')"}
+{"ts": "2026-10-16T08:28:29.397Z", "level": "WARNING", "logger": "e3.core", "msg": "report_failed", "error": "QueryCanceled('canceling statement due to user request')"}
+{"ts": "2026-10-16T08:28:29.406Z", "level": "WARNING", "logger": "e3.core", "msg": "report_failed", "error": "QueryCanceled('canceling statement due to user request')"}
+{"ts": "2026-10-16T08:28:29.409Z", "level": "WARNING", "logger": "e3.core", "msg": "report_failed", "error": "QueryCanceled('canceling statement due to user request')"}
+{"ts": "2026-10-16T08:28:29.409Z", "level": "WARNING", "logger": "e3.faults", "msg": "kill_switch_engaged", "trace_id": "34f4d9993d9c597e8fbdd5e32b954c17", "span_id": "52dbc1818b72032a", "elapsed_ms": 96.7, "errors": {}}
+{"ts": "2026-10-16T08:28:29.410Z", "level": "INFO", "logger": "e3", "msg": "admin_call", "method": "POST", "path": "/admin/kill-switch", "status": 200}
+{"ts": "2026-10-16T08:28:59.310Z", "level": "INFO", "logger": "e3.faults", "msg": "faults_armed", "trace_id": "050ceba566ec37fb67893d70866a8628", "span_id": "033603b5b2c6f8c1"}
+{"ts": "2026-10-16T08:28:59.311Z", "level": "INFO", "logger": "e3", "msg": "admin_call", "method": "POST", "path": "/admin/arm", "status": 200}
+{"ts": "2026-10-16T08:28:59.316Z", "level": "INFO", "logger": "e3", "msg": "resilience_updated", "trace_id": "ae78fcc45c09a90b064ec078c54a28c0", "span_id": "8d00fbf390c0208d", "patch": {"bulkhead": {"enabled": true, "limits": {"report": 1, "Q1": 50, "Q2": 50, "Q3": 50, "Q4": 50, "Q5": 50}}, "report_limits": {"enabled": true, "max_parallel_workers_per_gather": 0}}}
+{"ts": "2026-10-16T08:28:59.316Z", "level": "INFO", "logger": "e3", "msg": "admin_call", "method": "PUT", "path": "/admin/resilience", "status": 200}
+{"ts": "2026-10-16T08:29:29.313Z", "level": "INFO", "logger": "e3.faults", "msg": "fault_enabled", "trace_id": "9fbdd45942f288c6ede242f4a475d92f", "span_id": "2300e1cde28a4654", "fault": "noisy_neighbor", "family": "recursos", "params": {"sessions": 4}, "duration_s": null}
+{"ts": "2026-10-16T08:29:29.315Z", "level": "INFO", "logger": "e3", "msg": "admin_call", "method": "POST", "path": "/admin/faults/noisy_neighbor", "status": 200}
+{"ts": "2026-10-16T08:29:59.348Z", "level": "WARNING", "logger": "e3.core", "msg": "report_failed", "error": "QueryCanceled('canceling statement due to user request')"}
+{"ts": "2026-10-16T08:29:59.349Z", "level": "WARNING", "logger": "e3.faults", "msg": "kill_switch_engaged", "trace_id": "79d0044914eeb0d52f5e76b0c29d3366", "span_id": "32d1ef13be80a651", "elapsed_ms": 35.3, "errors": {}}
+{"ts": "2026-10-16T08:29:59.350Z", "level": "INFO", "logger": "e3", "msg": "admin_call", "method": "POST", "path": "/admin/kill-switch", "status": 200}

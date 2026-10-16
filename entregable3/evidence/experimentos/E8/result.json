@@ -1,0 +1,469 @@
+{
+  "experiment": "E8",
+  "aggregate": {
+    "baseline": {
+      "p50_ms": {
+        "mean": 4.856,
+        "sd": 0.1975,
+        "cv_pct": 4.1,
+        "values": [
+          4.577,
+          4.983,
+          5.008
+        ]
+      },
+      "p95_ms": {
+        "mean": 28.818,
+        "sd": 0.3456,
+        "cv_pct": 1.2,
+        "values": [
+          28.487,
+          29.295,
+          28.672
+        ]
+      },
+      "p99_ms": {
+        "mean": 38.175,
+        "sd": 0.1552,
+        "cv_pct": 0.4,
+        "values": [
+          38.038,
+          38.392,
+          38.095
+        ]
+      },
+      "error_rate": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "cv_pct": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "throughput_rps": {
+        "mean": 99.37,
+        "sd": 0.0,
+        "cv_pct": 0.0,
+        "values": [
+          99.37,
+          99.37,
+          99.37
+        ]
+      },
+      "mean_ms": {
+        "mean": 8.0197,
+        "sd": 0.0784,
+        "cv_pct": 1.0,
+        "values": [
+          7.91,
+          8.06,
+          8.089
+        ]
+      }
+    },
+    "falla": {
+      "p50_ms": {
+        "mean": 17180.8797,
+        "sd": 123.6573,
+        "cv_pct": 0.7,
+        "values": [
+          17137.696,
+          17055.713,
+          17349.23
+        ]
+      },
+      "p95_ms": {
+        "mean": 28440.895,
+        "sd": 131.1174,
+        "cv_pct": 0.5,
+        "values": [
+          28352.431,
+          28343.995,
+          28626.259
+        ]
+      },
+      "p99_ms": {
+        "mean": 29418.9733,
+        "sd": 138.309,
+        "cv_pct": 0.5,
+        "values": [
+          29357.009,
+          29289.287,
+          29610.624
+        ]
+      },
+      "error_rate": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "cv_pct": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "throughput_rps": {
+        "mean": 100.0,
+        "sd": 0.0,
+        "cv_pct": 0.0,
+        "values": [
+          100.0,
+          100.0,
+          100.0
+        ]
+      },
+      "mean_ms": {
+        "mean": 17115.0673,
+        "sd": 166.0329,
+        "cv_pct": 1.0,
+        "values": [
+          17020.506,
+          16976.219,
+          17348.477
+        ]
+      }
+    },
+    "recuperacion": {
+      "p50_ms": {
+        "mean": 5.591,
+        "sd": 0.0331,
+        "cv_pct": 0.6,
+        "values": [
+          5.549,
+          5.63,
+          5.594
+        ]
+      },
+      "p95_ms": {
+        "mean": 3765.0927,
+        "sd": 23.8363,
+        "cv_pct": 0.6,
+        "values": [
+          3765.349,
+          3735.772,
+          3794.157
+        ]
+      },
+      "p99_ms": {
+        "mean": 4775.3027,
+        "sd": 24.9598,
+        "cv_pct": 0.5,
+        "values": [
+          4766.78,
+          4749.899,
+          4809.229
+        ]
+      },
+      "error_rate": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "cv_pct": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "throughput_rps": {
+        "mean": 100.0,
+        "sd": 0.0,
+        "cv_pct": 0.0,
+        "values": [
+          100.0,
+          100.0,
+          100.0
+        ]
+      },
+      "mean_ms": {
+        "mean": 508.533,
+        "sd": 4.9652,
+        "cv_pct": 1.0,
+        "values": [
+          504.8,
+          505.249,
+          515.55
+        ]
+      }
+    },
+    "correccion": {
+      "p50_ms": {
+        "mean": 4.978,
+        "sd": 0.0638,
+        "cv_pct": 1.3,
+        "values": [
+          4.889,
+          5.035,
+          5.01
+        ]
+      },
+      "p95_ms": {
+        "mean": 29.5887,
+        "sd": 1.475,
+        "cv_pct": 5.0,
+        "values": [
+          28.988,
+          31.619,
+          28.159
+        ]
+      },
+      "p99_ms": {
+        "mean": 38.501,
+        "sd": 0.1761,
+        "cv_pct": 0.5,
+        "values": [
+          38.252,
+          38.629,
+          38.622
+        ]
+      },
+      "error_rate": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "cv_pct": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "throughput_rps": {
+        "mean": 100.0,
+        "sd": 0.0,
+        "cv_pct": 0.0,
+        "values": [
+          100.0,
+          100.0,
+          100.0
+        ]
+      },
+      "mean_ms": {
+        "mean": 8.0917,
+        "sd": 0.1285,
+        "cv_pct": 1.6,
+        "values": [
+          7.91,
+          8.186,
+          8.179
+        ]
+      }
+    },
+    "falla_correccion": {
+      "p50_ms": {
+        "mean": 5.011,
+        "sd": 0.025,
+        "cv_pct": 0.5,
+        "values": [
+          4.989,
+          5.046,
+          4.998
+        ]
+      },
+      "p95_ms": {
+        "mean": 256.7287,
+        "sd": 0.1459,
+        "cv_pct": 0.1,
+        "values": [
+          256.524,
+          256.854,
+          256.808
+        ]
+      },
+      "p99_ms": {
+        "mean": 259.393,
+        "sd": 0.1916,
+        "cv_pct": 0.1,
+        "values": [
+          259.655,
+          259.202,
+          259.322
+        ]
+      },
+      "error_rate": {
+        "mean": 0.1952,
+        "sd": 0.0015,
+        "cv_pct": 0.8,
+        "values": [
+          0.1953,
+          0.197,
+          0.1933
+        ]
+      },
+      "throughput_rps": {
+        "mean": 80.48,
+        "sd": 0.1512,
+        "cv_pct": 0.2,
+        "values": [
+          80.47,
+          80.3,
+          80.67
+        ]
+      },
+      "mean_ms": {
+        "mean": 30.574,
+        "sd": 0.1883,
+        "cv_pct": 0.6,
+        "values": [
+          30.394,
+          30.834,
+          30.494
+        ]
+      }
+    },
+    "recuperacion_correccion": {
+      "p50_ms": {
+        "mean": 4.9767,
+        "sd": 0.0496,
+        "cv_pct": 1.0,
+        "values": [
+          5.004,
+          5.019,
+          4.907
+        ]
+      },
+      "p95_ms": {
+        "mean": 29.2563,
+        "sd": 1.2258,
+        "cv_pct": 4.2,
+        "values": [
+          29.897,
+          27.541,
+          30.331
+        ]
+      },
+      "p99_ms": {
+        "mean": 38.8267,
+        "sd": 0.2273,
+        "cv_pct": 0.6,
+        "values": [
+          39.148,
+          38.657,
+          38.675
+        ]
+      },
+      "error_rate": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "cv_pct": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "throughput_rps": {
+        "mean": 100.0,
+        "sd": 0.0,
+        "cv_pct": 0.0,
+        "values": [
+          100.0,
+          100.0,
+          100.0
+        ]
+      },
+      "mean_ms": {
+        "mean": 8.1337,
+        "sd": 0.1079,
+        "cv_pct": 1.3,
+        "values": [
+          8.234,
+          7.984,
+          8.183
+        ]
+      }
+    }
+  },
+  "recovery": {
+    "recuperacion": [
+      6.2,
+      6.2,
+      6.2
+    ],
+    "recuperacion_correccion": [
+      0.2,
+      0.2,
+      0.2
+    ]
+  },
+  "predictions_per_rep": [
+    [
+      {
+        "metric": "query_p95:Q1",
+        "phase": "falla",
+        "observed": 28553.376,
+        "ok": true
+      },
+      {
+        "metric": "p95_ms",
+        "phase": "falla",
+        "observed": 28352.431,
+        "ok": true
+      },
+      {
+        "metric": "query_p95:Q1",
+        "phase": "falla_correccion",
+        "observed": 1.12,
+        "ok": true
+      },
+      {
+        "metric": "error_rate",
+        "phase": "falla_correccion",
+        "observed": 0.1953,
+        "ok": true
+      }
+    ],
+    [
+      {
+        "metric": "query_p95:Q1",
+        "phase": "falla",
+        "observed": 28472.441,
+        "ok": true
+      },
+      {
+        "metric": "p95_ms",
+        "phase": "falla",
+        "observed": 28343.995,
+        "ok": true
+      },
+      {
+        "metric": "query_p95:Q1",
+        "phase": "falla_correccion",
+        "observed": 1.308,
+        "ok": true
+      },
+      {
+        "metric": "error_rate",
+        "phase": "falla_correccion",
+        "observed": 0.197,
+        "ok": true
+      }
+    ],
+    [
+      {
+        "metric": "query_p95:Q1",
+        "phase": "falla",
+        "observed": 28483.81,
+        "ok": true
+      },
+      {
+        "metric": "p95_ms",
+        "phase": "falla",
+        "observed": 28626.259,
+        "ok": true
+      },
+      {
+        "metric": "query_p95:Q1",
+        "phase": "falla_correccion",
+        "observed": 1.308,
+        "ok": true
+      },
+      {
+        "metric": "error_rate",
+        "phase": "falla_correccion",
+        "observed": 0.1933,
+        "ok": true
+      }
+    ]
+  ]
+}

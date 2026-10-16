@@ -1,0 +1,402 @@
+[
+ {
+  "trace_id": "1ae8763ed624e8675d1a31296cb0ec5f",
+  "duration_ms": 283.4,
+  "root": "GET /consultas/{query_id}",
+  "spans": [
+   {
+    "op": "GET /consultas/{query_id}",
+    "ms": 283.4,
+    "offset_ms": 0.0,
+    "tags": {
+     "e3.error": "lock_timeout",
+     "e3.query": "Q3",
+     "e3.scenario": "hot",
+     "error": true
+    },
+    "events": []
+   },
+   {
+    "op": "consulta.intento",
+    "ms": 254.53,
+    "offset_ms": 0.95,
+    "tags": {
+     "error": true,
+     "pool.name": "app"
+    },
+    "events": [
+     "exception"
+    ]
+   },
+   {
+    "op": "pool.getconn",
+    "ms": 0.07,
+    "offset_ms": 1.03,
+    "tags": {
+     "pool.wait_ms": 0.082
+    },
+    "events": []
+   },
+   {
+    "op": "db.execute",
+    "ms": 253.66,
+    "offset_ms": 1.18,
+    "tags": {
+     "db.statement": "SELECT id FROM logistica.franja_descargue WHERE cedi_id = 1 AND inicia_en::date = DATE '2026-09-20' AND reservadas < capacidad ORDER BY inicia_en",
+     "error": true
+    },
+    "events": [
+     "exception"
+    ]
+   },
+   {
+    "op": "SELECT",
+    "ms": 251.68,
+    "offset_ms": 1.28,
+    "tags": {
+     "db.statement": "SELECT id FROM logistica.franja_descargue WHERE cedi_id = 1 AND inicia_en::date = DATE '2026-09-20' AND reservadas < capacidad ORDER BY inicia_en",
+     "error": true
+    },
+    "events": [
+     "exception"
+    ]
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.02,
+    "offset_ms": 276.77,
+    "tags": {
+     "error": true
+    },
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.01,
+    "offset_ms": 281.96,
+    "tags": {},
+    "events": []
+   }
+  ]
+ },
+ {
+  "trace_id": "6a6672368377bfec2089ebdbba1ca369",
+  "duration_ms": 280.29,
+  "root": "GET /consultas/{query_id}",
+  "spans": [
+   {
+    "op": "GET /consultas/{query_id}",
+    "ms": 280.29,
+    "offset_ms": 0.0,
+    "tags": {
+     "e3.error": "lock_timeout",
+     "e3.query": "Q3",
+     "e3.scenario": "cold",
+     "error": true
+    },
+    "events": []
+   },
+   {
+    "op": "consulta.intento",
+    "ms": 254.23,
+    "offset_ms": 0.53,
+    "tags": {
+     "error": true,
+     "pool.name": "app"
+    },
+    "events": [
+     "exception"
+    ]
+   },
+   {
+    "op": "pool.getconn",
+    "ms": 0.03,
+    "offset_ms": 0.56,
+    "tags": {
+     "pool.wait_ms": 0.029
+    },
+    "events": []
+   },
+   {
+    "op": "db.execute",
+    "ms": 253.57,
+    "offset_ms": 0.61,
+    "tags": {
+     "db.statement": "SELECT id FROM logistica.franja_descargue WHERE cedi_id = 5 AND inicia_en::date = DATE '2026-09-20' AND reservadas < capacidad ORDER BY inicia_en",
+     "error": true
+    },
+    "events": [
+     "exception"
+    ]
+   },
+   {
+    "op": "SELECT",
+    "ms": 252.94,
+    "offset_ms": 0.65,
+    "tags": {
+     "db.statement": "SELECT id FROM logistica.franja_descargue WHERE cedi_id = 5 AND inicia_en::date = DATE '2026-09-20' AND reservadas < capacidad ORDER BY inicia_en",
+     "error": true
+    },
+    "events": [
+     "exception"
+    ]
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.07,
+    "offset_ms": 261.76,
+    "tags": {
+     "error": true
+    },
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.05,
+    "offset_ms": 262.46,
+    "tags": {},
+    "events": []
+   }
+  ]
+ },
+ {
+  "trace_id": "e9de977245bb2df7480fadf64e492b63",
+  "duration_ms": 277.46,
+  "root": "GET /consultas/{query_id}",
+  "spans": [
+   {
+    "op": "GET /consultas/{query_id}",
+    "ms": 277.46,
+    "offset_ms": 0.0,
+    "tags": {
+     "e3.error": "lock_timeout",
+     "e3.query": "Q3",
+     "e3.scenario": "hot",
+     "error": true
+    },
+    "events": []
+   },
+   {
+    "op": "consulta.intento",
+    "ms": 253.86,
+    "offset_ms": 0.37,
+    "tags": {
+     "error": true,
+     "pool.name": "app"
+    },
+    "events": [
+     "exception"
+    ]
+   },
+   {
+    "op": "pool.getconn",
+    "ms": 0.03,
+    "offset_ms": 0.4,
+    "tags": {
+     "pool.wait_ms": 0.029
+    },
+    "events": []
+   },
+   {
+    "op": "db.execute",
+    "ms": 253.2,
+    "offset_ms": 0.46,
+    "tags": {
+     "db.statement": "SELECT id FROM logistica.franja_descargue WHERE cedi_id = 1 AND inicia_en::date = DATE '2026-09-20' AND reservadas < capacidad ORDER BY inicia_en",
+     "error": true
+    },
+    "events": [
+     "exception"
+    ]
+   },
+   {
+    "op": "SELECT",
+    "ms": 252.53,
+    "offset_ms": 0.51,
+    "tags": {
+     "db.statement": "SELECT id FROM logistica.franja_descargue WHERE cedi_id = 1 AND inicia_en::date = DATE '2026-09-20' AND reservadas < capacidad ORDER BY inicia_en",
+     "error": true
+    },
+    "events": [
+     "exception"
+    ]
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.04,
+    "offset_ms": 255.62,
+    "tags": {
+     "error": true
+    },
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.02,
+    "offset_ms": 255.94,
+    "tags": {},
+    "events": []
+   }
+  ]
+ },
+ {
+  "trace_id": "41b41b327a1f795e2a068e8e0c059594",
+  "duration_ms": 277.35,
+  "root": "GET /consultas/{query_id}",
+  "spans": [
+   {
+    "op": "GET /consultas/{query_id}",
+    "ms": 277.35,
+    "offset_ms": 0.0,
+    "tags": {
+     "e3.error": "lock_timeout",
+     "e3.query": "Q3",
+     "e3.scenario": "cold",
+     "error": true
+    },
+    "events": []
+   },
+   {
+    "op": "consulta.intento",
+    "ms": 274.38,
+    "offset_ms": 0.95,
+    "tags": {
+     "error": true,
+     "pool.name": "app"
+    },
+    "events": [
+     "exception"
+    ]
+   },
+   {
+    "op": "pool.getconn",
+    "ms": 0.08,
+    "offset_ms": 1.03,
+    "tags": {
+     "pool.wait_ms": 0.08
+    },
+    "events": []
+   },
+   {
+    "op": "db.execute",
+    "ms": 273.83,
+    "offset_ms": 1.18,
+    "tags": {
+     "db.statement": "SELECT id FROM logistica.franja_descargue WHERE cedi_id = 5 AND inicia_en::date = DATE '2026-09-20' AND reservadas < capacidad ORDER BY inicia_en",
+     "error": true
+    },
+    "events": [
+     "exception"
+    ]
+   },
+   {
+    "op": "SELECT",
+    "ms": 272.64,
+    "offset_ms": 1.28,
+    "tags": {
+     "db.statement": "SELECT id FROM logistica.franja_descargue WHERE cedi_id = 5 AND inicia_en::date = DATE '2026-09-20' AND reservadas < capacidad ORDER BY inicia_en",
+     "error": true
+    },
+    "events": [
+     "exception"
+    ]
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.01,
+    "offset_ms": 275.73,
+    "tags": {
+     "error": true
+    },
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.01,
+    "offset_ms": 275.83,
+    "tags": {},
+    "events": []
+   }
+  ]
+ },
+ {
+  "trace_id": "936e2db5e25b0bee24b9f93a39b831bf",
+  "duration_ms": 274.69,
+  "root": "GET /consultas/{query_id}",
+  "spans": [
+   {
+    "op": "GET /consultas/{query_id}",
+    "ms": 274.69,
+    "offset_ms": 0.0,
+    "tags": {
+     "e3.error": "lock_timeout",
+     "e3.query": "Q3",
+     "e3.scenario": "cold",
+     "error": true
+    },
+    "events": []
+   },
+   {
+    "op": "consulta.intento",
+    "ms": 269.42,
+    "offset_ms": 0.84,
+    "tags": {
+     "error": true,
+     "pool.name": "app"
+    },
+    "events": [
+     "exception"
+    ]
+   },
+   {
+    "op": "pool.getconn",
+    "ms": 0.07,
+    "offset_ms": 0.91,
+    "tags": {
+     "pool.wait_ms": 0.077
+    },
+    "events": []
+   },
+   {
+    "op": "db.execute",
+    "ms": 268.99,
+    "offset_ms": 1.07,
+    "tags": {
+     "db.statement": "SELECT id FROM logistica.franja_descargue WHERE cedi_id = 5 AND inicia_en::date = DATE '2026-09-20' AND reservadas < capacidad ORDER BY inicia_en",
+     "error": true
+    },
+    "events": [
+     "exception"
+    ]
+   },
+   {
+    "op": "SELECT",
+    "ms": 268.24,
+    "offset_ms": 1.17,
+    "tags": {
+     "db.statement": "SELECT id FROM logistica.franja_descargue WHERE cedi_id = 5 AND inicia_en::date = DATE '2026-09-20' AND reservadas < capacidad ORDER BY inicia_en",
+     "error": true
+    },
+    "events": [
+     "exception"
+    ]
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.01,
+    "offset_ms": 273.1,
+    "tags": {
+     "error": true
+    },
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.01,
+    "offset_ms": 273.68,
+    "tags": {},
+    "events": []
+   }
+  ]
+ }
+]

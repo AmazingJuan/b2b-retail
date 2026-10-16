@@ -1,0 +1,316 @@
+{
+  "experiment": {
+    "id": "E8",
+    "familia": "datos",
+    "titulo": "Contención de bloqueos: lock ACCESS EXCLUSIVE sobre logistica.franja_descargue",
+    "hipotesis": "Sin lock_timeout, cada Q3 espera el lock indefinidamente mientras retiene una conexión. A ~20 Q3/s las 10 conexiones se agotan en menos de un segundo, y Q1, Q2, Q4 y Q5, que no tocan esa tabla, quedan esperando pool: una falla local se vuelve una caída total en cascada. Con lock_timeout, timeout de pool y un bulkhead para Q3, la falla queda confinada a Q3.",
+    "load": {
+      "rate": 100,
+      "workers": 64
+    },
+    "fault": {
+      "name": "table_lock",
+      "params": {}
+    },
+    "correction": {
+      "descripcion": "lock_timeout 250 ms + statement_timeout 2 s + timeout de pool 1 s + bulkhead de Q3 (máx. 3 concurrentes).",
+      "resilience": {
+        "timeouts": {
+          "enabled": true,
+          "pool_timeout_s": 1.0,
+          "statement_ms": 2000,
+          "lock_ms": 250
+        },
+        "bulkhead": {
+          "enabled": true,
+          "limits": {
+            "Q3": 3,
+            "Q1": 50,
+            "Q2": 50,
+            "Q4": 50,
+            "Q5": 50,
+            "report": 1
+          }
+        }
+      }
+    },
+    "prediccion": {
+      "texto": "Falla: el p95 de Q1 (que no toca la tabla bloqueada) sube ≥ 1 000 ms por la cascada en el pool, y la latencia global también. Con corrección: el p95 de Q1 ≤ 1,5× el baseline; los errores se concentran en Q3 (504 por lock_timeout o 429 por el bulkhead), entre 10% y 25% del total.",
+      "checks": [
+        {
+          "metric": "query_p95:Q1",
+          "phase": "falla",
+          "expect": ">=",
+          "value": 1000
+        },
+        {
+          "metric": "p95_ms",
+          "phase": "falla",
+          "expect": ">=",
+          "value": 1000
+        },
+        {
+          "metric": "query_p95:Q1",
+          "phase": "falla_correccion",
+          "relative_to": "baseline",
+          "mode": "ratio",
+          "expect": "<=",
+          "value": 1.5
+        },
+        {
+          "metric": "error_rate",
+          "phase": "falla_correccion",
+          "expect": "between",
+          "low": 0.1,
+          "high": 0.25
+        }
+      ]
+    },
+    "senales": {
+      "utiles": [
+        "pg_locks por modo (AccessExclusiveLock) y sesiones en espera",
+        "e3_pool_requests_waiting",
+        "logs con error=lock_timeout"
+      ],
+      "dudosas": [
+        "CPU de BD y app: bajan; la falla es de espera, no de cómputo"
+      ]
+    }
+  },
+  "started_at": "2026-10-16T08:40:03.168481+00:00",
+  "reps": 3,
+  "phase_s": 30.0,
+  "warmup_s": 10,
+  "phases": [
+    "baseline",
+    "falla",
+    "recuperacion",
+    "correccion",
+    "falla_correccion",
+    "recuperacion_correccion"
+  ],
+  "git_commit": "85369662832ee99ae9aa8156d550f95b4baf88d0",
+  "state_before": {
+    "faults": {
+      "kill_switch": false,
+      "faults": {
+        "net_latency": {
+          "name": "net_latency",
+          "family": "red",
+          "description": "Latencia y jitter en la red app→PostgreSQL (toxic latency de Toxiproxy, sentido downstream)",
+          "active": false,
+          "params": {
+            "latency_ms": 30,
+            "jitter_ms": 10
+          },
+          "defaults": {
+            "latency_ms": 30,
+            "jitter_ms": 10
+          },
+          "enabled_at": null,
+          "expires_at": null
+        },
+        "net_partition": {
+          "name": "net_partition",
+          "family": "red",
+          "description": "Partición de red app→PostgreSQL: el proxy se deshabilita y cierra/rechaza conexiones",
+          "active": false,
+          "params": {},
+          "defaults": {},
+          "enabled_at": null,
+          "expires_at": null
+        },
+        "app_error": {
+          "name": "app_error",
+          "family": "aplicacion",
+          "description": "Excepciones intermitentes en el procesamiento de la consulta (HTTP 500)",
+          "active": false,
+          "params": {
+            "probability": 0.2,
+            "queries": [
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4",
+              "Q5"
+            ]
+          },
+          "defaults": {
+            "probability": 0.2,
+            "queries": [
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4",
+              "Q5"
+            ]
+          },
+          "enabled_at": null,
+          "expires_at": null
+        },
+        "app_latency": {
+          "name": "app_latency",
+          "family": "aplicacion",
+          "description": "Latencia de cola: una fracción de solicitudes sufre una pausa larga (dependencia lenta / pausa de GC)",
+          "active": false,
+          "params": {
+            "probability": 0.02,
+            "delay_ms": 800,
+            "queries": [
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4",
+              "Q5"
+            ]
+          },
+          "defaults": {
+            "probability": 0.1,
+            "delay_ms": 800,
+            "queries": [
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4",
+              "Q5"
+            ]
+          },
+          "enabled_at": 1792138227.3661842,
+          "expires_at": null
+        },
+        "pool_shrink": {
+          "name": "pool_shrink",
+          "family": "recursos",
+          "description": "Agotamiento de recursos: fuga de conexiones; solo max_size conexiones del pool quedan utilizables",
+          "active": false,
+          "params": {
+            "max_size": 1
+          },
+          "defaults": {
+            "max_size": 2
+          },
+          "enabled_at": 1792138798.1059697,
+          "expires_at": null
+        },
+        "noisy_neighbor": {
+          "name": "noisy_neighbor",
+          "family": "recursos",
+          "description": "Vecino ruidoso: N sesiones ejecutan en bucle el reporte analítico pesado sobre ~3M líneas",
+          "active": false,
+          "params": {
+            "sessions": 4
+          },
+          "defaults": {
+            "sessions": 4
+          },
+          "enabled_at": 1792139369.313056,
+          "expires_at": null
+        },
+        "index_drop": {
+          "name": "index_drop",
+          "family": "datos",
+          "description": "Regresión de esquema: se elimina un índice crítico (se recrea con su definición original al desactivar)",
+          "active": false,
+          "params": {
+            "schema": "ordenes",
+            "index": "orden_proveedor_fecha_idx"
+          },
+          "defaults": {
+            "schema": "ordenes",
+            "index": "orden_proveedor_fecha_idx"
+          },
+          "enabled_at": 1792139942.751687,
+          "expires_at": null
+        },
+        "table_lock": {
+          "name": "table_lock",
+          "family": "datos",
+          "description": "Contención de bloqueos: una transacción retiene un lock exclusivo sobre la tabla de franjas",
+          "active": false,
+          "params": {
+            "table": "logistica.franja_descargue",
+            "mode": "ACCESS EXCLUSIVE"
+          },
+          "defaults": {
+            "table": "logistica.franja_descargue",
+            "mode": "ACCESS EXCLUSIVE"
+          },
+          "enabled_at": null,
+          "expires_at": null
+        }
+      }
+    },
+    "resilience": {
+      "retry": {
+        "enabled": false,
+        "max_attempts": 3,
+        "base_ms": 10,
+        "max_ms": 200
+      },
+      "circuit_breaker": {
+        "enabled": false,
+        "failure_threshold": 5,
+        "open_seconds": 2.0
+      },
+      "timeouts": {
+        "enabled": false,
+        "pool_timeout_s": 1.0,
+        "statement_ms": 2000,
+        "lock_ms": 250
+      },
+      "pool_check": {
+        "enabled": false
+      },
+      "cache": {
+        "enabled": false,
+        "ttl_s": 30,
+        "queries": [
+          "Q1",
+          "Q2"
+        ]
+      },
+      "bulkhead": {
+        "enabled": false,
+        "limits": {
+          "Q1": 8,
+          "Q2": 8,
+          "Q3": 3,
+          "Q4": 4,
+          "Q5": 8,
+          "report": 1
+        }
+      },
+      "pool_bulkhead": {
+        "enabled": false,
+        "queries": [
+          "Q1",
+          "Q2"
+        ]
+      },
+      "hedging": {
+        "enabled": false,
+        "after_ms": 40
+      },
+      "report_limits": {
+        "enabled": false,
+        "max_parallel_workers_per_gather": 0
+      }
+    },
+    "circuit_breaker": "closed",
+    "pool": {
+      "connections_num": 10,
+      "connections_ms": 220,
+      "requests_num": 214237,
+      "requests_queued": 6604,
+      "requests_wait_ms": 567239,
+      "usage_ms": 452992,
+      "pool_min": 10,
+      "pool_max": 10,
+      "pool_size": 10,
+      "pool_available": 10,
+      "requests_waiting": 0
+    },
+    "pool_max_size": 10
+  },
+  "finished_at": "2026-10-16T08:49:34.200241+00:00"
+}

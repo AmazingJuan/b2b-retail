@@ -189,9 +189,12 @@ def main():
     parser.add_argument('--skip-load', action='store_true', help='mide sin recargar (solo para depurar)')
     parser.add_argument('--allow-battery', action='store_true', help='permite medir en batería (resultado no comparable)')
     args = parser.parse_args()
+    args.output_dir = args.output_dir.resolve()  # measure.py corre con otro cwd
     args.output_dir.mkdir(parents=True, exist_ok=True)
     started_at = datetime.now(timezone.utc).isoformat()
 
+    if subprocess.run(['docker', 'ps', '-q', '-f', 'name=b2b-e3-app'], capture_output=True, text=True).stdout.strip():
+        raise SystemExit('El stack del E3 está arriba. Ejecute `make e3-down` primero: la línea base se mide en las condiciones del E2.')
     power = power_state()
     log(f'energía: {power}')
     if 'Discharging' in power['power_supply_status'].values() and not args.allow_battery:

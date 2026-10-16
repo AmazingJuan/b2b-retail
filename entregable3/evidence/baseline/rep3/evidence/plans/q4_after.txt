@@ -1,0 +1,18 @@
+GroupAggregate  (cost=10489.41..12759.58 rows=43215 width=76) (actual time=68.781..84.050 rows=24 loops=1)
+  Group Key: (date_trunc('month'::text, creada_en))
+  Buffers: shared hit=4912 read=214
+  ->  Sort  (cost=10489.41..10597.64 rows=43294 width=36) (actual time=67.941..73.719 rows=42909 loops=1)
+        Sort Key: (date_trunc('month'::text, creada_en))
+        Sort Method: quicksort  Memory: 3799kB
+        Buffers: shared hit=4912 read=214
+        ->  Bitmap Heap Scan on orden_compra  (cost=1195.95..7155.36 rows=43294 width=36) (actual time=7.904..49.589 rows=42909 loops=1)
+              Recheck Cond: (proveedor_id = 1)
+              Heap Blocks: exact=4909
+              Buffers: shared hit=4909 read=214
+              ->  Bitmap Index Scan on orden_proveedor_fecha_idx  (cost=0.00..1185.13 rows=43294 width=0) (actual time=6.390..6.402 rows=42909 loops=1)
+                    Index Cond: (proveedor_id = 1)
+                    Buffers: shared read=214
+Planning:
+  Buffers: shared hit=141 read=1
+Planning Time: 1.895 ms
+Execution Time: 84.772 ms

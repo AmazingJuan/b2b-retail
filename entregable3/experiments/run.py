@@ -154,6 +154,26 @@ def app_logs(start, end):
     return [line for line in (out.stdout + out.stderr).splitlines() if line.startswith('{')]
 
 
+def host_state():
+    """Condiciones del host: el E4 se invalidó porque Jaeger agotó la RAM y la CPU cayó a 600 MHz."""
+    meminfo = dict(line.split(':', 1) for line in Path('/proc/meminfo').read_text().splitlines())
+    freqs = sorted(int(p.read_text()) for p in Path('/sys/devices/system/cpu').glob('cpu[0-9]*/cpufreq/scaling_cur_freq'))
+    return {'mem_available_mb': int(meminfo['MemAvailable'].split()[0]) // 1024,
+            'loadavg': Path('/proc/loadavg').read_text().split()[:3],
+            'cpu_mhz_median': freqs[len(freqs) // 2] // 1000 if freqs else None,
+            'ac_online': Path('/sys/class/power_supply/AC/online').read_text().strip() if Path('/sys/class/power_supply/AC/online').exists() else None}
+
+
+def ensure_host_ok():
+    for _ in range(12):
+        state = host_state()
+        if state['mem_available_mb'] >= 1024 and float(state['loadavg'][0]) < 6:
+            return state
+        log(f'host no apto, esperando: {state}')
+        time.sleep(10)
+    raise RuntimeError(f'host sin recursos para medir: {host_state()}')
+
+
 def reset_system(experiment=None):
     http('POST', '/admin/kill-switch')
     http('POST', '/admin/resilience/reset')
@@ -164,6 +184,7 @@ def reset_system(experiment=None):
 
 def run_once(experiment, rep, out_dir, phase_s, warmup_s):
     out_dir.mkdir(parents=True, exist_ok=True)
+    host_before = ensure_host_ok()
     reset_system(experiment)
     wait_healthy()
     load = experiment['load']
@@ -214,6 +235,7 @@ def run_once(experiment, rep, out_dir, phase_s, warmup_s):
     base_p95 = summary['phases']['baseline']['p95_ms']
     summary['recovery'] = {p: recovery_time(series, summary['bounds'][p][0], base_p95) for p in ('recuperacion', 'recuperacion_correccion')}
     summary['predictions'] = [check_prediction(summary, c) for c in experiment['prediccion']['checks']]
+    summary['host'] = {'antes': host_before, 'despues': host_state()}
     (out_dir / 'summary.json').write_text(json.dumps(summary, indent=2, ensure_ascii=False), encoding='utf-8')
     (out_dir / 'timeline.json').write_text(json.dumps(series), encoding='utf-8')
     (out_dir / 'prometheus.json').write_text(json.dumps(prometheus_range(t_begin, t_end)), encoding='utf-8')

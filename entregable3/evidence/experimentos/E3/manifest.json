@@ -1,0 +1,314 @@
+{
+  "experiment": {
+    "id": "E3",
+    "familia": "aplicacion",
+    "titulo": "Excepciones intermitentes (20% de las solicitudes)",
+    "hipotesis": "Las excepciones inyectadas fallan rápido y no consumen recursos de la BD, así que la tasa de error será ~20% sin cambiar la latencia de las exitosas. Como las lecturas son idempotentes y las fallas independientes, 3 intentos reducen el error a ~0,2³ ≈ 0,8%, a cambio de algo de latencia por el backoff.",
+    "load": {
+      "rate": 100,
+      "workers": 64
+    },
+    "fault": {
+      "name": "app_error",
+      "params": {
+        "probability": 0.2
+      }
+    },
+    "correction": {
+      "descripcion": "Reintento con backoff exponencial y jitter completo (3 intentos, base 10 ms, tope 200 ms), solo para lecturas idempotentes.",
+      "resilience": {
+        "retry": {
+          "enabled": true,
+          "max_attempts": 3,
+          "base_ms": 10,
+          "max_ms": 200
+        }
+      }
+    },
+    "prediccion": {
+      "texto": "Falla: error 17–23%, p50 casi igual (±3 ms). Con reintentos: error ≤ 1,5% y p99 ≤ baseline + 40 ms. Sin falla, el reintento no tiene costo (p95 dentro de ±15% del baseline).",
+      "checks": [
+        {
+          "metric": "error_rate",
+          "phase": "falla",
+          "expect": "between",
+          "low": 0.17,
+          "high": 0.23
+        },
+        {
+          "metric": "p50_ms",
+          "phase": "falla",
+          "relative_to": "baseline",
+          "mode": "delta",
+          "expect": "between",
+          "low": -3,
+          "high": 3
+        },
+        {
+          "metric": "error_rate",
+          "phase": "falla_correccion",
+          "expect": "<=",
+          "value": 0.015
+        },
+        {
+          "metric": "p99_ms",
+          "phase": "falla_correccion",
+          "relative_to": "baseline",
+          "mode": "delta",
+          "expect": "<=",
+          "value": 40
+        },
+        {
+          "metric": "p95_ms",
+          "phase": "correccion",
+          "relative_to": "baseline",
+          "mode": "ratio",
+          "expect": "between",
+          "low": 0.85,
+          "high": 1.15
+        }
+      ]
+    },
+    "senales": {
+      "utiles": [
+        "e3_http_requests_total por código (500)",
+        "e3_fault_injections_total",
+        "e3_retries_total{outcome}"
+      ],
+      "dudosas": [
+        "latencia y recursos: no cambian; la falla solo se ve en la tasa de error"
+      ]
+    }
+  },
+  "started_at": "2026-10-16T07:38:50.438430+00:00",
+  "reps": 3,
+  "phase_s": 30.0,
+  "warmup_s": 10,
+  "phases": [
+    "baseline",
+    "falla",
+    "recuperacion",
+    "correccion",
+    "falla_correccion",
+    "recuperacion_correccion"
+  ],
+  "git_commit": "543408f6122c88fc922123238af31ebb63ea8636",
+  "state_before": {
+    "faults": {
+      "kill_switch": false,
+      "faults": {
+        "net_latency": {
+          "name": "net_latency",
+          "family": "red",
+          "description": "Latencia y jitter en la red app→PostgreSQL (toxic latency de Toxiproxy, sentido downstream)",
+          "active": false,
+          "params": {
+            "latency_ms": 30,
+            "jitter_ms": 10
+          },
+          "defaults": {
+            "latency_ms": 30,
+            "jitter_ms": 10
+          },
+          "enabled_at": 1792135698.6068773,
+          "expires_at": null
+        },
+        "net_partition": {
+          "name": "net_partition",
+          "family": "red",
+          "description": "Partición de red app→PostgreSQL: el proxy se deshabilita y cierra/rechaza conexiones",
+          "active": false,
+          "params": {},
+          "defaults": {},
+          "enabled_at": 1792136269.939799,
+          "expires_at": null
+        },
+        "app_error": {
+          "name": "app_error",
+          "family": "aplicacion",
+          "description": "Excepciones intermitentes en el procesamiento de la consulta (HTTP 500)",
+          "active": false,
+          "params": {
+            "probability": 0.5,
+            "queries": [
+              "Q2"
+            ]
+          },
+          "defaults": {
+            "probability": 0.2,
+            "queries": [
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4",
+              "Q5"
+            ]
+          },
+          "enabled_at": 1792135158.4202156,
+          "expires_at": null
+        },
+        "app_latency": {
+          "name": "app_latency",
+          "family": "aplicacion",
+          "description": "Latencia de cola: una fracción de solicitudes sufre una pausa larga (dependencia lenta / pausa de GC)",
+          "active": false,
+          "params": {
+            "probability": 1.0,
+            "delay_ms": 200,
+            "queries": [
+              "Q1"
+            ]
+          },
+          "defaults": {
+            "probability": 0.1,
+            "delay_ms": 800,
+            "queries": [
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4",
+              "Q5"
+            ]
+          },
+          "enabled_at": 1792135184.1563199,
+          "expires_at": null
+        },
+        "pool_shrink": {
+          "name": "pool_shrink",
+          "family": "recursos",
+          "description": "Agotamiento de recursos: fuga de conexiones; solo max_size conexiones del pool quedan utilizables",
+          "active": false,
+          "params": {
+            "max_size": 1
+          },
+          "defaults": {
+            "max_size": 2
+          },
+          "enabled_at": 1792135164.6151004,
+          "expires_at": null
+        },
+        "noisy_neighbor": {
+          "name": "noisy_neighbor",
+          "family": "recursos",
+          "description": "Vecino ruidoso: N sesiones ejecutan en bucle el reporte analítico pesado sobre ~3M líneas",
+          "active": false,
+          "params": {
+            "sessions": 2
+          },
+          "defaults": {
+            "sessions": 4
+          },
+          "enabled_at": 1792135170.4234488,
+          "expires_at": null
+        },
+        "index_drop": {
+          "name": "index_drop",
+          "family": "datos",
+          "description": "Regresión de esquema: se elimina un índice crítico (se recrea con su definición original al desactivar)",
+          "active": false,
+          "params": {
+            "schema": "ordenes",
+            "index": "orden_proveedor_fecha_idx"
+          },
+          "defaults": {
+            "schema": "ordenes",
+            "index": "orden_proveedor_fecha_idx"
+          },
+          "enabled_at": 1792135178.9476235,
+          "expires_at": null
+        },
+        "table_lock": {
+          "name": "table_lock",
+          "family": "datos",
+          "description": "Contención de bloqueos: una transacción retiene un lock exclusivo sobre la tabla de franjas",
+          "active": false,
+          "params": {
+            "table": "logistica.franja_descargue",
+            "mode": "ACCESS EXCLUSIVE"
+          },
+          "defaults": {
+            "table": "logistica.franja_descargue",
+            "mode": "ACCESS EXCLUSIVE"
+          },
+          "enabled_at": 1792135181.9890232,
+          "expires_at": null
+        }
+      }
+    },
+    "resilience": {
+      "retry": {
+        "enabled": false,
+        "max_attempts": 3,
+        "base_ms": 10,
+        "max_ms": 200
+      },
+      "circuit_breaker": {
+        "enabled": false,
+        "failure_threshold": 5,
+        "open_seconds": 2.0
+      },
+      "timeouts": {
+        "enabled": false,
+        "pool_timeout_s": 1.0,
+        "statement_ms": 2000,
+        "lock_ms": 250
+      },
+      "pool_check": {
+        "enabled": false
+      },
+      "cache": {
+        "enabled": false,
+        "ttl_s": 30,
+        "queries": [
+          "Q1",
+          "Q2"
+        ]
+      },
+      "bulkhead": {
+        "enabled": false,
+        "limits": {
+          "Q1": 8,
+          "Q2": 8,
+          "Q3": 3,
+          "Q4": 4,
+          "Q5": 8,
+          "report": 1
+        }
+      },
+      "pool_bulkhead": {
+        "enabled": false,
+        "queries": [
+          "Q1",
+          "Q2"
+        ]
+      },
+      "hedging": {
+        "enabled": false,
+        "after_ms": 40
+      },
+      "report_limits": {
+        "enabled": false,
+        "max_parallel_workers_per_gather": 0
+      }
+    },
+    "circuit_breaker": "closed",
+    "pool": {
+      "connections_num": 424,
+      "connections_ms": 1421,
+      "requests_num": 100751,
+      "returns_bad": 80,
+      "connections_errors": 334,
+      "requests_queued": 9547,
+      "requests_wait_ms": 4142416,
+      "usage_ms": 28401,
+      "requests_errors": 121,
+      "pool_min": 10,
+      "pool_max": 10,
+      "pool_size": 10,
+      "pool_available": 9,
+      "requests_waiting": 0
+    },
+    "pool_max_size": 10
+  },
+  "finished_at": "2026-10-16T07:48:21.972041+00:00"
+}

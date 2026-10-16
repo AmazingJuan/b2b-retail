@@ -1,0 +1,10 @@
+Limit  (cost=0.42..2.55 rows=50 width=12) (actual time=0.111..0.179 rows=50 loops=1)
+  Buffers: shared hit=7 read=3
+  ->  Index Only Scan using orden_proveedor_fecha_idx on orden_compra  (cost=0.42..1794.13 rows=42247 width=12) (actual time=0.109..0.168 rows=50 loops=1)
+        Index Cond: (proveedor_id = 1)
+        Heap Fetches: 7
+        Buffers: shared hit=7 read=3
+Planning:
+  Buffers: shared hit=113 read=1
+Planning Time: 1.502 ms
+Execution Time: 0.247 ms

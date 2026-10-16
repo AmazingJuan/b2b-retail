@@ -1,0 +1,771 @@
+{
+  "experiment": "E8",
+  "rep": 1,
+  "phase_s": 30.0,
+  "phases": {
+    "baseline": {
+      "requests": 2981,
+      "offered_rps": 99.37,
+      "throughput_rps": 99.37,
+      "error_rate": 0.0,
+      "p50_ms": 4.577,
+      "p95_ms": 28.487,
+      "p99_ms": 38.038,
+      "max_ms": 50.962,
+      "mean_ms": 7.91,
+      "ok_p95_ms": 28.487,
+      "status": {
+        "200": 2981
+      },
+      "errors": {},
+      "per_query_p95_ms": {
+        "Q1": 6.974,
+        "Q2": 7.391,
+        "Q3": 19.838,
+        "Q4": 38.161,
+        "Q5": 6.157
+      },
+      "per_query_p50_ms": {
+        "Q1": 2.947,
+        "Q2": 3.029,
+        "Q3": 10.164,
+        "Q4": 25.392,
+        "Q5": 3.009
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 377,
+          "p50_ms": 2.969,
+          "p95_ms": 6.442
+        },
+        "Q1/hot": {
+          "n": 352,
+          "p50_ms": 2.933,
+          "p95_ms": 7.521
+        },
+        "Q2/cold": {
+          "n": 364,
+          "p50_ms": 3.066,
+          "p95_ms": 8.507
+        },
+        "Q2/hot": {
+          "n": 369,
+          "p50_ms": 2.987,
+          "p95_ms": 6.351
+        },
+        "Q3/cold": {
+          "n": 311,
+          "p50_ms": 10.485,
+          "p95_ms": 19.141
+        },
+        "Q3/hot": {
+          "n": 300,
+          "p50_ms": 9.907,
+          "p95_ms": 20.395
+        },
+        "Q4/cold": {
+          "n": 188,
+          "p50_ms": 3.312,
+          "p95_ms": 6.809
+        },
+        "Q4/hot": {
+          "n": 252,
+          "p50_ms": 29.284,
+          "p95_ms": 40.207
+        },
+        "Q5/cold": {
+          "n": 222,
+          "p50_ms": 3.088,
+          "p95_ms": 6.28
+        },
+        "Q5/hot": {
+          "n": 245,
+          "p50_ms": 2.939,
+          "p95_ms": 6.093
+        }
+      }
+    },
+    "falla": {
+      "requests": 3000,
+      "offered_rps": 100.0,
+      "throughput_rps": 100.0,
+      "error_rate": 0.0,
+      "p50_ms": 17137.696,
+      "p95_ms": 28352.431,
+      "p99_ms": 29357.009,
+      "max_ms": 29995.335,
+      "mean_ms": 17020.506,
+      "ok_p95_ms": 28352.431,
+      "status": {
+        "200": 3000
+      },
+      "errors": {},
+      "per_query_p95_ms": {
+        "Q1": 28553.376,
+        "Q2": 28053.926,
+        "Q3": 28515.667,
+        "Q4": 28321.327,
+        "Q5": 27967.939
+      },
+      "per_query_p50_ms": {
+        "Q1": 17414.696,
+        "Q2": 16133.02,
+        "Q3": 17713.336,
+        "Q4": 17497.069,
+        "Q5": 17140.56
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 377,
+          "p50_ms": 16880.626,
+          "p95_ms": 28489.297
+        },
+        "Q1/hot": {
+          "n": 389,
+          "p50_ms": 17684.886,
+          "p95_ms": 28654.24
+        },
+        "Q2/cold": {
+          "n": 360,
+          "p50_ms": 16266.654,
+          "p95_ms": 28512.303
+        },
+        "Q2/hot": {
+          "n": 379,
+          "p50_ms": 16076.023,
+          "p95_ms": 28023.818
+        },
+        "Q3/cold": {
+          "n": 291,
+          "p50_ms": 17698.498,
+          "p95_ms": 28278.35
+        },
+        "Q3/hot": {
+          "n": 315,
+          "p50_ms": 17728.884,
+          "p95_ms": 28869.766
+        },
+        "Q4/cold": {
+          "n": 230,
+          "p50_ms": 17706.118,
+          "p95_ms": 28465.87
+        },
+        "Q4/hot": {
+          "n": 213,
+          "p50_ms": 16786.57,
+          "p95_ms": 27876.639
+        },
+        "Q5/cold": {
+          "n": 234,
+          "p50_ms": 16860.087,
+          "p95_ms": 28377.461
+        },
+        "Q5/hot": {
+          "n": 212,
+          "p50_ms": 17238.876,
+          "p95_ms": 27276.348
+        }
+      }
+    },
+    "recuperacion": {
+      "requests": 3000,
+      "offered_rps": 100.0,
+      "throughput_rps": 100.0,
+      "error_rate": 0.0,
+      "p50_ms": 5.549,
+      "p95_ms": 3765.349,
+      "p99_ms": 4766.78,
+      "max_ms": 5019.559,
+      "mean_ms": 504.8,
+      "ok_p95_ms": 3765.349,
+      "status": {
+        "200": 3000
+      },
+      "errors": {},
+      "per_query_p95_ms": {
+        "Q1": 3729.872,
+        "Q2": 3777.948,
+        "Q3": 3290.347,
+        "Q4": 3787.829,
+        "Q5": 4126.368
+      },
+      "per_query_p50_ms": {
+        "Q1": 4.6,
+        "Q2": 4.606,
+        "Q3": 15.338,
+        "Q4": 26.203,
+        "Q5": 4.784
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 414,
+          "p50_ms": 4.454,
+          "p95_ms": 3827.25
+        },
+        "Q1/hot": {
+          "n": 364,
+          "p50_ms": 4.756,
+          "p95_ms": 3580.5
+        },
+        "Q2/cold": {
+          "n": 379,
+          "p50_ms": 4.591,
+          "p95_ms": 3382.926
+        },
+        "Q2/hot": {
+          "n": 369,
+          "p50_ms": 4.632,
+          "p95_ms": 3914.168
+        },
+        "Q3/cold": {
+          "n": 314,
+          "p50_ms": 15.393,
+          "p95_ms": 3316.706
+        },
+        "Q3/hot": {
+          "n": 253,
+          "p50_ms": 14.888,
+          "p95_ms": 3285.613
+        },
+        "Q4/cold": {
+          "n": 222,
+          "p50_ms": 4.763,
+          "p95_ms": 3775.409
+        },
+        "Q4/hot": {
+          "n": 232,
+          "p50_ms": 33.46,
+          "p95_ms": 3714.106
+        },
+        "Q5/cold": {
+          "n": 222,
+          "p50_ms": 4.737,
+          "p95_ms": 4223.716
+        },
+        "Q5/hot": {
+          "n": 231,
+          "p50_ms": 4.878,
+          "p95_ms": 3913.29
+        }
+      }
+    },
+    "correccion": {
+      "requests": 3000,
+      "offered_rps": 100.0,
+      "throughput_rps": 100.0,
+      "error_rate": 0.0,
+      "p50_ms": 4.889,
+      "p95_ms": 28.988,
+      "p99_ms": 38.252,
+      "max_ms": 59.368,
+      "mean_ms": 7.91,
+      "ok_p95_ms": 28.988,
+      "status": {
+        "200": 3000
+      },
+      "errors": {},
+      "per_query_p95_ms": {
+        "Q1": 6.201,
+        "Q2": 6.132,
+        "Q3": 19.198,
+        "Q4": 38.586,
+        "Q5": 7.451
+      },
+      "per_query_p50_ms": {
+        "Q1": 3.341,
+        "Q2": 3.35,
+        "Q3": 10.407,
+        "Q4": 24.262,
+        "Q5": 4.005
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 392,
+          "p50_ms": 3.252,
+          "p95_ms": 6.236
+        },
+        "Q1/hot": {
+          "n": 405,
+          "p50_ms": 3.483,
+          "p95_ms": 6.19
+        },
+        "Q2/cold": {
+          "n": 379,
+          "p50_ms": 3.239,
+          "p95_ms": 6.054
+        },
+        "Q2/hot": {
+          "n": 350,
+          "p50_ms": 3.654,
+          "p95_ms": 6.13
+        },
+        "Q3/cold": {
+          "n": 304,
+          "p50_ms": 9.851,
+          "p95_ms": 18.763
+        },
+        "Q3/hot": {
+          "n": 273,
+          "p50_ms": 10.938,
+          "p95_ms": 19.354
+        },
+        "Q4/cold": {
+          "n": 209,
+          "p50_ms": 3.449,
+          "p95_ms": 6.611
+        },
+        "Q4/hot": {
+          "n": 242,
+          "p50_ms": 31.015,
+          "p95_ms": 40.814
+        },
+        "Q5/cold": {
+          "n": 212,
+          "p50_ms": 3.795,
+          "p95_ms": 6.052
+        },
+        "Q5/hot": {
+          "n": 234,
+          "p50_ms": 4.181,
+          "p95_ms": 9.025
+        }
+      }
+    },
+    "falla_correccion": {
+      "requests": 3000,
+      "offered_rps": 100.0,
+      "throughput_rps": 80.47,
+      "error_rate": 0.1953,
+      "p50_ms": 4.989,
+      "p95_ms": 256.524,
+      "p99_ms": 259.655,
+      "max_ms": 297.362,
+      "mean_ms": 30.394,
+      "ok_p95_ms": 32.544,
+      "status": {
+        "200": 2414,
+        "504": 279,
+        "429": 307
+      },
+      "errors": {
+        "lock_timeout": 279,
+        "bulkhead_full": 307
+      },
+      "per_query_p95_ms": {
+        "Q1": 7.814,
+        "Q2": 8.484,
+        "Q3": 259.672,
+        "Q4": 39.335,
+        "Q5": 7.63
+      },
+      "per_query_p50_ms": {
+        "Q1": 4.836,
+        "Q2": 4.782,
+        "Q3": 6.571,
+        "Q4": 23.965,
+        "Q5": 4.659
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 385,
+          "p50_ms": 4.927,
+          "p95_ms": 8.235
+        },
+        "Q1/hot": {
+          "n": 376,
+          "p50_ms": 4.771,
+          "p95_ms": 6.638
+        },
+        "Q2/cold": {
+          "n": 363,
+          "p50_ms": 4.846,
+          "p95_ms": 7.845
+        },
+        "Q2/hot": {
+          "n": 418,
+          "p50_ms": 4.712,
+          "p95_ms": 8.518
+        },
+        "Q3/cold": {
+          "n": 292,
+          "p50_ms": 4.653,
+          "p95_ms": 259.338
+        },
+        "Q3/hot": {
+          "n": 296,
+          "p50_ms": 11.767,
+          "p95_ms": 259.81
+        },
+        "Q4/cold": {
+          "n": 221,
+          "p50_ms": 5.132,
+          "p95_ms": 11.128
+        },
+        "Q4/hot": {
+          "n": 218,
+          "p50_ms": 32.986,
+          "p95_ms": 39.988
+        },
+        "Q5/cold": {
+          "n": 211,
+          "p50_ms": 4.659,
+          "p95_ms": 7.503
+        },
+        "Q5/hot": {
+          "n": 220,
+          "p50_ms": 4.663,
+          "p95_ms": 7.683
+        }
+      }
+    },
+    "recuperacion_correccion": {
+      "requests": 3000,
+      "offered_rps": 100.0,
+      "throughput_rps": 100.0,
+      "error_rate": 0.0,
+      "p50_ms": 5.004,
+      "p95_ms": 29.897,
+      "p99_ms": 39.148,
+      "max_ms": 79.696,
+      "mean_ms": 8.234,
+      "ok_p95_ms": 29.897,
+      "status": {
+        "200": 3000
+      },
+      "errors": {},
+      "per_query_p95_ms": {
+        "Q1": 7.27,
+        "Q2": 8.176,
+        "Q3": 19.504,
+        "Q4": 39.37,
+        "Q5": 5.983
+      },
+      "per_query_p50_ms": {
+        "Q1": 3.759,
+        "Q2": 4.053,
+        "Q3": 12.844,
+        "Q4": 14.349,
+        "Q5": 3.763
+      },
+      "per_query_scenario": {
+        "Q1/cold": {
+          "n": 390,
+          "p50_ms": 3.948,
+          "p95_ms": 9.041
+        },
+        "Q1/hot": {
+          "n": 375,
+          "p50_ms": 3.674,
+          "p95_ms": 5.971
+        },
+        "Q2/cold": {
+          "n": 380,
+          "p50_ms": 4.062,
+          "p95_ms": 8.05
+        },
+        "Q2/hot": {
+          "n": 361,
+          "p50_ms": 4.021,
+          "p95_ms": 8.176
+        },
+        "Q3/cold": {
+          "n": 270,
+          "p50_ms": 13.432,
+          "p95_ms": 19.618
+        },
+        "Q3/hot": {
+          "n": 317,
+          "p50_ms": 12.567,
+          "p95_ms": 19.331
+        },
+        "Q4/cold": {
+          "n": 241,
+          "p50_ms": 4.18,
+          "p95_ms": 6.454
+        },
+        "Q4/hot": {
+          "n": 231,
+          "p50_ms": 32.66,
+          "p95_ms": 43.109
+        },
+        "Q5/cold": {
+          "n": 245,
+          "p50_ms": 3.887,
+          "p95_ms": 5.924
+        },
+        "Q5/hot": {
+          "n": 190,
+          "p50_ms": 3.614,
+          "p95_ms": 6.892
+        }
+      }
+    }
+  },
+  "bounds": {
+    "baseline": [
+      -0.2,
+      29.8
+    ],
+    "falla": [
+      29.8,
+      59.8
+    ],
+    "recuperacion": [
+      59.8,
+      89.8
+    ],
+    "correccion": [
+      89.8,
+      119.8
+    ],
+    "falla_correccion": [
+      119.8,
+      149.8
+    ],
+    "recuperacion_correccion": [
+      149.8,
+      179.8
+    ]
+  },
+  "actions": [
+    {
+      "t": 1792140043.1942677,
+      "action": "enable table_lock",
+      "elapsed_ms": 24.9,
+      "result": {
+        "name": "table_lock",
+        "family": "datos",
+        "description": "Contención de bloqueos: una transacción retiene un lock exclusivo sobre la tabla de franjas",
+        "active": true,
+        "params": {
+          "table": "logistica.franja_descargue",
+          "mode": "ACCESS EXCLUSIVE"
+        },
+        "defaults": {
+          "table": "logistica.franja_descargue",
+          "mode": "ACCESS EXCLUSIVE"
+        },
+        "enabled_at": 1792140043.2181299,
+        "expires_at": null
+      },
+      "t_rel": 29.8
+    },
+    {
+      "t": 1792140073.1943789,
+      "action": "kill-switch",
+      "elapsed_ms": 10.7,
+      "result": {
+        "kill_switch": true,
+        "elapsed_ms": 2.3,
+        "errors": {},
+        "active": []
+      },
+      "t_rel": 59.8
+    },
+    {
+      "t": 1792140103.1944628,
+      "action": "arm",
+      "elapsed_ms": 1.5,
+      "result": {
+        "kill_switch": false
+      },
+      "t_rel": 89.8
+    },
+    {
+      "t": 1792140103.1960118,
+      "action": "resilience",
+      "elapsed_ms": 1.6,
+      "result": {
+        "retry": {
+          "enabled": false,
+          "max_attempts": 3,
+          "base_ms": 10,
+          "max_ms": 200
+        },
+        "circuit_breaker": {
+          "enabled": false,
+          "failure_threshold": 5,
+          "open_seconds": 2.0
+        },
+        "timeouts": {
+          "enabled": true,
+          "pool_timeout_s": 1.0,
+          "statement_ms": 2000,
+          "lock_ms": 250
+        },
+        "pool_check": {
+          "enabled": false
+        },
+        "cache": {
+          "enabled": false,
+          "ttl_s": 30,
+          "queries": [
+            "Q1",
+            "Q2"
+          ]
+        },
+        "bulkhead": {
+          "enabled": true,
+          "limits": {
+            "Q1": 50,
+            "Q2": 50,
+            "Q3": 3,
+            "Q4": 50,
+            "Q5": 50,
+            "report": 1
+          }
+        },
+        "pool_bulkhead": {
+          "enabled": false,
+          "queries": [
+            "Q1",
+            "Q2"
+          ]
+        },
+        "hedging": {
+          "enabled": false,
+          "after_ms": 40
+        },
+        "report_limits": {
+          "enabled": false,
+          "max_parallel_workers_per_gather": 0
+        }
+      },
+      "t_rel": 89.8
+    },
+    {
+      "t": 1792140133.1945462,
+      "action": "enable table_lock",
+      "elapsed_ms": 14.6,
+      "result": {
+        "name": "table_lock",
+        "family": "datos",
+        "description": "Contención de bloqueos: una transacción retiene un lock exclusivo sobre la tabla de franjas",
+        "active": true,
+        "params": {
+          "table": "logistica.franja_descargue",
+          "mode": "ACCESS EXCLUSIVE"
+        },
+        "defaults": {
+          "table": "logistica.franja_descargue",
+          "mode": "ACCESS EXCLUSIVE"
+        },
+        "enabled_at": 1792140133.207962,
+        "expires_at": null
+      },
+      "t_rel": 119.8
+    },
+    {
+      "t": 1792140163.1946344,
+      "action": "kill-switch",
+      "elapsed_ms": 47.3,
+      "result": {
+        "kill_switch": true,
+        "elapsed_ms": 37.6,
+        "errors": {},
+        "active": []
+      },
+      "t_rel": 149.8
+    }
+  ],
+  "recovery": {
+    "recuperacion": 6.2,
+    "recuperacion_correccion": 0.2
+  },
+  "predictions": [
+    {
+      "metric": "query_p95:Q1",
+      "phase": "falla",
+      "expect": ">=",
+      "value": 1000,
+      "observed": 28553.376,
+      "ok": true
+    },
+    {
+      "metric": "p95_ms",
+      "phase": "falla",
+      "expect": ">=",
+      "value": 1000,
+      "observed": 28352.431,
+      "ok": true
+    },
+    {
+      "metric": "query_p95:Q1",
+      "phase": "falla_correccion",
+      "relative_to": "baseline",
+      "mode": "ratio",
+      "expect": "<=",
+      "value": 1.5,
+      "observed": 1.12,
+      "ok": true
+    },
+    {
+      "metric": "error_rate",
+      "phase": "falla_correccion",
+      "expect": "between",
+      "low": 0.1,
+      "high": 0.25,
+      "observed": 0.1953,
+      "ok": true
+    }
+  ],
+  "host": {
+    "antes": {
+      "mem_available_mb": 5799,
+      "loadavg": [
+        "1.46",
+        "1.80",
+        "3.84"
+      ],
+      "cpu_mhz_median": 2310,
+      "ac_online": "1"
+    },
+    "despues": {
+      "mem_available_mb": 5593,
+      "loadavg": [
+        "1.36",
+        "1.58",
+        "3.37"
+      ],
+      "cpu_mhz_median": 2536,
+      "ac_online": "1"
+    }
+  },
+  "predictions_reevaluadas": [
+    {
+      "metric": "query_p95:Q1",
+      "phase": "falla",
+      "expect": ">=",
+      "value": 1000,
+      "observed": 28553.376,
+      "ok": true
+    },
+    {
+      "metric": "p95_ms",
+      "phase": "falla",
+      "expect": ">=",
+      "value": 1000,
+      "observed": 28352.431,
+      "ok": true
+    },
+    {
+      "metric": "query_p95:Q1",
+      "phase": "falla_correccion",
+      "relative_to": "baseline",
+      "mode": "ratio",
+      "expect": "<=",
+      "value": 1.5,
+      "observed": 1.12,
+      "ok": true
+    },
+    {
+      "metric": "error_rate",
+      "phase": "falla_correccion",
+      "expect": "between",
+      "low": 0.1,
+      "high": 0.25,
+      "observed": 0.1953,
+      "ok": true
+    }
+  ]
+}

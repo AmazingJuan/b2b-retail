@@ -1,0 +1,346 @@
+[
+ {
+  "trace_id": "e3518da06aff3acd77e8db5a527c5cbe",
+  "duration_ms": 31335.42,
+  "root": "GET /consultas/{query_id}",
+  "spans": [
+   {
+    "op": "GET /consultas/{query_id}",
+    "ms": 31335.42,
+    "offset_ms": 0.0,
+    "tags": {
+     "e3.query": "Q5",
+     "e3.scenario": "hot"
+    },
+    "events": []
+   },
+   {
+    "op": "consulta.intento",
+    "ms": 1723.2,
+    "offset_ms": 29610.51,
+    "tags": {
+     "pool.name": "app"
+    },
+    "events": []
+   },
+   {
+    "op": "pool.getconn",
+    "ms": 1721.17,
+    "offset_ms": 29610.6,
+    "tags": {
+     "pool.wait_ms": 1720.742
+    },
+    "events": []
+   },
+   {
+    "op": "SET",
+    "ms": 0.28,
+    "offset_ms": 31331.45,
+    "tags": {
+     "db.statement": "SET statement_timeout = 0; SET lock_timeout = 0"
+    },
+    "events": []
+   },
+   {
+    "op": "db.execute",
+    "ms": 1.83,
+    "offset_ms": 31331.82,
+    "tags": {
+     "db.statement": "SELECT id FROM ordenes.orden_compra WHERE proveedor_id = 1 ORDER BY creada_en DESC, id DESC LIMIT 50"
+    },
+    "events": []
+   },
+   {
+    "op": "SELECT",
+    "ms": 1.72,
+    "offset_ms": 31331.88,
+    "tags": {
+     "db.statement": "SELECT id FROM ordenes.orden_compra WHERE proveedor_id = 1 ORDER BY creada_en DESC, id DESC LIMIT 50"
+    },
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.04,
+    "offset_ms": 31334.37,
+    "tags": {},
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.01,
+    "offset_ms": 31334.56,
+    "tags": {},
+    "events": []
+   }
+  ]
+ },
+ {
+  "trace_id": "cfb201f412f75c59d3c6e1763a1f1653",
+  "duration_ms": 31327.56,
+  "root": "GET /consultas/{query_id}",
+  "spans": [
+   {
+    "op": "GET /consultas/{query_id}",
+    "ms": 31327.56,
+    "offset_ms": 0.0,
+    "tags": {
+     "e3.query": "Q1",
+     "e3.scenario": "hot"
+    },
+    "events": []
+   },
+   {
+    "op": "consulta.intento",
+    "ms": 1718.81,
+    "offset_ms": 29606.64,
+    "tags": {
+     "pool.name": "app"
+    },
+    "events": []
+   },
+   {
+    "op": "pool.getconn",
+    "ms": 1717.48,
+    "offset_ms": 29606.77,
+    "tags": {
+     "pool.wait_ms": 1717.517
+    },
+    "events": []
+   },
+   {
+    "op": "db.execute",
+    "ms": 1.1,
+    "offset_ms": 31324.31,
+    "tags": {
+     "db.statement": "SELECT id FROM proveedores.contrato WHERE proveedor_id = 1 AND inicia_en <= DATE '2026-09-20' AND vence_en >= DATE '2026-09-20' LIMIT 1"
+    },
+    "events": []
+   },
+   {
+    "op": "SELECT",
+    "ms": 0.98,
+    "offset_ms": 31324.39,
+    "tags": {
+     "db.statement": "SELECT id FROM proveedores.contrato WHERE proveedor_id = 1 AND inicia_en <= DATE '2026-09-20' AND vence_en >= DATE '2026-09-20' LIMIT 1"
+    },
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.02,
+    "offset_ms": 31327.12,
+    "tags": {},
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.01,
+    "offset_ms": 31327.22,
+    "tags": {},
+    "events": []
+   }
+  ]
+ },
+ {
+  "trace_id": "1951659c8d9a8bea1381e2d0676f45c9",
+  "duration_ms": 31325.18,
+  "root": "GET /consultas/{query_id}",
+  "spans": [
+   {
+    "op": "GET /consultas/{query_id}",
+    "ms": 31325.18,
+    "offset_ms": 0.0,
+    "tags": {
+     "e3.query": "Q4",
+     "e3.scenario": "hot"
+    },
+    "events": []
+   },
+   {
+    "op": "consulta.intento",
+    "ms": 1718.86,
+    "offset_ms": 29604.5,
+    "tags": {
+     "pool.name": "app"
+    },
+    "events": []
+   },
+   {
+    "op": "pool.getconn",
+    "ms": 1692.4,
+    "offset_ms": 29604.59,
+    "tags": {
+     "pool.wait_ms": 1692.442
+    },
+    "events": []
+   },
+   {
+    "op": "db.execute",
+    "ms": 26.29,
+    "offset_ms": 31297.03,
+    "tags": {
+     "db.statement": "SELECT proveedor_id, date_trunc('month', creada_en) AS mes, round(100.0 * avg((entregada_en <= prometida_en)::int), 2) AS otif_pct, round(100.0 * sum(cantidad_recibida) / NULLIF(sum(cantidad_solicitada), 0), 2) AS fill_rate_pct FROM ordenes.orden_compra WHERE proveedor_id = 1 GROUP BY proveedor_id, date_trunc('month', creada_en)"
+    },
+    "events": []
+   },
+   {
+    "op": "SELECT",
+    "ms": 26.18,
+    "offset_ms": 31297.07,
+    "tags": {
+     "db.statement": "SELECT proveedor_id, date_trunc('month', creada_en) AS mes, round(100.0 * avg((entregada_en <= prometida_en)::int), 2) AS otif_pct, round(100.0 * sum(cantidad_recibida) / NULLIF(sum(cantidad_solicitada), 0), 2) AS fill_rate_pct FROM ordenes.orden_compra WHERE proveedor_id = 1 GROUP BY proveedor_id, date_trunc('month', creada_en)"
+    },
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.03,
+    "offset_ms": 31323.94,
+    "tags": {},
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.01,
+    "offset_ms": 31324.09,
+    "tags": {},
+    "events": []
+   }
+  ]
+ },
+ {
+  "trace_id": "85e95904a302d55b8f2921bc13f966dc",
+  "duration_ms": 31324.67,
+  "root": "GET /consultas/{query_id}",
+  "spans": [
+   {
+    "op": "GET /consultas/{query_id}",
+    "ms": 31324.67,
+    "offset_ms": 0.0,
+    "tags": {
+     "e3.query": "Q3",
+     "e3.scenario": "hot"
+    },
+    "events": []
+   },
+   {
+    "op": "consulta.intento",
+    "ms": 1718.66,
+    "offset_ms": 29604.82,
+    "tags": {
+     "pool.name": "app"
+    },
+    "events": []
+   },
+   {
+    "op": "pool.getconn",
+    "ms": 1711.61,
+    "offset_ms": 29604.9,
+    "tags": {
+     "pool.wait_ms": 1711.619
+    },
+    "events": []
+   },
+   {
+    "op": "db.execute",
+    "ms": 6.87,
+    "offset_ms": 31316.57,
+    "tags": {
+     "db.statement": "SELECT id FROM logistica.franja_descargue WHERE cedi_id = 1 AND inicia_en::date = DATE '2026-09-20' AND reservadas < capacidad ORDER BY inicia_en"
+    },
+    "events": []
+   },
+   {
+    "op": "SELECT",
+    "ms": 6.77,
+    "offset_ms": 31316.64,
+    "tags": {
+     "db.statement": "SELECT id FROM logistica.franja_descargue WHERE cedi_id = 1 AND inicia_en::date = DATE '2026-09-20' AND reservadas < capacidad ORDER BY inicia_en"
+    },
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.04,
+    "offset_ms": 31324.03,
+    "tags": {},
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.01,
+    "offset_ms": 31324.2,
+    "tags": {},
+    "events": []
+   }
+  ]
+ },
+ {
+  "trace_id": "e9896439b94ec1f4fb8e127de1610392",
+  "duration_ms": 31317.2,
+  "root": "GET /consultas/{query_id}",
+  "spans": [
+   {
+    "op": "GET /consultas/{query_id}",
+    "ms": 31317.2,
+    "offset_ms": 0.0,
+    "tags": {
+     "e3.query": "Q2",
+     "e3.scenario": "hot"
+    },
+    "events": []
+   },
+   {
+    "op": "consulta.intento",
+    "ms": 1710.47,
+    "offset_ms": 29604.71,
+    "tags": {
+     "pool.name": "app"
+    },
+    "events": []
+   },
+   {
+    "op": "pool.getconn",
+    "ms": 1709.15,
+    "offset_ms": 29604.84,
+    "tags": {
+     "pool.wait_ms": 1709.196
+    },
+    "events": []
+   },
+   {
+    "op": "db.execute",
+    "ms": 1.11,
+    "offset_ms": 31314.04,
+    "tags": {
+     "db.statement": "SELECT id, precio FROM catalogo.sku WHERE proveedor_id = 1 AND vigente_desde <= DATE '2026-09-20' AND vigente_hasta >= DATE '2026-09-20' LIMIT 20"
+    },
+    "events": []
+   },
+   {
+    "op": "SELECT",
+    "ms": 1.03,
+    "offset_ms": 31314.09,
+    "tags": {
+     "db.statement": "SELECT id, precio FROM catalogo.sku WHERE proveedor_id = 1 AND vigente_desde <= DATE '2026-09-20' AND vigente_hasta >= DATE '2026-09-20' LIMIT 20"
+    },
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.03,
+    "offset_ms": 31316.25,
+    "tags": {},
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.02,
+    "offset_ms": 31316.41,
+    "tags": {},
+    "events": []
+   }
+  ]
+ }
+]

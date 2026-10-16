@@ -1,0 +1,107 @@
+{
+  "started_at": "2026-10-16T07:09:28.528085+00:00",
+  "finished_at": "2026-10-16T07:17:39.666768+00:00",
+  "faults_active": false,
+  "e2_reference": {
+    "commit": "d9d4910",
+    "measured_at": "2026-09-27",
+    "params": {
+      "seed": 42,
+      "orders": 510000,
+      "as_of_date": "2026-09-20"
+    }
+  },
+  "data": {
+    "manifest_e2": {
+      "seed": 42,
+      "as_of_date": "2026-09-20",
+      "orders": 510000,
+      "lines": 3066892,
+      "zipf_s": 1.08,
+      "catalog_top_pct": 0.1,
+      "catalog_top_concentration": 0.6,
+      "checksum_ordenes": "18bf26ccb930ce004875a9d1d3c2d79c9336ab97020e47276dbdaaf511c5acc5",
+      "checksums_csv": {
+        "contratos.csv": "4ab5cdc8bf51deb7f06e86858d0259794e15ecbe1f2084d10d3a8255eb03a61f",
+        "eventos.csv": "ae09d65c0070ce69d91ad6c0a700030cb7018906f6353a6f56b60de5808d35bd",
+        "franjas.csv": "80026fa9b0b9e17a1730f8170e46b502525f43d3474f7dbf2371a21d27ef7b0b",
+        "lineas.csv": "409123cd65f7586d7bf7089e7bdd960c5e14a075f4bde30e9585c68e5a77366f",
+        "ordenes.csv": "18bf26ccb930ce004875a9d1d3c2d79c9336ab97020e47276dbdaaf511c5acc5",
+        "proveedores.csv": "1902fa9f6bf6adb8edb0113b3729b72fa254e6b995007f0a0b15d6dacf6a0ece",
+        "skus.csv": "cb4f8038b618a22cdd022dbb6384c319c7bda69e039e6d781ddf493dd549839f"
+      }
+    },
+    "csv_checksums_ok": {
+      "contratos.csv": true,
+      "eventos.csv": true,
+      "franjas.csv": true,
+      "lineas.csv": true,
+      "ordenes.csv": true,
+      "proveedores.csv": true,
+      "skus.csv": true
+    }
+  },
+  "counts_after_load_and_route": {
+    "contratos": 16500,
+    "proveedores": 105000,
+    "franjas": 160000,
+    "skus": 420000,
+    "ordenes": 510000,
+    "eventos": 850000,
+    "lineas": 3066892
+  },
+  "determinism_checksum_first_10000_orders": "6dfada0e8cbfe1e90f9ff51e91a03642",
+  "load_timings": {
+    "db_reset_s": 0.399,
+    "copy_s": 272.349,
+    "analyze_s": 2.898
+  },
+  "postgres_settings": {
+    "effective_cache_size": "5242888kB",
+    "jit": "on",
+    "max_connections": "100",
+    "max_parallel_workers_per_gather": "2",
+    "random_page_cost": "4",
+    "server_version": "16.15",
+    "shared_buffers": "163848kB",
+    "TimeZone": "UTC",
+    "work_mem": "4096kB"
+  },
+  "environment": {
+    "host": "fedora",
+    "kernel": "7.2.8-200.fc44.x86_64",
+    "python": "3.14.7",
+    "cpu_count": 8,
+    "memoria": "MemTotal:       16083672 kB",
+    "cpu_model": "11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz",
+    "docker": "Docker version 29.8.2, build 7fc2dff",
+    "psql_cliente": "psql (PostgreSQL) 18.6",
+    "git_commit": "5df30555d2f488a38e4ea4280ee811ff6375ad33",
+    "git_branch": "entregable-3",
+    "imagen_postgres": "postgres:16-alpine (compose.yaml)",
+    "energia": {
+      "power_supply_status": {
+        "ucsi-source-psy-USBC000:002": "Not charging",
+        "ucsi-source-psy-USBC000:001": "Charging",
+        "BAT0": "Charging"
+      },
+      "ac_online": {
+        "ucsi-source-psy-USBC000:002": "0",
+        "ucsi-source-psy-USBC000:001": "1",
+        "AC": "1"
+      },
+      "governor": "powersave",
+      "energy_performance_preference": "balance_performance",
+      "cur_freq_khz": "1299986",
+      "max_freq_khz": "4800000"
+    },
+    "load_average": "2.18 2.38 2.71 2/2276 147922"
+  },
+  "conditions": {
+    "measure_executions_per_scenario": 200,
+    "repetitions": 3,
+    "cold": "proveedor_id=100000, cedi_id=5",
+    "hot": "proveedor_id=1, cedi_id=1",
+    "sequence": "db-reset -> COPY -> ANALYZE -> verify.sql -> ruta 5000 órdenes -> measure.py (igual que make datos + make medir del E2)"
+  }
+}

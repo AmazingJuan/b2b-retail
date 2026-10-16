@@ -1,0 +1,10 @@
+{"ts": "2026-10-16T08:34:22.104Z", "level": "INFO", "logger": "e3.faults", "msg": "fault_enabled", "trace_id": "36d124f71a2477dfe3b9f145c912bc24", "span_id": "eaeacd6fdf1367bb", "fault": "index_drop", "family": "datos", "params": {"schema": "ordenes", "index": "orden_proveedor_fecha_idx"}, "duration_s": null}
+{"ts": "2026-10-16T08:34:22.105Z", "level": "INFO", "logger": "e3", "msg": "admin_call", "method": "POST", "path": "/admin/faults/index_drop", "status": 200}
+{"ts": "2026-10-16T08:34:52.726Z", "level": "WARNING", "logger": "e3.faults", "msg": "kill_switch_engaged", "trace_id": "144a3891b6d6e149c35cfdef6a686716", "span_id": "b9c109bfc46c8bf8", "elapsed_ms": 647.1, "errors": {}}
+{"ts": "2026-10-16T08:34:52.728Z", "level": "INFO", "logger": "e3", "msg": "admin_call", "method": "POST", "path": "/admin/kill-switch", "status": 200}
+{"ts": "2026-10-16T08:35:22.079Z", "level": "INFO", "logger": "e3.faults", "msg": "faults_armed", "trace_id": "c1121fad764aaa0d54ef484b51dc50e3", "span_id": "a1211c7008609a56"}
+{"ts": "2026-10-16T08:35:22.079Z", "level": "INFO", "logger": "e3", "msg": "admin_call", "method": "POST", "path": "/admin/arm", "status": 200}
+{"ts": "2026-10-16T08:35:52.107Z", "level": "INFO", "logger": "e3.faults", "msg": "fault_enabled", "trace_id": "acc3f413f18a74ec4a02c966d6c51db4", "span_id": "dd2f70bb3ea96cea", "fault": "index_drop", "family": "datos", "params": {"schema": "ordenes", "index": "orden_proveedor_fecha_idx"}, "duration_s": null}
+{"ts": "2026-10-16T08:35:52.107Z", "level": "INFO", "logger": "e3", "msg": "admin_call", "method": "POST", "path": "/admin/faults/index_drop", "status": 200}
+{"ts": "2026-10-16T08:36:22.427Z", "level": "WARNING", "logger": "e3.faults", "msg": "kill_switch_engaged", "trace_id": "df09056667b88259baf49b02e3950681", "span_id": "15b56543a60e8df6", "elapsed_ms": 347.8, "errors": {}}
+{"ts": "2026-10-16T08:36:22.427Z", "level": "INFO", "logger": "e3", "msg": "admin_call", "method": "POST", "path": "/admin/kill-switch", "status": 200}

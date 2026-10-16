@@ -114,6 +114,10 @@ def main():
     call('POST', f'{API}/admin/kill-switch')
     call('POST', f'{API}/admin/resilience/reset')
     call('POST', f'{API}/admin/arm')
+    # Calentamiento: con el servicio recién levantado la primera sonda sale en frío (~33 ms vs ~6 ms)
+    # y ensucia el baseline de la primera falla.
+    for query in ('Q1', 'Q2', 'Q3', 'Q4', 'Q5'):
+        timed_queries(query, 30)
     boot = started_at()
     report = {'container_started_at': boot, 'faults': {}}
     for name, (params, probe, effect) in CASES.items():

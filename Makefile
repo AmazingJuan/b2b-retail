@@ -33,3 +33,47 @@ ruta: up
 clean:
 	$(COMPOSE) down -v
 	rm -rf datos/generated evidence/*.txt evidence/*.json evidence/plans
+
+# ============================================================================
+# ENTREGABLE 3 · Resiliencia y observabilidad (ver entregable3/README.md)
+# ============================================================================
+E3_COMPOSE := docker compose -f compose.yaml -f entregable3/compose.e3.yaml
+REPS ?= 3
+PHASE_S ?= 30
+EXP ?= all
+
+.PHONY: e3-up e3-down e3-momento1 e3-objetivos e3-verificar-fallas e3-experimentos e3-mejoras e3-revertir-mejoras e3-medicion-final e3-figuras e3-kill-switch
+
+e3-up:
+	$(E3_COMPOSE) up -d --build
+	until curl -sf localhost:8000/health >/dev/null; do sleep 1; done
+
+e3-down:
+	$(E3_COMPOSE) down
+
+e3-objetivos:
+	$(PYTHON) entregable3/scripts/objetivos.py
+
+e3-momento1: e3-objetivos
+	$(PYTHON) entregable3/scripts/momento1.py --repetitions $(REPS)
+
+e3-verificar-fallas:
+	$(PYTHON) entregable3/experiments/verificar_fallas.py
+
+e3-experimentos:
+	$(PYTHON) entregable3/experiments/run.py $(EXP) --reps $(REPS) --phase-s $(PHASE_S)
+
+e3-kill-switch:
+	curl -s -XPOST localhost:8000/admin/kill-switch
+
+e3-mejoras:
+	$(E3_COMPOSE) exec -T postgres psql -U retail -d retail -f /workspace/entregable3/sql/mejoras.sql
+
+e3-revertir-mejoras:
+	$(E3_COMPOSE) exec -T postgres psql -U retail -d retail -f /workspace/entregable3/sql/mejoras_revert.sql
+
+e3-medicion-final:
+	$(PYTHON) entregable3/scripts/medicion_final.py --repetitions $(REPS)
+
+e3-figuras:
+	$(PYTHON) entregable3/scripts/figuras.py

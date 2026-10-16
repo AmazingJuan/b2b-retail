@@ -1,0 +1,12 @@
+{"ts": "2026-10-16T08:15:17.863Z", "level": "INFO", "logger": "e3.faults", "msg": "fault_enabled", "trace_id": "536a7a058bc1444b5fa0863929de6aab", "span_id": "9314184cd6ac1053", "fault": "pool_shrink", "family": "recursos", "params": {"max_size": 1}, "duration_s": null}
+{"ts": "2026-10-16T08:15:17.863Z", "level": "INFO", "logger": "e3", "msg": "admin_call", "method": "POST", "path": "/admin/faults/pool_shrink", "status": 200}
+{"ts": "2026-10-16T08:15:47.864Z", "level": "WARNING", "logger": "e3.faults", "msg": "kill_switch_engaged", "trace_id": "4a17c16221fd860e4833ca3236684c24", "span_id": "630d79f861a1431a", "elapsed_ms": 0.1, "errors": {}}
+{"ts": "2026-10-16T08:15:47.865Z", "level": "INFO", "logger": "e3", "msg": "admin_call", "method": "POST", "path": "/admin/kill-switch", "status": 200}
+{"ts": "2026-10-16T08:16:17.863Z", "level": "INFO", "logger": "e3.faults", "msg": "faults_armed", "trace_id": "0c1a2b410f962410463f226d8d137ecb", "span_id": "ef68483196525928"}
+{"ts": "2026-10-16T08:16:17.863Z", "level": "INFO", "logger": "e3", "msg": "admin_call", "method": "POST", "path": "/admin/arm", "status": 200}
+{"ts": "2026-10-16T08:16:17.865Z", "level": "INFO", "logger": "e3", "msg": "resilience_updated", "trace_id": "b65642ecdfb788c471a66322ca31780b", "span_id": "5d2969319372f5ba", "patch": {"pool_bulkhead": {"enabled": true, "queries": ["Q1", "Q2"]}}}
+{"ts": "2026-10-16T08:16:17.866Z", "level": "INFO", "logger": "e3", "msg": "admin_call", "method": "PUT", "path": "/admin/resilience", "status": 200}
+{"ts": "2026-10-16T08:16:47.882Z", "level": "INFO", "logger": "e3.faults", "msg": "fault_enabled", "trace_id": "296b70505f1b4494070c40e79afb83a0", "span_id": "8f2460a22f7111c3", "fault": "pool_shrink", "family": "recursos", "params": {"max_size": 1}, "duration_s": null}
+{"ts": "2026-10-16T08:16:47.883Z", "level": "INFO", "logger": "e3", "msg": "admin_call", "method": "POST", "path": "/admin/faults/pool_shrink", "status": 200}
+{"ts": "2026-10-16T08:17:17.889Z", "level": "WARNING", "logger": "e3.faults", "msg": "kill_switch_engaged", "trace_id": "0c1b65afd8f1c86ee44f69115eb2ab00", "span_id": "c81221119112064b", "elapsed_ms": 0.1, "errors": {}}
+{"ts": "2026-10-16T08:17:17.890Z", "level": "INFO", "logger": "e3", "msg": "admin_call", "method": "POST", "path": "/admin/kill-switch", "status": 200}

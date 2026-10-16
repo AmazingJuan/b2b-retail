@@ -1,0 +1,451 @@
+{
+  "experiment": "E6",
+  "aggregate": {
+    "baseline": {
+      "p50_ms": {
+        "mean": 4.9623,
+        "sd": 0.0323,
+        "cv_pct": 0.6,
+        "values": [
+          5.007,
+          4.948,
+          4.932
+        ]
+      },
+      "p95_ms": {
+        "mean": 31.5843,
+        "sd": 2.7432,
+        "cv_pct": 8.7,
+        "values": [
+          31.427,
+          28.306,
+          35.02
+        ]
+      },
+      "p99_ms": {
+        "mean": 40.52,
+        "sd": 2.934,
+        "cv_pct": 7.2,
+        "values": [
+          39.086,
+          37.865,
+          44.609
+        ]
+      },
+      "error_rate": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "cv_pct": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "throughput_rps": {
+        "mean": 99.37,
+        "sd": 0.0,
+        "cv_pct": 0.0,
+        "values": [
+          99.37,
+          99.37,
+          99.37
+        ]
+      },
+      "mean_ms": {
+        "mean": 8.3393,
+        "sd": 0.3062,
+        "cv_pct": 3.7,
+        "values": [
+          8.361,
+          7.954,
+          8.703
+        ]
+      }
+    },
+    "falla": {
+      "p50_ms": {
+        "mean": 2598.694,
+        "sd": 3663.1228,
+        "cv_pct": 141.0,
+        "values": [
+          8.541,
+          7779.132,
+          8.409
+        ]
+      },
+      "p95_ms": {
+        "mean": 3216.8873,
+        "sd": 4343.9261,
+        "cv_pct": 135.0,
+        "values": [
+          155.585,
+          9360.115,
+          134.962
+        ]
+      },
+      "p99_ms": {
+        "mean": 3492.7643,
+        "sd": 4592.4818,
+        "cv_pct": 131.5,
+        "values": [
+          264.224,
+          9987.478,
+          226.591
+        ]
+      },
+      "error_rate": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "cv_pct": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "throughput_rps": {
+        "mean": 100.0,
+        "sd": 0.0,
+        "cv_pct": 0.0,
+        "values": [
+          100.0,
+          100.0,
+          100.0
+        ]
+      },
+      "mean_ms": {
+        "mean": 2194.7223,
+        "sd": 3057.6945,
+        "cv_pct": 139.3,
+        "values": [
+          33.994,
+          6518.955,
+          31.218
+        ]
+      }
+    },
+    "recuperacion": {
+      "p50_ms": {
+        "mean": 5.3777,
+        "sd": 0.5021,
+        "cv_pct": 9.3,
+        "values": [
+          4.97,
+          6.085,
+          5.078
+        ]
+      },
+      "p95_ms": {
+        "mean": 1535.1787,
+        "sd": 2120.3046,
+        "cv_pct": 138.1,
+        "values": [
+          42.657,
+          4533.732,
+          29.147
+        ]
+      },
+      "p99_ms": {
+        "mean": 1811.4697,
+        "sd": 2354.0379,
+        "cv_pct": 130.0,
+        "values": [
+          258.033,
+          5138.162,
+          38.214
+        ]
+      },
+      "error_rate": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "cv_pct": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "throughput_rps": {
+        "mean": 100.0,
+        "sd": 0.0,
+        "cv_pct": 0.0,
+        "values": [
+          100.0,
+          100.0,
+          100.0
+        ]
+      },
+      "mean_ms": {
+        "mean": 259.3753,
+        "sd": 350.8716,
+        "cv_pct": 135.3,
+        "values": [
+          14.357,
+          755.57,
+          8.199
+        ]
+      }
+    },
+    "correccion": {
+      "p50_ms": {
+        "mean": 5.0463,
+        "sd": 0.0417,
+        "cv_pct": 0.8,
+        "values": [
+          5.063,
+          4.989,
+          5.087
+        ]
+      },
+      "p95_ms": {
+        "mean": 30.4757,
+        "sd": 1.9879,
+        "cv_pct": 6.5,
+        "values": [
+          33.217,
+          29.645,
+          28.565
+        ]
+      },
+      "p99_ms": {
+        "mean": 40.1553,
+        "sd": 2.0381,
+        "cv_pct": 5.1,
+        "values": [
+          43.03,
+          38.537,
+          38.899
+        ]
+      },
+      "error_rate": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "cv_pct": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "throughput_rps": {
+        "mean": 100.0,
+        "sd": 0.0,
+        "cv_pct": 0.0,
+        "values": [
+          100.0,
+          100.0,
+          100.0
+        ]
+      },
+      "mean_ms": {
+        "mean": 8.3377,
+        "sd": 0.2041,
+        "cv_pct": 2.4,
+        "values": [
+          8.596,
+          8.097,
+          8.32
+        ]
+      }
+    },
+    "falla_correccion": {
+      "p50_ms": {
+        "mean": 3.0603,
+        "sd": 0.0684,
+        "cv_pct": 2.2,
+        "values": [
+          3.03,
+          2.996,
+          3.155
+        ]
+      },
+      "p95_ms": {
+        "mean": 39.2613,
+        "sd": 2.594,
+        "cv_pct": 6.6,
+        "values": [
+          40.342,
+          35.685,
+          41.757
+        ]
+      },
+      "p99_ms": {
+        "mean": 67.5193,
+        "sd": 22.0116,
+        "cv_pct": 32.6,
+        "values": [
+          54.203,
+          49.81,
+          98.545
+        ]
+      },
+      "error_rate": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "cv_pct": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "throughput_rps": {
+        "mean": 100.0,
+        "sd": 0.0,
+        "cv_pct": 0.0,
+        "values": [
+          100.0,
+          100.0,
+          100.0
+        ]
+      },
+      "mean_ms": {
+        "mean": 8.47,
+        "sd": 0.8307,
+        "cv_pct": 9.8,
+        "values": [
+          7.954,
+          7.814,
+          9.642
+        ]
+      }
+    },
+    "recuperacion_correccion": {
+      "p50_ms": {
+        "mean": 5.0503,
+        "sd": 0.063,
+        "cv_pct": 1.2,
+        "values": [
+          4.993,
+          5.02,
+          5.138
+        ]
+      },
+      "p95_ms": {
+        "mean": 33.8287,
+        "sd": 5.7899,
+        "cv_pct": 17.1,
+        "values": [
+          28.42,
+          31.209,
+          41.857
+        ]
+      },
+      "p99_ms": {
+        "mean": 48.5347,
+        "sd": 11.1077,
+        "cv_pct": 22.9,
+        "values": [
+          38.452,
+          43.144,
+          64.008
+        ]
+      },
+      "error_rate": {
+        "mean": 0.0,
+        "sd": 0.0,
+        "cv_pct": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "throughput_rps": {
+        "mean": 100.0,
+        "sd": 0.0,
+        "cv_pct": 0.0,
+        "values": [
+          100.0,
+          100.0,
+          100.0
+        ]
+      },
+      "mean_ms": {
+        "mean": 9.038,
+        "sd": 1.1323,
+        "cv_pct": 12.5,
+        "values": [
+          8.149,
+          8.329,
+          10.636
+        ]
+      }
+    }
+  },
+  "recovery": {
+    "recuperacion": [
+      3.2,
+      8.2,
+      0.2
+    ],
+    "recuperacion_correccion": [
+      0.2,
+      0.2,
+      4.2
+    ]
+  },
+  "predictions_per_rep": [
+    [
+      {
+        "metric": "p95_ms",
+        "phase": "falla",
+        "observed": 4.951,
+        "ok": true
+      },
+      {
+        "metric": "error_rate",
+        "phase": "falla",
+        "observed": 0.0,
+        "ok": true
+      },
+      {
+        "metric": "p95_ms",
+        "phase": "falla_correccion",
+        "observed": 1.284,
+        "ok": true
+      }
+    ],
+    [
+      {
+        "metric": "p95_ms",
+        "phase": "falla",
+        "observed": 330.676,
+        "ok": true
+      },
+      {
+        "metric": "error_rate",
+        "phase": "falla",
+        "observed": 0.0,
+        "ok": true
+      },
+      {
+        "metric": "p95_ms",
+        "phase": "falla_correccion",
+        "observed": 1.261,
+        "ok": true
+      }
+    ],
+    [
+      {
+        "metric": "p95_ms",
+        "phase": "falla",
+        "observed": 3.854,
+        "ok": true
+      },
+      {
+        "metric": "error_rate",
+        "phase": "falla",
+        "observed": 0.0,
+        "ok": true
+      },
+      {
+        "metric": "p95_ms",
+        "phase": "falla_correccion",
+        "observed": 1.192,
+        "ok": true
+      }
+    ]
+  ]
+}

@@ -75,6 +75,9 @@ services:
   jaeger:
     image: jaegertracing/all-in-one:1.62.0
     container_name: b2b-e3-jaeger
+    # Sin límite, el almacenamiento en memoria creció a 2,8 GB en 40 min (100 trazas/s) y agotó la RAM del host.
+    command: ["--memory.max-traces=20000"]
+    mem_limit: 768m
     environment:
       COLLECTOR_OTLP_ENABLED: "true"
     ports:
