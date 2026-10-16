@@ -13,6 +13,7 @@ from opentelemetry.instrumentation.psycopg import PsycopgInstrumentor
 from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
 from psycopg_pool import PoolTimeout
 
+from . import control_file
 from . import telemetry as t
 from .core import Engine
 from .faults import FaultsDisarmed, InjectedError
@@ -25,11 +26,30 @@ PsycopgInstrumentor().instrument(enable_commenter=False)
 engine = Engine()
 
 
+def apply_resilience(patch):
+    """Aplica un cambio de configuración de resiliencia (usado por la API y por el archivo de control)."""
+    snapshot = engine.config.update(patch)
+    engine.breaker.reset()
+    engine.cache.clear()
+    if patch.get('pool_bulkhead', {}).get('enabled'):
+        # El pool crítico está ocioso hasta que se activa: se verifican sus conexiones antes de usarlo.
+        engine.critical_pool.check()
+    t.log_event(log, 'resilience_updated', patch=patch)
+    return snapshot
+
+
+watcher = control_file.from_env(engine, apply_resilience)
+
+
 @asynccontextmanager
 async def lifespan(_app):
     engine.start()
     t.log_event(log, 'service_started', pool_size=engine.pool.max_size)
+    if watcher:
+        watcher.start()
     yield
+    if watcher:
+        watcher.stop()
     engine.stop()
 
 
@@ -102,7 +122,7 @@ async def metrics():
     return PlainTextResponse(generate_latest(), media_type=CONTENT_TYPE_LATEST)
 
 
-# ------------------------------------------------------------------ plano de control (async: responde aun con el threadpool saturado)
+# Plano de control (async: responde aun con el threadpool saturado)
 
 @app.get('/admin/state')
 async def state():
@@ -151,16 +171,9 @@ async def get_resilience():
 @app.put('/admin/resilience')
 async def put_resilience(patch: dict = Body(...)):
     try:
-        snapshot = engine.config.update(patch)
+        return await asyncio.to_thread(apply_resilience, patch)
     except KeyError as error:
         raise HTTPException(400, str(error)) from error
-    engine.breaker.reset()
-    engine.cache.clear()
-    if patch.get('pool_bulkhead', {}).get('enabled'):
-        # El pool crítico está ocioso hasta que se activa: se verifican sus conexiones antes de usarlo.
-        await asyncio.to_thread(engine.critical_pool.check)
-    t.log_event(log, 'resilience_updated', patch=patch)
-    return snapshot
 
 
 @app.post('/admin/resilience/reset')

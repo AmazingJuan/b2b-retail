@@ -72,6 +72,16 @@ curl -XPOST localhost:8000/admin/resilience/reset            # volver a la confi
 curl localhost:8000/admin/state                              # fallas, resiliencia, circuit breaker y pool
 ```
 
+### Archivo de control (`control/fallas.yml`)
+
+Las fallas y correcciones también se configuran editando `entregable3/control/fallas.yml`. La app lo
+revisa cada segundo (`FAULTS_FILE`, `FAULTS_POLL_S`) y aplica solo lo que cambió respecto de la versión
+anterior: `enabled: true` prende, un parámetro distinto la reaplica, `enabled: false` la apaga. Usa el
+mismo motor que la API (métricas, logs `control_file_applied`, kill switch y `duration_s`); un YAML
+inválido no aplica nada (`control_file_invalid`) y con el kill switch accionado no se prende nada
+(`control_file_rejected`). Lo que se activa por la API no se toca si el archivo no cambia esa entrada.
+`demo_vivo.sh` reúne los comandos equivalentes por la API para la demostración en vivo.
+
 También se puede activar el kill switch al arrancar con `FAULT_INJECTION_ENABLED=false`. Cada falla
 acepta `duration_s` (se desactiva sola, como protección).
 

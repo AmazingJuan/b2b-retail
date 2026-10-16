@@ -1,6 +1,4 @@
--- ============================================================================
 -- VERIFICACIÓN AUTOMÁTICA DEL CONJUNTO DE DATOS
--- ============================================================================
 
 -- 1. Conteo de entidades contra el volumen objetivo mínimo exigido
 SELECT 'proveedores' AS tabla, count(*) AS filas, 

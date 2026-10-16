@@ -76,7 +76,6 @@ class Engine:
             t.CRITICAL_POOL_AVAILABLE.set(critical.get('pool_available', 0))
             t.CRITICAL_POOL_WAITING.set(critical.get('requests_waiting', 0))
 
-    # ------------------------------------------------------------------ conexiones
 
     def _pool_for(self, query):
         bulkhead = self.config.get('pool_bulkhead')
@@ -93,9 +92,8 @@ class Engine:
                 waited = time.perf_counter() - started
                 t.POOL_WAIT.labels(query).observe(waited)
                 span.set_attribute('pool.wait_ms', round(waited * 1000, 3))
-            # Todo lo que ocurre entre getconn y el try/finally de _attempt debe devolver la conexión si falla:
-            # antes, un SET sobre una conexión muerta (p. ej. tras una partición) la dejaba fuera del pool para
-            # siempre (fuga). Tras una partición, el pool crítico (ocioso) perdía así todas sus conexiones.
+            # Si algo falla antes del try/finally de _attempt (p. ej. un SET sobre una conexión que murió en una
+            # partición), la conexión se devuelve aquí; si no, quedaría fuera del pool para siempre.
             try:
                 if self.config.get('pool_check')['enabled']:
                     try:
@@ -117,7 +115,6 @@ class Engine:
             conn.execute(f'SET statement_timeout = {int(desired[0])}; SET lock_timeout = {int(desired[1])}')
             conn._e3_settings = desired
 
-    # ------------------------------------------------------------------ un intento
 
     def _attempt(self, query, sql):
         with tracer.start_as_current_span('consulta.intento') as span:
@@ -169,7 +166,6 @@ class Engine:
                 last_error = future.exception()
         raise last_error
 
-    # ------------------------------------------------------------------ consulta completa
 
     def execute(self, query, provider, cedi):
         sql = render(query, provider, cedi)
@@ -224,7 +220,6 @@ class Engine:
             self.cache.put(cache_key, rows, cache_cfg['ttl_s'])
         return rows
 
-    # ------------------------------------------------------------------ reporte pesado (vecino ruidoso)
 
     def run_report(self):
         try:

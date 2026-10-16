@@ -34,6 +34,9 @@ services:
       TOXIPROXY_URL: http://toxiproxy:8474
       POOL_SIZE: "10"
       FAULT_INJECTION_ENABLED: "true"
+      # Archivo de control: editar entregable3/control/fallas.yml activa fallas y correcciones.
+      # Se monta la carpeta (no el archivo) para que los editores que guardan con rename funcionen.
+      FAULTS_FILE: /control/fallas.yml
       OTEL_SERVICE_NAME: b2b-e3-api
       OTEL_EXPORTER_OTLP_ENDPOINT: http://jaeger:4318
       # Muestreo de trazas: 1.0 en los experimentos (toda la evidencia); el estado corregido usa 0.1.
@@ -42,6 +45,8 @@ services:
       OTEL_TRACES_SAMPLER_ARG: ${E3_TRACE_RATIO:-1.0}
       OTEL_BSP_SCHEDULE_DELAY: ${E3_BSP_DELAY_MS:-5000}
       OTEL_BSP_MAX_EXPORT_BATCH_SIZE: ${E3_BSP_BATCH:-512}
+    volumes:
+      - ./entregable3/control:/control:ro
     ports:
       - "8000:8000"
     cpus: 2

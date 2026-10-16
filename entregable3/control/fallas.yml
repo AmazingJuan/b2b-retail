@@ -1,0 +1,63 @@
+# Archivo de control de fallas y correcciones del E3.
+#
+# La app revisa este archivo cada segundo. Al guardarlo, aplica SOLO lo que cambió:
+#   enabled: false -> true   prende la falla (o la corrección) con los parámetros de abajo
+#   cambiar un parámetro     la vuelve a aplicar con el valor nuevo
+#   enabled: true -> false   la apaga
+# Lo que no tocas no cambia (las fallas prendidas por la API /admin siguen como estaban).
+# Si el YAML queda mal escrito no se aplica nada y queda un log control_file_invalid.
+# Freno de emergencia: curl -XPOST localhost:8000/admin/kill-switch   (rearmar: /admin/arm)
+# duration_s (opcional) apaga la falla sola después de esos segundos.
+
+fallas:
+  # --- Red (Toxiproxy entre la API y PostgreSQL)
+  net_latency:
+    enabled: false
+    latency_ms: 30          # latencia agregada a cada viaje a la base
+    jitter_ms: 10
+  net_partition:
+    enabled: false          # corta la conexión a la base por completo
+    duration_s: 30
+
+  # --- Aplicación
+  app_error:
+    enabled: false
+    probability: 0.2        # fracción de solicitudes que responden 500
+  app_latency:
+    enabled: false
+    probability: 0.02       # fracción de solicitudes con pausa
+    delay_ms: 800
+
+  # --- Recursos
+  pool_shrink:
+    enabled: false
+    max_size: 2             # conexiones del pool que quedan utilizables (de 10)
+  noisy_neighbor:
+    enabled: false
+    sessions: 4             # reportes pesados en paralelo contra la base
+
+  # --- Datos
+  index_drop:
+    enabled: false          # borra ordenes.orden_proveedor_fecha_idx (se recrea al apagar)
+  table_lock:
+    enabled: false          # LOCK ACCESS EXCLUSIVE sobre logistica.franja_descargue
+    duration_s: 30
+
+resiliencia:
+  pool_bulkhead:            # pool aislado de 3 conexiones para Q1 y Q2
+    enabled: false
+  cache:                    # caché de contratos y precios (Q1, Q2)
+    enabled: false
+    ttl_s: 30
+  bulkhead:                 # máximo de solicitudes simultáneas por consulta; el exceso responde 429 al instante
+    enabled: false
+  timeouts:                 # espera máxima de pool, lock_timeout y statement_timeout
+    enabled: false
+    pool_timeout_s: 1.0
+  retry:                    # reintento con backoff exponencial y jitter
+    enabled: false
+  circuit_breaker:
+    enabled: false
+  hedging:                  # segundo intento si el primero no responde en after_ms
+    enabled: false
+    after_ms: 40

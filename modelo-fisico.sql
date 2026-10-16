@@ -1,13 +1,10 @@
--- ============================================================================
 -- MODELO FÍSICO DDL - PORTAL B2B RETAIL
--- ============================================================================
 -- Cumple aislamiento por esquemas funcionales (Bounded Contexts):
 -- 1. proveedores: Registro de entidades proveedoras y contratos marco de suministro.
 -- 2. catalogo: SKUs negociados bajo contratos vigentes con precios y vigencias.
 -- 3. ordenes: Cabeceras de orden de compra y detalle de líneas de producto.
 -- 4. logistica: Franjas horarias de descargue en Centros de Distribución (CEDI).
 -- 5. auditoria: Registro append-only transversal de trazabilidad operacional.
--- ============================================================================
 
 DROP SCHEMA IF EXISTS auditoria CASCADE;
 DROP SCHEMA IF EXISTS logistica CASCADE;
@@ -21,9 +18,7 @@ CREATE SCHEMA ordenes;
 CREATE SCHEMA logistica;
 CREATE SCHEMA auditoria;
 
--- ============================================================================
 -- ESQUEMA: proveedores
--- ============================================================================
 
 -- Proveedores comerciales registrados en la plataforma.
 -- id integer (4 bytes): Suficiente para escala de cientos de miles de proveedores.
@@ -49,9 +44,7 @@ ALTER TABLE proveedores.contrato ADD CONSTRAINT contrato_proveedor_fk FOREIGN KE
 -- Soporte directo a Q1 (validación de contrato vigente por proveedor_id y fecha).
 CREATE INDEX contrato_proveedor_vigencia_idx ON proveedores.contrato (proveedor_id, inicia_en, vence_en);
 
--- ============================================================================
 -- ESQUEMA: catalogo
--- ============================================================================
 
 -- SKUs con precios y periodos de vigencia pactados contractualmente.
 -- precio numeric(12,2): Precisión monetaria exacta sin errores de coma flotante.
@@ -70,9 +63,7 @@ ALTER TABLE catalogo.sku ADD CONSTRAINT sku_proveedor_fk FOREIGN KEY (proveedor_
 CREATE INDEX sku_proveedor_vigencia_idx ON catalogo.sku (proveedor_id, vigente_desde, vigente_hasta);
 CREATE INDEX sku_contrato_idx ON catalogo.sku (contrato_id);
 
--- ============================================================================
 -- ESQUEMA: ordenes
--- ============================================================================
 
 -- Cabecera de órdenes de compra emitidas a proveedores hacia un CEDI.
 -- cedi_id smallint (2 bytes): Soporta la red física de CEDIs (1 a 5) con mínimo footprint.
@@ -109,9 +100,7 @@ ALTER TABLE ordenes.linea_orden ADD CONSTRAINT linea_sku_fk FOREIGN KEY (sku_id)
 CREATE INDEX linea_orden_id_idx ON ordenes.linea_orden (orden_id);
 CREATE INDEX linea_sku_idx ON ordenes.linea_orden (sku_id);
 
--- ============================================================================
 -- ESQUEMA: logistica
--- ============================================================================
 
 -- Franjas horarias de descargue en muelles de CEDIs (recurso escaso y concurrente).
 -- capacidad y reservadas smallint (2 bytes): Contadores de muelle de bajo overhead.
@@ -126,9 +115,7 @@ CREATE TABLE logistica.franja_descargue (
 -- Soporte directo a Q3: disponibilidad de franjas por CEDI y fecha.
 CREATE INDEX franja_cedi_fecha_idx ON logistica.franja_descargue (cedi_id, inicia_en);
 
--- ============================================================================
 -- ESQUEMA: auditoria
--- ============================================================================
 
 -- Registro transversal inmutable (append-only) de eventos del dominio.
 -- id bigint (8 bytes): Secuencia extendida de eventos operacionales.

@@ -15,15 +15,13 @@ from pathlib import Path
 BASE_DATE = datetime(2024, 1, 1, tzinfo=timezone.utc)
 REFERENCE_DATE = date(2026, 9, 20)
 
-# ============================================================================
-# PARÁMETROS DE VOLUMEN (Superan el objetivo en todas las entidades)
-# ============================================================================
-PROVIDERS = 105_000   # Objetivo: 100.000 -> Superado (+5.000)
-CONTRACTS = 16_500    # Objetivo: 15.000  -> Superado (+1.500)
-SKUS = 420_000        # Objetivo: 400.000 -> Superado (+20.000)
-SLOTS = 160_000       # Objetivo: 150.000 -> Superado (+10.000)
-EVENTS = 850_000      # Objetivo: 800.000 -> Superado (+50.000)
-ORDERS = 510_000      # Objetivo: 500.000 -> Superado (+10.000)
+# Volumen generado; el comentario es el mínimo exigido.
+PROVIDERS = 105_000   # 100.000
+CONTRACTS = 16_500    # 15.000
+SKUS = 420_000        # 400.000
+SLOTS = 160_000       # 150.000
+EVENTS = 850_000      # 800.000
+ORDERS = 510_000      # 500.000
 
 # Parámetro de concentración Zipf para proveedores
 ZIPF_S = 1.08
@@ -78,7 +76,7 @@ def order_date(rng):
     month = 1 + (month_offset % 12)
     last_day = calendar.monthrange(year, month)[1]
 
-    # Calcular los días hábiles del mes (lunes=0 .. viernes=4)
+    # lunes=0 .. viernes=4
     all_days = list(range(1, last_day + 1))
     biz_days = [d for d in all_days if datetime(year, month, d).weekday() < 5]
     last_3_biz = set(biz_days[-3:])
@@ -130,7 +128,7 @@ def main():
     rng = random.Random(args.seed)
     args.output.mkdir(parents=True, exist_ok=True)
 
-    # 1. Proveedores: 105.000 filas
+    # 1. Proveedores
     print(f'Generando {PROVIDERS:,} proveedores...')
     write_csv(
         args.output / 'proveedores.csv',
@@ -138,7 +136,7 @@ def main():
         ((i, f'Proveedor {i:06d}', True, (BASE_DATE - timedelta(days=rng.randrange(3650))).date().isoformat()) for i in range(1, PROVIDERS + 1))
     )
 
-    # 2. Contratos: 16.500 filas
+    # 2. Contratos
     # Desfase: solo ~15.7% de proveedores tiene contrato marco activo.
     print(f'Generando {CONTRACTS:,} contratos de suministro...')
     contracts = []
@@ -156,7 +154,7 @@ def main():
         contracts.append((i, provider, start.isoformat(), end.isoformat(), 'vigente' if end >= args.as_of_date else 'vencido'))
     write_csv(args.output / 'contratos.csv', ['id', 'proveedor_id', 'inicia_en', 'vence_en', 'estado'], contracts)
 
-    # 3. SKUs negociados: 420.000 filas
+    # 3. SKUs negociados
     print(f'Generando {SKUS:,} SKUs negociados...')
     def sku_rows():
         for i in range(1, SKUS + 1):
@@ -166,7 +164,7 @@ def main():
             yield (i, contract_id, provider_id, f'{rng.uniform(5, 5000):.2f}', '2024-01-01', '2030-12-31')
     write_csv(args.output / 'skus.csv', ['id', 'contrato_id', 'proveedor_id', 'precio', 'vigente_desde', 'vigente_hasta'], sku_rows())
 
-    # 4. Franjas de descargue: 160.000 filas
+    # 4. Franjas de descargue
     print(f'Generando {SLOTS:,} franjas de descargue de CEDI...')
     write_csv(
         args.output / 'franjas.csv',
@@ -201,7 +199,7 @@ def main():
         if order_id <= EVENTS:
             audit_rows.append((order_id, 'orden', order_id, 'creada', created.isoformat(), json.dumps({'seed': args.seed, 'orden': order_id})))
 
-    # Completar eventos de auditoría hasta superar objetivo (850.000)
+    # Completar eventos de auditoría hasta EVENTS
     print(f'Generando {EVENTS:,} eventos de auditoría transversal...')
     while len(audit_rows) < EVENTS:
         event_id = len(audit_rows) + 1

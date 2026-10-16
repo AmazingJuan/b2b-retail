@@ -34,9 +34,7 @@ clean:
 	$(COMPOSE) down -v
 	rm -rf datos/generated evidence/*.txt evidence/*.json evidence/plans
 
-# ============================================================================
 # ENTREGABLE 3 · Resiliencia y observabilidad (ver entregable3/README.md)
-# ============================================================================
 E3_COMPOSE := docker compose -f compose.yaml -f entregable3/compose.e3.yaml
 REPS ?= 3
 PHASE_S ?= 30

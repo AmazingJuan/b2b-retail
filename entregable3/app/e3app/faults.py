@@ -80,7 +80,7 @@ class Fault:
                 'params': self.params, 'defaults': self.defaults, 'enabled_at': self.enabled_at, 'expires_at': self.expires_at}
 
 
-# ---------------------------------------------------------------- Familia: red (Toxiproxy entre app y BD)
+# Familia: red (Toxiproxy entre app y BD)
 
 class NetworkLatency(Fault):
     name, family = 'net_latency', 'red'
@@ -112,7 +112,7 @@ class NetworkPartition(Fault):
         toxiproxy('POST', f'/proxies/{TOXIPROXY_PROXY}', {'enabled': True})
 
 
-# ---------------------------------------------------------------- Familia: aplicación
+# Familia: aplicación
 
 class AppError(Fault):
     name, family = 'app_error', 'aplicacion'
@@ -138,7 +138,7 @@ class AppLatency(Fault):
         return False
 
 
-# ---------------------------------------------------------------- Familia: recursos
+# Familia: recursos
 
 class PoolShrink(Fault):
     """Fuga de conexiones: un componente defectuoso retiene conexiones y deja solo `max_size` utilizables.
@@ -188,15 +188,21 @@ class NoisyNeighbor(Fault):
 
     def _disable(self):
         self.stop.set()
-        # Cancela los reportes en curso para que el kill switch no espere a que terminen (~1-3 s cada uno).
+        # Cancela los reportes en curso para no esperar a que terminen (~1-3 s cada uno). Se repite
+        # hasta que los hilos salen: uno que esperaba conexión del pool puede lanzar un reporte más
+        # justo después de la primera cancelación. Tope de 5 s; un hilo rezagado solo termina su reporte.
+        deadline = time.monotonic() + 5
         with psycopg.connect(ADMIN_DSN, autocommit=True) as conn:
-            conn.execute("SELECT pg_cancel_backend(pid) FROM pg_stat_activity "
-                         "WHERE query LIKE 'SELECT sku_id, sum(cantidad%%' AND pid <> pg_backend_pid()")
-        for thread in self.threads:
-            thread.join(timeout=30)
+            while True:
+                conn.execute("SELECT pg_cancel_backend(pid) FROM pg_stat_activity "
+                             "WHERE query LIKE 'SELECT sku_id, sum(cantidad%%' AND pid <> pg_backend_pid()")
+                alive = [thread for thread in self.threads if thread.is_alive()]
+                if not alive or time.monotonic() > deadline:
+                    break
+                alive[0].join(timeout=0.3)
 
 
-# ---------------------------------------------------------------- Familia: datos / base de datos
+# Familia: datos / base de datos
 
 class IndexDrop(Fault):
     name, family = 'index_drop', 'datos'
@@ -211,6 +217,14 @@ class IndexDrop(Fault):
             conn.execute(f'DROP INDEX CONCURRENTLY IF EXISTS {qualified}')
 
     def _disable(self):
+        # CREATE INDEX CONCURRENTLY espera a que terminen las transacciones abiertas. table_lock y
+        # noisy_neighbor las retienen mientras están activas: si siguieran prendidas, la recreación
+        # quedaría esperando para siempre (y con ella el kill switch). Se apagan antes.
+        for blocker in ('table_lock', 'noisy_neighbor'):
+            fault = self.manager.faults[blocker]
+            if fault.active:
+                fault.disable()
+                log.warning('fault_disabled_for_index_rebuild', extra={'fields': {'fault': blocker}})
         definition = self.definition.replace('CREATE INDEX', 'CREATE INDEX CONCURRENTLY IF NOT EXISTS', 1)
         with psycopg.connect(ADMIN_DSN, autocommit=True) as conn:
             conn.execute(definition)
@@ -250,6 +264,19 @@ class TableLock(Fault):
 
 
 FAULT_TYPES = [NetworkLatency, NetworkPartition, AppError, AppLatency, PoolShrink, NoisyNeighbor, IndexDrop, TableLock]
+
+# Orden seguro para activar varias fallas a la vez y orden seguro para apagarlas (kill switch y
+# archivo de control). No son simplemente inversos:
+# - index_drop se activa primero y se apaga al final: DROP/CREATE INDEX CONCURRENTLY esperan a las
+#   transacciones abiertas, y table_lock y noisy_neighbor las retienen.
+# - pool_shrink se activa antes que noisy_neighbor (si no, los reportes ocupan el pool y la fuga no
+#   consigue sus conexiones) y se apaga antes también (libera el pool para que los hilos de reportes
+#   terminen en lugar de quedarse esperando conexión).
+# - table_lock se activa al final y se apaga primero: su transacción abierta bloquea a las demás.
+ENABLE_ORDER = ['index_drop', 'pool_shrink', 'noisy_neighbor', 'app_error', 'app_latency',
+                'net_latency', 'net_partition', 'table_lock']
+DISABLE_ORDER = ['table_lock', 'net_partition', 'net_latency', 'app_latency', 'app_error',
+                 'pool_shrink', 'noisy_neighbor', 'index_drop']
 
 
 class FaultManager:
@@ -298,7 +325,8 @@ class FaultManager:
         with self._lock:
             self.kill_switch = True
             t.KILL_SWITCH.set(1)
-            for name, fault in self.faults.items():
+            for name in DISABLE_ORDER:
+                fault = self.faults[name]
                 try:
                     fault.disable()
                 except Exception as error:  # noqa: BLE001 - el kill switch sigue con las demás

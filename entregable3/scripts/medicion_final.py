@@ -68,7 +68,7 @@ def route_ab(out_dir, runs=6):
             with open(E3 / 'sql' / ('mejoras.sql' if name == 'B' else 'mejoras_revert.sql')) as stream:
                 psql_db('retail_ruta', stdin=stream)
             out = out_dir / 'ruta_ab.json'
-            # A: ruta del E2 sin cambios; B: ruta corregida (asignación por rango, equivalente: tests/test_ruta_equivalente.py)
+            # A: ruta del E2 sin cambios; B: ruta corregida (asignación de franjas por rango)
             script = E3 / 'scripts/ruta_corregida.py' if name == 'B' else m1.REPO / 'scripts/application_route.py'
             m1.run([sys.executable, str(script), '--dsn', m1.DSN.replace('dbname=retail', 'dbname=retail_ruta'),
                     '--orders-csv', str(m1.DATA / 'ordenes.csv'), '--output', str(out)], cwd=m1.REPO, capture_output=True)

@@ -45,7 +45,6 @@ plt.rcParams.update({
 
 
 def psql_query(sql):
-    """Ejecuta una consulta SQL directamente en la base de datos PostgreSQL."""
     cmd = ['psql', DSN, '-X', '-q', '-t', '-A', '-c', sql]
     output = subprocess.check_output(cmd, text=True).strip()
     return output.splitlines() if output else []
@@ -59,7 +58,6 @@ def save(name):
 
 
 def volume_chart():
-    """Genera gráfico de volumen consultando directamente los conteos de la BD."""
     tables = [
         ('proveedores.proveedor', 'Proveedores'),
         ('proveedores.contrato', 'Contratos'),
@@ -91,7 +89,6 @@ def volume_chart():
 
 
 def load_chart():
-    """Genera comparativa de estrategias de carga a partir de load-strategies.json."""
     data = json.loads((EVIDENCE / 'load-strategies.json').read_text())['results']
     keys = ['copy', 'insert_batch_1000', 'insert_row_autocommit', 'application_transactional_route']
     labels = ['COPY\nmasivo', 'INSERT\nlotes de 1.000', 'INSERT\nfila a fila', 'Ruta\ntransaccional']
@@ -110,7 +107,6 @@ def load_chart():
 
 
 def percentile_chart():
-    """Genera percentiles p50, p95 y p99 para escenarios frío y caliente."""
     data = json.loads((EVIDENCE / 'metrics.json').read_text())['queries']
     query_ids = list(data.keys())
     percentiles = ['p50_ms', 'p95_ms', 'p99_ms']
@@ -138,7 +134,6 @@ def percentile_chart():
 
 
 def shape_chart():
-    """Genera curva temporal y distribución de líneas consultando la base de datos."""
     # 1. Órdenes por día desde la base de datos
     daily_rows = psql_query('SELECT creada_en::date, count(*) FROM ordenes.orden_compra GROUP BY creada_en::date ORDER BY creada_en::date;')
     daily_values = [int(r.split('|')[1]) for r in daily_rows]
@@ -149,7 +144,6 @@ def shape_chart():
 
     fig, axes = plt.subplots(1, 2, figsize=(9.2, 3.9))
 
-    # Gráfica temporal
     axes[0].plot(range(len(daily_values)), daily_values, color=TEAL, linewidth=1.4)
     axes[0].fill_between(range(len(daily_values)), daily_values, color=PALE)
     axes[0].set_title('Estacionalidad temporal (730 días)', color=NAVY, fontsize=11)
@@ -157,7 +151,6 @@ def shape_chart():
     axes[0].set_ylabel('Órdenes emitidas')
     axes[0].grid(axis='y', color=GRID, linewidth=0.8)
 
-    # Gráfica de colas de líneas
     bins = sorted(counts.keys())
     axes[1].bar([str(x) if x < 40 else '40+' for x in bins], [counts[x] for x in bins], color=AMBER)
     axes[1].set_title('Cola larga de líneas por orden (máx 300)', color=NAVY, fontsize=11)
@@ -171,7 +164,6 @@ def shape_chart():
 
 
 def zipf_chart():
-    """Genera gráfico adicional comparativo de distribución Zipf teórica vs observada."""
     data = psql_query('SELECT proveedor_id, count(*) AS total FROM ordenes.orden_compra GROUP BY proveedor_id ORDER BY total DESC LIMIT 100;')
     ranks = np.arange(1, len(data) + 1)
     observed = [int(r.split('|')[1]) for r in data]
