@@ -1,0 +1,107 @@
+{
+  "version": 2,
+  "nota": "Segundo ciclo de aprendizaje. Para los experimentos cuya predicción del ciclo 1 (experiments.json, commit 76af5f6) falló, se formula un modelo corregido con lo aprendido y se registra ANTES de volver a correr. Misma falla, misma corrección y misma carga que el ciclo 1; solo cambian la hipótesis y las verificaciones. Los resultados del ciclo 1 se conservan intactos en evidence/experimentos/.",
+  "experimentos": [
+    {
+      "id": "E2",
+      "familia": "red",
+      "titulo": "Partición de red app→PostgreSQL durante 30 s (ciclo 2)",
+      "aprendizaje_ciclo1": "Sin timeouts la partición no produjo errores sino esperas: solo los hilos que estaban dentro de getconn (a lo sumo 40, el threadpool de FastAPI) vencen a los 30 s; el resto espera un hilo sin timeout y termina bien al volver la red. Con 600 workers se obtuvieron los mismos 50 errores.",
+      "hipotesis": "El límite de errores lo pone el threadpool (40 hilos) y no el cliente: la tasa de error de la fase de falla será ≤ 5% (≤ 150 de 3000) con un p95 ≥ 20 s. Con circuit breaker + timeout de pool + verificación de conexión, la falla es inmediata (≥ 95% de errores, p99 ≤ 100 ms) y, a diferencia de lo predicho en el ciclo 1, la recuperación SÍ se acelera (≤ 5 s) porque la verificación descarta las conexiones rotas al volver la red.",
+      "load": {"rate": 100, "workers": 64},
+      "fault": {"name": "net_partition", "params": {}},
+      "correction": {
+        "descripcion": "Circuit breaker (5 fallas, abierto 2 s) + timeout de pool de 1 s + verificación de conexión + reintento (3 intentos).",
+        "resilience": {
+          "circuit_breaker": {"enabled": true, "failure_threshold": 5, "open_seconds": 2.0},
+          "timeouts": {"enabled": true, "pool_timeout_s": 1.0},
+          "pool_check": {"enabled": true},
+          "retry": {"enabled": true, "max_attempts": 3}
+        }
+      },
+      "prediccion": {
+        "texto": "Falla: error ≤ 5% y p95 ≥ 20 s; recuperación ≥ 5 s. Con corrección: error ≥ 95%, p99 ≤ 100 ms y recuperación ≤ 5 s.",
+        "checks": [
+          {"metric": "error_rate", "phase": "falla", "expect": "<=", "value": 0.05},
+          {"metric": "p95_ms", "phase": "falla", "expect": ">=", "value": 20000},
+          {"metric": "recovery_s", "phase": "recuperacion", "expect": ">=", "value": 5},
+          {"metric": "error_rate", "phase": "falla_correccion", "expect": ">=", "value": 0.95},
+          {"metric": "p99_ms", "phase": "falla_correccion", "expect": "<=", "value": 100},
+          {"metric": "recovery_s", "phase": "recuperacion_correccion", "expect": "<=", "value": 5}
+        ]
+      }
+    },
+    {
+      "id": "E3",
+      "familia": "aplicacion",
+      "titulo": "Excepciones intermitentes (20%) (ciclo 2)",
+      "aprendizaje_ciclo1": "La única predicción fallida fue el costo nulo del reintento sin falla: el margen ±15% era más estrecho que la variación entre fases sin cambios (p95 de 28 a 44 ms en fases idénticas, ±30%).",
+      "hipotesis": "El reintento no tiene costo sin falla, pero hay que compararlo con un margen del tamaño del ruido observado entre fases idénticas (±35%). El resto del modelo se mantiene.",
+      "load": {"rate": 100, "workers": 64},
+      "fault": {"name": "app_error", "params": {"probability": 0.2}},
+      "correction": {
+        "descripcion": "Reintento con backoff exponencial y jitter completo (3 intentos, base 10 ms, tope 200 ms).",
+        "resilience": {"retry": {"enabled": true, "max_attempts": 3, "base_ms": 10, "max_ms": 200}}
+      },
+      "prediccion": {
+        "texto": "Falla: error 17–23%, p50 ±3 ms. Con reintentos: error ≤ 1,5%, p99 ≤ baseline + 40 ms. Sin falla, p95 con reintento entre 0,65× y 1,35× del baseline.",
+        "checks": [
+          {"metric": "error_rate", "phase": "falla", "expect": "between", "low": 0.17, "high": 0.23},
+          {"metric": "p50_ms", "phase": "falla", "relative_to": "baseline", "mode": "delta", "expect": "between", "low": -3, "high": 3},
+          {"metric": "error_rate", "phase": "falla_correccion", "expect": "<=", "value": 0.015},
+          {"metric": "p99_ms", "phase": "falla_correccion", "relative_to": "baseline", "mode": "delta", "expect": "<=", "value": 40},
+          {"metric": "p95_ms", "phase": "correccion", "relative_to": "baseline", "mode": "ratio", "expect": "between", "low": 0.65, "high": 1.35}
+        ]
+      }
+    },
+    {
+      "id": "E5",
+      "familia": "recursos",
+      "titulo": "Fuga de conexiones: 1 de 10 conexiones utilizable (ciclo 2)",
+      "aprendizaje_ciclo1": "El p95 global solo subió 6–21% porque lo dominan Q3/Q4 (~40 ms), pero el p95 de Q1 se multiplicó por 3,4–4,1: las consultas rápidas esperan la única conexión detrás de las lentas. Con el pool aislado, Q1/Q2 volvieron a 0,92–1,14×; Q4 no se degradó 2× porque su propia duración domina su espera.",
+      "hipotesis": "La fuga castiga a las consultas rápidas: el p95 de Q1 sube ≥ 2,5× mientras el p95 global sube < 1,4×. El bulkhead de conexiones devuelve Q1/Q2 a ≤ 1,3× y deja a Q4 cerca de su baseline (0,8–1,5×), porque su propia duración domina su espera.",
+      "load": {"rate": 100, "workers": 64},
+      "fault": {"name": "pool_shrink", "params": {"max_size": 1}},
+      "correction": {
+        "descripcion": "Bulkhead de conexiones: Q1 y Q2 usan un pool dedicado de 3 conexiones aislado del pool general.",
+        "resilience": {"pool_bulkhead": {"enabled": true, "queries": ["Q1", "Q2"]}}
+      },
+      "prediccion": {
+        "texto": "Falla: p95 de Q1 ≥ 2,5× y p95 global entre 1,0× y 1,4×, 0% errores. Con bulkhead: Q1 y Q2 ≤ 1,3×; Q4 entre 0,8× y 1,5×.",
+        "checks": [
+          {"metric": "query_p95:Q1", "phase": "falla", "relative_to": "baseline", "mode": "ratio", "expect": ">=", "value": 2.5},
+          {"metric": "p95_ms", "phase": "falla", "relative_to": "baseline", "mode": "ratio", "expect": "between", "low": 1.0, "high": 1.4},
+          {"metric": "error_rate", "phase": "falla", "expect": "<=", "value": 0.01},
+          {"metric": "query_p95:Q1", "phase": "falla_correccion", "relative_to": "baseline", "mode": "ratio", "expect": "<=", "value": 1.3},
+          {"metric": "query_p95:Q2", "phase": "falla_correccion", "relative_to": "baseline", "mode": "ratio", "expect": "<=", "value": 1.3},
+          {"metric": "query_p95:Q4", "phase": "falla_correccion", "relative_to": "baseline", "mode": "ratio", "expect": "between", "low": 0.8, "high": 1.5}
+        ]
+      }
+    },
+    {
+      "id": "E7",
+      "familia": "datos",
+      "titulo": "Regresión de esquema: se elimina orden_proveedor_fecha_idx (ciclo 2)",
+      "aprendizaje_ciclo1": "(1) Q1 se frenó 1,4–1,9× aunque no toca orden_compra: los seq scans paralelos de Q5 consumen CPU compartida de PostgreSQL (0,6 → 2,6 cores). (2) La mediana de Q4 en la mezcla frío/caliente es bimodal; por escenario, Q4 caliente mejora 25–30% y Q4 fría no cambia.",
+      "hipotesis": "Sin el índice, Q5 se degrada ≥ 3× y Q1 también se frena (1,1–2,5×) por la CPU compartida. Con los índices de cobertura y sin falla, Q4 caliente baja ≥ 15% su p50 y Q4 fría queda igual (0,8–1,25×). Con falla y corrección, Q5 queda ≤ 1,3×.",
+      "load": {"rate": 100, "workers": 64},
+      "fault": {"name": "index_drop", "params": {}},
+      "correction": {
+        "descripcion": "Índices de cobertura (sql/mejoras.sql).",
+        "sql_apply": "sql/mejoras.sql",
+        "sql_revert": "sql/mejoras_revert.sql"
+      },
+      "prediccion": {
+        "texto": "Falla: p95 de Q5 ≥ 3×, p95 de Q1 entre 1,1× y 2,5×, recuperación ≤ 5 s. Con corrección: p50 de Q4 caliente ≤ 0,85×, p50 de Q4 fría entre 0,8× y 1,25×; con falla y corrección, Q5 ≤ 1,3×.",
+        "checks": [
+          {"metric": "query_p95:Q5", "phase": "falla", "relative_to": "baseline", "mode": "ratio", "expect": ">=", "value": 3},
+          {"metric": "query_p95:Q1", "phase": "falla", "relative_to": "baseline", "mode": "ratio", "expect": "between", "low": 1.1, "high": 2.5},
+          {"metric": "recovery_s", "phase": "recuperacion", "expect": "<=", "value": 5},
+          {"metric": "qs_p50:Q4/hot", "phase": "correccion", "relative_to": "baseline", "mode": "ratio", "expect": "<=", "value": 0.85},
+          {"metric": "qs_p50:Q4/cold", "phase": "correccion", "relative_to": "baseline", "mode": "ratio", "expect": "between", "low": 0.8, "high": 1.25},
+          {"metric": "query_p95:Q5", "phase": "falla_correccion", "relative_to": "baseline", "mode": "ratio", "expect": "<=", "value": 1.3}
+        ]
+      }
+    }
+  ]
+}
