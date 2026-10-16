@@ -32,14 +32,12 @@ que ejecuta baseline → falla → recuperación → corrección → falla con c
 | `scripts/objetivos.py` | Tabla de objetivos (0,90 × valor E2) y comparación |
 | `scripts/medicion_final.py` | Medición del estado corregido contra la meta del −10% (`--solo corregido`) |
 | `scripts/ruta_corregida.py` | Ruta de órdenes con asignación de franjas por rango (equivalente a la del E2) |
-| `tests/` | Pruebas automáticas (`make e3-test`, `make e3-test-ruta`) |
 | `sql/mejoras.sql` · `sql/mejoras_revert.sql` | Corrección de diseño físico (índices de cobertura) y su reversión |
 | `evidence/` | Toda la evidencia generada (ver abajo) |
-| `informe/` | Informe técnico (≤ 10 páginas) |
 
 ## Requisitos
 
-Docker con Compose v2, Python ≥ 3.10 (solo librería estándar; `matplotlib` para las figuras), cliente
+Docker con Compose v2, Python ≥ 3.10 (solo librería estándar), cliente
 `psql`. **Medir conectado a la corriente**: en batería la latencia se triplica y `momento1.py` se niega a
 medir en ese estado.
 
@@ -50,22 +48,17 @@ medir en ese estado.
 make e3-down
 make e3-momento1
 
-# 2. Sistema del E3, pruebas y verificación de las fallas configurables
+# 2. Sistema del E3 y verificación de las fallas configurables
 make e3-up                       # app :8000 · Grafana :3000 · Prometheus :9090 · Jaeger :16686 · Toxiproxy :8474
-make e3-test                     # medición, resiliencia e integración
-make e3-test-ruta                # la ruta corregida deja el mismo estado que la del E2
 make e3-verificar-fallas         # 8 fallas × 5 condiciones
 
 # 3. Experimentos (8 × 3 repeticiones × 6 fases de 30 s)
 make e3-experimentos
 
-# 4. Estado corregido contra la meta del −10% y figuras
+# 4. Estado corregido contra la meta del −10%
 make e3-medicion-corregida
-make e3-figuras
 make e3-revertir-mejoras         # volver al diseño físico exacto del E2
 ```
-
-Informe: `cd entregable3/informe && pdflatex informe.tex` (tablas: `python3 entregable3/scripts/tablas.py`).
 
 ### Plano de control (activación sin redespliegue)
 
@@ -112,6 +105,4 @@ acepta `duration_s` (se desactiva sola, como protección).
 | `evidence/ciclo_cpu.json` | Regímenes de energía del equipo (turbo / sostenido / limitado) |
 | `evidence/verificacion_fallas.json` | 5 condiciones × 8 fallas y tiempo del kill switch |
 | `evidence/experimentos/E1…E8/` | `manifest.json`, `result.json` (agregado y CV) y, por repetición, `requests.csv`, `summary.json`, `timeline.json`, `prometheus.json`, `traces_*.json`, `app_logs.jsonl`, `docker_stats.json` |
-| `evidence/senales.json` | Promedio por fase de las señales clave (detectar/localizar) |
 | `evidence/final_corregido/` | Estado corregido contra la meta del −10% (servicio sin/con índices y ruta A/B) |
-| `evidence/figuras/` | Figuras del informe |

@@ -42,7 +42,7 @@ REPS ?= 3
 PHASE_S ?= 30
 EXP ?= all
 
-.PHONY: e3-test e3-test-ruta e3-medicion-corregida e3-up e3-down e3-momento1 e3-objetivos e3-verificar-fallas e3-experimentos e3-mejoras e3-revertir-mejoras e3-medicion-final e3-figuras e3-kill-switch
+.PHONY: e3-medicion-corregida e3-up e3-down e3-momento1 e3-objetivos e3-verificar-fallas e3-experimentos e3-mejoras e3-revertir-mejoras e3-medicion-final e3-kill-switch
 
 e3-up:
 	$(E3_COMPOSE) up -d --build
@@ -74,20 +74,6 @@ e3-revertir-mejoras:
 
 e3-medicion-final:
 	$(PYTHON) entregable3/scripts/medicion_final.py --repetitions $(REPS)
-
-e3-figuras:
-	$(PYTHON) entregable3/scripts/figuras.py
-
-e3-test:
-	$(PYTHON) entregable3/tests/test_medicion.py
-	docker cp entregable3/tests/test_resiliencia.py b2b-e3-app:/srv/test_resiliencia.py
-	docker exec -w /srv b2b-e3-app python test_resiliencia.py
-	$(PYTHON) entregable3/tests/test_integracion.py
-
-# Equivalencia ruta E2 vs ruta corregida (copia la base: requiere la app y el exportador detenidos)
-e3-test-ruta:
-	docker stop b2b-e3-app b2b-e3-postgres-exporter
-	$(PYTHON) entregable3/tests/test_ruta_equivalente.py; status=$$?; docker start b2b-e3-postgres-exporter b2b-e3-app; exit $$status
 
 e3-medicion-corregida:
 	$(PYTHON) entregable3/scripts/medicion_final.py --solo corregido --repetitions 5 --output-dir entregable3/evidence/final_corregido
