@@ -93,7 +93,8 @@ def reporte():
 
 @app.get('/health')
 async def health():
-    return {'status': 'ok', 'pool': engine.pool.get_stats(), 'active_faults': engine.faults.active()}
+    return {'status': 'ok', 'pool': engine.pool.get_stats(), 'critical_pool': engine.critical_pool.get_stats(),
+            'active_faults': engine.faults.active()}
 
 
 @app.get('/metrics')
@@ -155,6 +156,9 @@ async def put_resilience(patch: dict = Body(...)):
         raise HTTPException(400, str(error)) from error
     engine.breaker.reset()
     engine.cache.clear()
+    if patch.get('pool_bulkhead', {}).get('enabled'):
+        # El pool crítico está ocioso hasta que se activa: se verifican sus conexiones antes de usarlo.
+        await asyncio.to_thread(engine.critical_pool.check)
     t.log_event(log, 'resilience_updated', patch=patch)
     return snapshot
 

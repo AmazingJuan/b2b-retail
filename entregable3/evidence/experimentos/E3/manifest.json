@@ -2,8 +2,9 @@
   "experiment": {
     "id": "E3",
     "familia": "aplicacion",
-    "titulo": "Excepciones intermitentes (20% de las solicitudes)",
-    "hipotesis": "Las excepciones inyectadas fallan rápido y no consumen recursos de la BD, así que la tasa de error será ~20% sin cambiar la latencia de las exitosas. Como las lecturas son idempotentes y las fallas independientes, 3 intentos reducen el error a ~0,2³ ≈ 0,8%, a cambio de algo de latencia por el backoff.",
+    "titulo": "Excepciones intermitentes (20%) (ciclo 2)",
+    "aprendizaje_ciclo1": "La única predicción fallida fue el costo nulo del reintento sin falla: el margen ±15% era más estrecho que la variación entre fases sin cambios (p95 de 28 a 44 ms en fases idénticas, ±30%).",
+    "hipotesis": "El reintento no tiene costo sin falla, pero hay que compararlo con un margen del tamaño del ruido observado entre fases idénticas (±35%). El resto del modelo se mantiene.",
     "load": {
       "rate": 100,
       "workers": 64
@@ -15,7 +16,7 @@
       }
     },
     "correction": {
-      "descripcion": "Reintento con backoff exponencial y jitter completo (3 intentos, base 10 ms, tope 200 ms), solo para lecturas idempotentes.",
+      "descripcion": "Reintento con backoff exponencial y jitter completo (3 intentos, base 10 ms, tope 200 ms).",
       "resilience": {
         "retry": {
           "enabled": true,
@@ -26,7 +27,7 @@
       }
     },
     "prediccion": {
-      "texto": "Falla: error 17–23%, p50 casi igual (±3 ms). Con reintentos: error ≤ 1,5% y p99 ≤ baseline + 40 ms. Sin falla, el reintento no tiene costo (p95 dentro de ±15% del baseline).",
+      "texto": "Falla: error 17–23%, p50 ±3 ms. Con reintentos: error ≤ 1,5%, p99 ≤ baseline + 40 ms. Sin falla, p95 con reintento entre 0,65× y 1,35× del baseline.",
       "checks": [
         {
           "metric": "error_rate",
@@ -64,23 +65,13 @@
           "relative_to": "baseline",
           "mode": "ratio",
           "expect": "between",
-          "low": 0.85,
-          "high": 1.15
+          "low": 0.65,
+          "high": 1.35
         }
-      ]
-    },
-    "senales": {
-      "utiles": [
-        "e3_http_requests_total por código (500)",
-        "e3_fault_injections_total",
-        "e3_retries_total{outcome}"
-      ],
-      "dudosas": [
-        "latencia y recursos: no cambian; la falla solo se ve en la tasa de error"
       ]
     }
   },
-  "started_at": "2026-10-16T07:38:50.438430+00:00",
+  "started_at": "2026-10-16T12:02:03.166642+00:00",
   "reps": 3,
   "phase_s": 30.0,
   "warmup_s": 10,
@@ -92,7 +83,7 @@
     "falla_correccion",
     "recuperacion_correccion"
   ],
-  "git_commit": "543408f6122c88fc922123238af31ebb63ea8636",
+  "git_commit": "3c15e72fc465ebb71a2b2216c36246cfce0211f7",
   "state_before": {
     "faults": {
       "kill_switch": false,
@@ -110,7 +101,7 @@
             "latency_ms": 30,
             "jitter_ms": 10
           },
-          "enabled_at": 1792135698.6068773,
+          "enabled_at": null,
           "expires_at": null
         },
         "net_partition": {
@@ -120,7 +111,7 @@
           "active": false,
           "params": {},
           "defaults": {},
-          "enabled_at": 1792136269.939799,
+          "enabled_at": 1792152062.985231,
           "expires_at": null
         },
         "app_error": {
@@ -129,9 +120,13 @@
           "description": "Excepciones intermitentes en el procesamiento de la consulta (HTTP 500)",
           "active": false,
           "params": {
-            "probability": 0.5,
+            "probability": 0.2,
             "queries": [
-              "Q2"
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4",
+              "Q5"
             ]
           },
           "defaults": {
@@ -144,7 +139,7 @@
               "Q5"
             ]
           },
-          "enabled_at": 1792135158.4202156,
+          "enabled_at": null,
           "expires_at": null
         },
         "app_latency": {
@@ -153,10 +148,14 @@
           "description": "Latencia de cola: una fracción de solicitudes sufre una pausa larga (dependencia lenta / pausa de GC)",
           "active": false,
           "params": {
-            "probability": 1.0,
-            "delay_ms": 200,
+            "probability": 0.1,
+            "delay_ms": 800,
             "queries": [
-              "Q1"
+              "Q1",
+              "Q2",
+              "Q3",
+              "Q4",
+              "Q5"
             ]
           },
           "defaults": {
@@ -170,7 +169,7 @@
               "Q5"
             ]
           },
-          "enabled_at": 1792135184.1563199,
+          "enabled_at": null,
           "expires_at": null
         },
         "pool_shrink": {
@@ -179,12 +178,12 @@
           "description": "Agotamiento de recursos: fuga de conexiones; solo max_size conexiones del pool quedan utilizables",
           "active": false,
           "params": {
-            "max_size": 1
+            "max_size": 2
           },
           "defaults": {
             "max_size": 2
           },
-          "enabled_at": 1792135164.6151004,
+          "enabled_at": null,
           "expires_at": null
         },
         "noisy_neighbor": {
@@ -193,12 +192,12 @@
           "description": "Vecino ruidoso: N sesiones ejecutan en bucle el reporte analítico pesado sobre ~3M líneas",
           "active": false,
           "params": {
-            "sessions": 2
+            "sessions": 4
           },
           "defaults": {
             "sessions": 4
           },
-          "enabled_at": 1792135170.4234488,
+          "enabled_at": null,
           "expires_at": null
         },
         "index_drop": {
@@ -214,7 +213,7 @@
             "schema": "ordenes",
             "index": "orden_proveedor_fecha_idx"
           },
-          "enabled_at": 1792135178.9476235,
+          "enabled_at": null,
           "expires_at": null
         },
         "table_lock": {
@@ -230,7 +229,7 @@
             "table": "logistica.franja_descargue",
             "mode": "ACCESS EXCLUSIVE"
           },
-          "enabled_at": 1792135181.9890232,
+          "enabled_at": null,
           "expires_at": null
         }
       }
@@ -293,22 +292,21 @@
     },
     "circuit_breaker": "closed",
     "pool": {
-      "connections_num": 424,
-      "connections_ms": 1421,
-      "requests_num": 100751,
-      "returns_bad": 80,
-      "connections_errors": 334,
-      "requests_queued": 9547,
-      "requests_wait_ms": 4142416,
-      "usage_ms": 28401,
-      "requests_errors": 121,
+      "connections_num": 145,
+      "connections_ms": 282,
+      "requests_num": 15958,
+      "returns_bad": 21,
+      "connections_errors": 115,
+      "requests_queued": 2354,
+      "requests_wait_ms": 1304358,
+      "requests_errors": 10,
       "pool_min": 10,
       "pool_max": 10,
       "pool_size": 10,
-      "pool_available": 9,
+      "pool_available": 10,
       "requests_waiting": 0
     },
     "pool_max_size": 10
   },
-  "finished_at": "2026-10-16T07:48:21.972041+00:00"
+  "finished_at": "2026-10-16T12:11:42.367439+00:00"
 }

@@ -50,6 +50,36 @@ def strict_method(out_dir, repetitions, executions):
     return metrics
 
 
+def psql_db(db, *args, stdin=None):
+    return subprocess.run(['docker', 'exec', '-i', 'b2b-retail-postgres', 'psql', '-U', 'retail', '-d', db, '-q', '-v', 'ON_ERROR_STOP=1', *args],
+                          check=True, capture_output=True, stdin=stdin)
+
+
+def route_ab(out_dir, runs=6):
+    """Ruta de 5000 órdenes sobre copias de la base recién cargada. A = ruta del E2 (scripts/application_route.py,
+    sin cambios) con el diseño físico del E2; B = ruta corregida + sql/mejoras.sql. Orden ABBA… para repartir
+    la deriva del host."""
+    results = {'A': [], 'B': []}
+    order = [('A', 'B') if i % 2 == 0 else ('B', 'A') for i in range(runs)]
+    for pair in order:
+        for name in pair:
+            psql_db('postgres', '-c', 'DROP DATABASE IF EXISTS retail_ruta')
+            psql_db('postgres', '-c', 'CREATE DATABASE retail_ruta TEMPLATE retail_base STRATEGY FILE_COPY')
+            with open(E3 / 'sql' / ('mejoras.sql' if name == 'B' else 'mejoras_revert.sql')) as stream:
+                psql_db('retail_ruta', stdin=stream)
+            out = out_dir / 'ruta_ab.json'
+            # A: ruta del E2 sin cambios; B: ruta corregida (asignación por rango, equivalente: tests/test_ruta_equivalente.py)
+            script = E3 / 'scripts/ruta_corregida.py' if name == 'B' else m1.REPO / 'scripts/application_route.py'
+            m1.run([sys.executable, str(script), '--dsn', m1.DSN.replace('dbname=retail', 'dbname=retail_ruta'),
+                    '--orders-csv', str(m1.DATA / 'ordenes.csv'), '--output', str(out)], cwd=m1.REPO, capture_output=True)
+            results[name].append(json.loads(out.read_text())['seconds'])
+    psql_db('postgres', '-c', 'DROP DATABASE IF EXISTS retail_ruta')
+    summary = {k: {'corridas': v, 'mediana': round(statistics.median(v), 3)} for k, v in results.items()}
+    (out_dir / 'ruta_ab.json').write_text(json.dumps(summary, indent=2, ensure_ascii=False), encoding='utf-8')
+    m1.log(f'ruta A/B: {summary}')
+    return summary
+
+
 def api_measure(executions):
     """200 ejecuciones secuenciales por consulta/escenario a través de la API, con conexión HTTP persistente."""
     import http.client
@@ -95,7 +125,9 @@ def median_of(runs):
 
 def app_route(out_dir, repetitions, executions):
     """B) ruta de aplicación sin y con las mejoras."""
-    subprocess.run(E3_COMPOSE + ['up', '-d'], cwd=m1.REPO, check=True, capture_output=True)
+    import os
+    env = {**os.environ, 'E3_TRACE_RATIO': '0.1', 'E3_BSP_DELAY_MS': '1000', 'E3_BSP_BATCH': '128'}
+    subprocess.run(E3_COMPOSE + ['up', '-d'], cwd=m1.REPO, check=True, capture_output=True, env=env)
     for _ in range(90):
         try:
             urllib.request.urlopen('http://localhost:8000/health', timeout=2)
@@ -121,7 +153,7 @@ def main():
     parser.add_argument('--output-dir', type=Path, default=E3 / 'evidence/final')
     parser.add_argument('--repetitions', type=int, default=3)
     parser.add_argument('--executions', type=int, default=200)
-    parser.add_argument('--solo', choices=['estricto', 'aplicacion'])
+    parser.add_argument('--solo', choices=['estricto', 'aplicacion', 'corregido'])
     args = parser.parse_args()
     args.output_dir = args.output_dir.resolve()  # measure.py corre con otro cwd
     args.output_dir.mkdir(parents=True, exist_ok=True)
@@ -129,12 +161,26 @@ def main():
     m1.log(f'energía: {power}')
     if 'Discharging' in power['power_supply_status'].values():
         raise SystemExit('El equipo está en batería: la medición no es comparable con el E2.')
-    if args.solo != 'aplicacion':
+    if args.solo not in ('aplicacion', 'corregido'):
         subprocess.run(E3_COMPOSE + ['stop', 'app', 'toxiproxy', 'postgres-exporter', 'docker-exporter', 'prometheus', 'grafana', 'jaeger'],
                        cwd=m1.REPO, capture_output=True)
         subprocess.run(['docker', 'compose', '-f', str(m1.REPO / 'compose.yaml'), 'up', '-d', 'postgres'], cwd=m1.REPO, check=True, capture_output=True)
         strict_method(args.output_dir, args.repetitions, args.executions)
-    if args.solo != 'estricto':
+    if args.solo == 'corregido':
+        subprocess.run(E3_COMPOSE + ['stop', 'app', 'postgres-exporter'], cwd=m1.REPO, capture_output=True)
+        m1.verify_or_generate()
+        m1.reset_and_load()
+        psql_db('postgres', '-c', 'DROP DATABASE IF EXISTS retail_base')
+        psql_db('postgres', '-c', 'CREATE DATABASE retail_base TEMPLATE retail STRATEGY FILE_COPY')   # recién cargada, como en el E2
+        routes = route_ab(args.output_dir)
+        psql_db('postgres', '-c', 'DROP DATABASE IF EXISTS retail_base')
+        m1.route(args.output_dir / 'ruta_canonica')                                                     # estado canónico para las consultas
+        results = app_route(args.output_dir, args.repetitions, args.executions)
+        for label in results:
+            data = json.loads((args.output_dir / f'metrics_api_{label}.json').read_text())
+            data['route'] = {'seconds': routes['B' if label == 'con_mejoras' else 'A']['mediana'], 'detalle': 'mediana de ruta_ab.json'}
+            (args.output_dir / f'metrics_api_{label}.json').write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding='utf-8')
+    elif args.solo != 'estricto':
         app_route(args.output_dir, args.repetitions, args.executions)
     for name, label in (('metrics_final', 'Final E3 · método E2 + índices'), ('metrics_api_sin_mejoras', 'API con pool, sin índices'),
                         ('metrics_api_con_mejoras', 'API con pool + índices')):

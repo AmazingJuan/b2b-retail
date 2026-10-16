@@ -1,294 +1,343 @@
 [
  {
-  "trace_id": "501e5d2041b519cae7616bb3731318ae",
-  "duration_ms": 30007.0,
+  "trace_id": "7fdfa1ae7296835f15358ed55b1bf28d",
+  "duration_ms": 30985.59,
   "root": "GET /consultas/{query_id}",
   "spans": [
    {
     "op": "GET /consultas/{query_id}",
-    "ms": 30007.0,
+    "ms": 30985.59,
     "offset_ms": 0.0,
     "tags": {
-     "e3.error": "pool_timeout",
-     "e3.query": "Q1",
-     "e3.scenario": "hot",
-     "error": true
+     "e3.query": "Q4",
+     "e3.scenario": "hot"
     },
     "events": []
    },
    {
     "op": "consulta.intento",
-    "ms": 30003.41,
-    "offset_ms": 1.31,
+    "ms": 1372.26,
+    "offset_ms": 29603.45,
     "tags": {
-     "error": true,
      "pool.name": "app"
     },
-    "events": [
-     "exception"
-    ]
+    "events": []
    },
    {
     "op": "pool.getconn",
-    "ms": 30002.66,
-    "offset_ms": 1.39,
+    "ms": 1325.73,
+    "offset_ms": 29603.48,
     "tags": {
-     "error": true,
-     "pool.wait_ms": 30000.244
+     "pool.wait_ms": 1325.704
     },
-    "events": [
-     "exception"
-    ]
+    "events": []
    },
    {
-    "op": "GET /consultas/{query_id} http send",
-    "ms": 0.08,
-    "offset_ms": 30005.53,
+    "op": "db.execute",
+    "ms": 46.36,
+    "offset_ms": 30929.28,
     "tags": {
-     "error": true
+     "db.statement": "SELECT proveedor_id, date_trunc('month', creada_en) AS mes, round(100.0 * avg((entregada_en <= prometida_en)::int), 2) AS otif_pct, round(100.0 * sum(cantidad_recibida) / NULLIF(sum(cantidad_solicitada), 0), 2) AS fill_rate_pct FROM ordenes.orden_compra WHERE proveedor_id = 1 GROUP BY proveedor_id, date_trunc('month', creada_en)"
+    },
+    "events": []
+   },
+   {
+    "op": "SELECT",
+    "ms": 46.2,
+    "offset_ms": 30929.34,
+    "tags": {
+     "db.statement": "SELECT proveedor_id, date_trunc('month', creada_en) AS mes, round(100.0 * avg((entregada_en <= prometida_en)::int), 2) AS otif_pct, round(100.0 * sum(cantidad_recibida) / NULLIF(sum(cantidad_solicitada), 0), 2) AS fill_rate_pct FROM ordenes.orden_compra WHERE proveedor_id = 1 GROUP BY proveedor_id, date_trunc('month', creada_en)"
     },
     "events": []
    },
    {
     "op": "GET /consultas/{query_id} http send",
-    "ms": 0.04,
-    "offset_ms": 30005.88,
+    "ms": 0.02,
+    "offset_ms": 30979.74,
+    "tags": {},
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.01,
+    "offset_ms": 30982.05,
     "tags": {},
     "events": []
    }
   ]
  },
  {
-  "trace_id": "683ca3e4431d3c14e61a01877db476b4",
-  "duration_ms": 30006.1,
+  "trace_id": "27c94e8b6f18e38c89365ab06ceff867",
+  "duration_ms": 30979.11,
   "root": "GET /consultas/{query_id}",
   "spans": [
    {
     "op": "GET /consultas/{query_id}",
-    "ms": 30006.1,
+    "ms": 30979.11,
     "offset_ms": 0.0,
     "tags": {
-     "e3.error": "pool_timeout",
-     "e3.query": "Q5",
-     "e3.scenario": "cold",
-     "error": true
+     "e3.query": "Q3",
+     "e3.scenario": "hot"
     },
     "events": []
    },
    {
     "op": "consulta.intento",
-    "ms": 30001.77,
-    "offset_ms": 1.38,
+    "ms": 1377.65,
+    "offset_ms": 29600.34,
     "tags": {
-     "error": true,
      "pool.name": "app"
     },
-    "events": [
-     "exception"
-    ]
+    "events": []
    },
    {
     "op": "pool.getconn",
-    "ms": 30001.02,
-    "offset_ms": 1.46,
+    "ms": 1370.07,
+    "offset_ms": 29600.37,
     "tags": {
-     "error": true,
-     "pool.wait_ms": 30000.261
+     "pool.wait_ms": 1369.538
     },
-    "events": [
-     "exception"
-    ]
+    "events": []
    },
    {
-    "op": "GET /consultas/{query_id} http send",
-    "ms": 0.07,
-    "offset_ms": 30004.04,
+    "op": "SET",
+    "ms": 0.36,
+    "offset_ms": 30970.04,
     "tags": {
-     "error": true
+     "db.statement": "SET statement_timeout = 0; SET lock_timeout = 0"
+    },
+    "events": []
+   },
+   {
+    "op": "db.execute",
+    "ms": 7.46,
+    "offset_ms": 30970.49,
+    "tags": {
+     "db.statement": "SELECT id FROM logistica.franja_descargue WHERE cedi_id = 1 AND inicia_en::date = DATE '2026-09-20' AND reservadas < capacidad ORDER BY inicia_en"
+    },
+    "events": []
+   },
+   {
+    "op": "SELECT",
+    "ms": 7.37,
+    "offset_ms": 30970.54,
+    "tags": {
+     "db.statement": "SELECT id FROM logistica.franja_descargue WHERE cedi_id = 1 AND inicia_en::date = DATE '2026-09-20' AND reservadas < capacidad ORDER BY inicia_en"
     },
     "events": []
    },
    {
     "op": "GET /consultas/{query_id} http send",
     "ms": 0.03,
-    "offset_ms": 30004.37,
+    "offset_ms": 30978.55,
+    "tags": {},
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.01,
+    "offset_ms": 30978.68,
     "tags": {},
     "events": []
    }
   ]
  },
  {
-  "trace_id": "cd47a742c30314e16c4b1dfb82d30629",
-  "duration_ms": 30006.07,
+  "trace_id": "c692e158efed7bf8d0185b66079822cb",
+  "duration_ms": 30976.63,
   "root": "GET /consultas/{query_id}",
   "spans": [
    {
     "op": "GET /consultas/{query_id}",
-    "ms": 30006.07,
+    "ms": 30976.63,
     "offset_ms": 0.0,
     "tags": {
-     "e3.error": "pool_timeout",
+     "e3.query": "Q3",
+     "e3.scenario": "cold"
+    },
+    "events": []
+   },
+   {
+    "op": "consulta.intento",
+    "ms": 1374.31,
+    "offset_ms": 29601.18,
+    "tags": {
+     "pool.name": "app"
+    },
+    "events": []
+   },
+   {
+    "op": "pool.getconn",
+    "ms": 1367.75,
+    "offset_ms": 29601.21,
+    "tags": {
+     "pool.wait_ms": 1367.716
+    },
+    "events": []
+   },
+   {
+    "op": "db.execute",
+    "ms": 6.43,
+    "offset_ms": 30969.02,
+    "tags": {
+     "db.statement": "SELECT id FROM logistica.franja_descargue WHERE cedi_id = 5 AND inicia_en::date = DATE '2026-09-20' AND reservadas < capacidad ORDER BY inicia_en"
+    },
+    "events": []
+   },
+   {
+    "op": "SELECT",
+    "ms": 6.33,
+    "offset_ms": 30969.08,
+    "tags": {
+     "db.statement": "SELECT id FROM logistica.franja_descargue WHERE cedi_id = 5 AND inicia_en::date = DATE '2026-09-20' AND reservadas < capacidad ORDER BY inicia_en"
+    },
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.03,
+    "offset_ms": 30976.01,
+    "tags": {},
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.01,
+    "offset_ms": 30976.14,
+    "tags": {},
+    "events": []
+   }
+  ]
+ },
+ {
+  "trace_id": "0fed49d69d6649b7cdd10dfac95a4030",
+  "duration_ms": 30968.75,
+  "root": "GET /consultas/{query_id}",
+  "spans": [
+   {
+    "op": "GET /consultas/{query_id}",
+    "ms": 30968.75,
+    "offset_ms": 0.0,
+    "tags": {
      "e3.query": "Q2",
-     "e3.scenario": "hot",
-     "error": true
+     "e3.scenario": "hot"
     },
     "events": []
    },
    {
     "op": "consulta.intento",
-    "ms": 30002.49,
-    "offset_ms": 1.5,
+    "ms": 1366.22,
+    "offset_ms": 29601.43,
     "tags": {
-     "error": true,
      "pool.name": "app"
     },
-    "events": [
-     "exception"
-    ]
+    "events": []
    },
    {
     "op": "pool.getconn",
-    "ms": 30001.48,
-    "offset_ms": 1.85,
+    "ms": 1364.44,
+    "offset_ms": 29601.46,
     "tags": {
-     "error": true,
-     "pool.wait_ms": 30000.515
+     "pool.wait_ms": 1364.425
     },
-    "events": [
-     "exception"
-    ]
+    "events": []
    },
    {
-    "op": "GET /consultas/{query_id} http send",
-    "ms": 0.07,
-    "offset_ms": 30004.83,
+    "op": "db.execute",
+    "ms": 1.67,
+    "offset_ms": 30965.95,
     "tags": {
-     "error": true
+     "db.statement": "SELECT id, precio FROM catalogo.sku WHERE proveedor_id = 1 AND vigente_desde <= DATE '2026-09-20' AND vigente_hasta >= DATE '2026-09-20' LIMIT 20"
+    },
+    "events": []
+   },
+   {
+    "op": "SELECT",
+    "ms": 1.59,
+    "offset_ms": 30966.01,
+    "tags": {
+     "db.statement": "SELECT id, precio FROM catalogo.sku WHERE proveedor_id = 1 AND vigente_desde <= DATE '2026-09-20' AND vigente_hasta >= DATE '2026-09-20' LIMIT 20"
     },
     "events": []
    },
    {
     "op": "GET /consultas/{query_id} http send",
-    "ms": 0.03,
-    "offset_ms": 30005.17,
+    "ms": 0.02,
+    "offset_ms": 30967.99,
+    "tags": {},
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.01,
+    "offset_ms": 30968.1,
     "tags": {},
     "events": []
    }
   ]
  },
  {
-  "trace_id": "b94f5e5ac4756169f279d6bb27048005",
-  "duration_ms": 30005.99,
+  "trace_id": "57960e47d884846f2af08a539a63b229",
+  "duration_ms": 30959.8,
   "root": "GET /consultas/{query_id}",
   "spans": [
    {
     "op": "GET /consultas/{query_id}",
-    "ms": 30005.99,
+    "ms": 30959.8,
     "offset_ms": 0.0,
     "tags": {
-     "e3.error": "pool_timeout",
      "e3.query": "Q2",
-     "e3.scenario": "cold",
-     "error": true
+     "e3.scenario": "cold"
     },
     "events": []
    },
    {
     "op": "consulta.intento",
-    "ms": 30001.78,
-    "offset_ms": 1.06,
+    "ms": 1356.91,
+    "offset_ms": 29601.38,
     "tags": {
-     "error": true,
      "pool.name": "app"
     },
-    "events": [
-     "exception"
-    ]
+    "events": []
    },
    {
     "op": "pool.getconn",
-    "ms": 30001.05,
-    "offset_ms": 1.18,
+    "ms": 1356.31,
+    "offset_ms": 29601.41,
     "tags": {
-     "error": true,
-     "pool.wait_ms": 30000.287
+     "pool.wait_ms": 1356.301
     },
-    "events": [
-     "exception"
-    ]
+    "events": []
    },
    {
-    "op": "GET /consultas/{query_id} http send",
-    "ms": 0.08,
-    "offset_ms": 30003.74,
+    "op": "db.execute",
+    "ms": 0.52,
+    "offset_ms": 30957.75,
     "tags": {
-     "error": true
+     "db.statement": "SELECT id, precio FROM catalogo.sku WHERE proveedor_id = 100000 AND vigente_desde <= DATE '2026-09-20' AND vigente_hasta >= DATE '2026-09-20' LIMIT 20"
+    },
+    "events": []
+   },
+   {
+    "op": "SELECT",
+    "ms": 0.47,
+    "offset_ms": 30957.79,
+    "tags": {
+     "db.statement": "SELECT id, precio FROM catalogo.sku WHERE proveedor_id = 100000 AND vigente_desde <= DATE '2026-09-20' AND vigente_hasta >= DATE '2026-09-20' LIMIT 20"
     },
     "events": []
    },
    {
     "op": "GET /consultas/{query_id} http send",
-    "ms": 0.03,
-    "offset_ms": 30004.14,
+    "ms": 0.02,
+    "offset_ms": 30958.65,
     "tags": {},
     "events": []
-   }
-  ]
- },
- {
-  "trace_id": "62f1f8292d108a612bba437118800261",
-  "duration_ms": 30005.68,
-  "root": "GET /consultas/{query_id}",
-  "spans": [
-   {
-    "op": "GET /consultas/{query_id}",
-    "ms": 30005.68,
-    "offset_ms": 0.0,
-    "tags": {
-     "e3.error": "pool_timeout",
-     "e3.query": "Q5",
-     "e3.scenario": "hot",
-     "error": true
-    },
-    "events": []
-   },
-   {
-    "op": "consulta.intento",
-    "ms": 30001.86,
-    "offset_ms": 1.61,
-    "tags": {
-     "error": true,
-     "pool.name": "app"
-    },
-    "events": [
-     "exception"
-    ]
-   },
-   {
-    "op": "pool.getconn",
-    "ms": 30000.89,
-    "offset_ms": 1.95,
-    "tags": {
-     "error": true,
-     "pool.wait_ms": 30000.245
-    },
-    "events": [
-     "exception"
-    ]
    },
    {
     "op": "GET /consultas/{query_id} http send",
-    "ms": 0.07,
-    "offset_ms": 30004.3,
-    "tags": {
-     "error": true
-    },
-    "events": []
-   },
-   {
-    "op": "GET /consultas/{query_id} http send",
-    "ms": 0.03,
-    "offset_ms": 30004.62,
+    "ms": 0.01,
+    "offset_ms": 30958.79,
     "tags": {},
     "events": []
    }

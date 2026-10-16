@@ -1,0 +1,81 @@
+{
+  "queries": {
+    "Q1": {
+      "cold": {
+        "p50_ms": 1.229,
+        "p95_ms": 1.568,
+        "p99_ms": 2.2,
+        "mean_ms": 1.302
+      },
+      "hot": {
+        "p50_ms": 1.218,
+        "p95_ms": 1.64,
+        "p99_ms": 2.087,
+        "mean_ms": 1.32
+      }
+    },
+    "Q2": {
+      "cold": {
+        "p50_ms": 1.292,
+        "p95_ms": 1.912,
+        "p99_ms": 2.626,
+        "mean_ms": 1.398
+      },
+      "hot": {
+        "p50_ms": 1.294,
+        "p95_ms": 1.766,
+        "p99_ms": 2.236,
+        "mean_ms": 1.377
+      }
+    },
+    "Q3": {
+      "cold": {
+        "p50_ms": 5.505,
+        "p95_ms": 8.869,
+        "p99_ms": 11.524,
+        "mean_ms": 5.976
+      },
+      "hot": {
+        "p50_ms": 5.435,
+        "p95_ms": 8.286,
+        "p99_ms": 10.236,
+        "mean_ms": 5.859
+      }
+    },
+    "Q4": {
+      "cold": {
+        "p50_ms": 1.27,
+        "p95_ms": 1.62,
+        "p99_ms": 1.743,
+        "mean_ms": 1.329
+      },
+      "hot": {
+        "p50_ms": 19.2,
+        "p95_ms": 21.068,
+        "p99_ms": 23.423,
+        "mean_ms": 19.422
+      }
+    },
+    "Q5": {
+      "cold": {
+        "p50_ms": 1.213,
+        "p95_ms": 1.698,
+        "p99_ms": 1.979,
+        "mean_ms": 1.285
+      },
+      "hot": {
+        "p50_ms": 1.23,
+        "p95_ms": 1.782,
+        "p99_ms": 2.426,
+        "mean_ms": 1.314
+      }
+    }
+  },
+  "repetitions": 5,
+  "method": "API del E3 (pool persistente), 200 ejecuciones secuenciales, cliente HTTP keep-alive",
+  "aggregation": "mediana entre repeticiones",
+  "route": {
+    "seconds": 0.542,
+    "detalle": "mediana de ruta_ab.json"
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "container_started_at": "2026-10-16T07:17:50.669154097Z",
+  "container_started_at": "2026-10-16T12:34:42.582556024Z",
   "faults": {
     "net_latency": {
       "1_sin_redespliegue": true,
@@ -12,22 +12,22 @@
         "pool_max": 10
       },
       "5_reversible": true,
-      "kill_switch_ms": 1.2,
+      "kill_switch_ms": 0.7,
       "sondas": {
         "baseline": {
           "ok_ratio": 1.0,
-          "p50_ms": 2.91,
-          "max_ms": 4.01
+          "p50_ms": 1.89,
+          "max_ms": 3.39
         },
         "falla": {
           "ok_ratio": 1.0,
-          "p50_ms": 65.84,
-          "max_ms": 69.23
+          "p50_ms": 67.03,
+          "max_ms": 74.57
         },
         "despues_kill_switch": {
           "ok_ratio": 1.0,
-          "p50_ms": 2.36,
-          "max_ms": 6.98
+          "p50_ms": 1.54,
+          "max_ms": 7.15
         }
       },
       "cumple_5": true
@@ -43,24 +43,24 @@
         "pool_max": 10
       },
       "5_reversible": true,
-      "kill_switch_ms": 1.3,
+      "kill_switch_ms": 0.8,
       "sondas": {
         "baseline": {
           "ok_ratio": 1.0,
-          "p50_ms": 2.2,
-          "max_ms": 2.49,
+          "p50_ms": 1.51,
+          "max_ms": 6.72,
           "proxy_enabled": true
         },
         "falla": {
           "ok_ratio": 0.0,
-          "p50_ms": 4.19,
-          "max_ms": 20.99,
+          "p50_ms": 3.08,
+          "max_ms": 10.11,
           "proxy_enabled": false
         },
         "despues_kill_switch": {
           "ok_ratio": 1.0,
-          "p50_ms": 3.07,
-          "max_ms": 9.97,
+          "p50_ms": 5.89,
+          "max_ms": 9.66,
           "proxy_enabled": true
         }
       },
@@ -81,18 +81,18 @@
       "sondas": {
         "baseline": {
           "ok_ratio": 1.0,
-          "p50_ms": 1.74,
-          "max_ms": 27.18
+          "p50_ms": 1.81,
+          "max_ms": 3.14
         },
         "falla": {
           "ok_ratio": 0.45,
-          "p50_ms": 1.86,
-          "max_ms": 16.68
+          "p50_ms": 1.64,
+          "max_ms": 14.32
         },
         "despues_kill_switch": {
           "ok_ratio": 1.0,
-          "p50_ms": 2.61,
-          "max_ms": 6.74
+          "p50_ms": 1.75,
+          "max_ms": 19.08
         }
       },
       "cumple_5": true
@@ -112,18 +112,18 @@
       "sondas": {
         "baseline": {
           "ok_ratio": 1.0,
-          "p50_ms": 1.78,
-          "max_ms": 2.03
+          "p50_ms": 1.92,
+          "max_ms": 2.3
         },
         "falla": {
           "ok_ratio": 1.0,
-          "p50_ms": 305.28,
-          "max_ms": 306.31
+          "p50_ms": 306.01,
+          "max_ms": 307.13
         },
         "despues_kill_switch": {
           "ok_ratio": 1.0,
-          "p50_ms": 4.13,
-          "max_ms": 6.96
+          "p50_ms": 5.57,
+          "max_ms": 7.11
         }
       },
       "cumple_5": true
@@ -139,24 +139,24 @@
         "pool_max": 10
       },
       "5_reversible": true,
-      "kill_switch_ms": 0.2,
+      "kill_switch_ms": 0.1,
       "sondas": {
         "baseline": {
           "ok_ratio": 1.0,
-          "p50_ms": 142.31,
-          "max_ms": 219.05,
+          "p50_ms": 109.44,
+          "max_ms": 175.56,
           "pool_utilizable": 10.0
         },
         "falla": {
           "ok_ratio": 1.0,
-          "p50_ms": 696.26,
-          "max_ms": 1104.87,
+          "p50_ms": 444.05,
+          "max_ms": 451.94,
           "pool_utilizable": 1.0
         },
         "despues_kill_switch": {
           "ok_ratio": 1.0,
-          "p50_ms": 498.26,
-          "max_ms": 700.92,
+          "p50_ms": 111.24,
+          "max_ms": 186.21,
           "pool_utilizable": 10.0
         }
       },
@@ -173,24 +173,24 @@
         "pool_max": 10
       },
       "5_reversible": true,
-      "kill_switch_ms": 257.2,
+      "kill_switch_ms": 31.6,
       "sondas": {
         "baseline": {
           "ok_ratio": 1.0,
-          "p50_ms": 29.16,
-          "max_ms": 38.6,
+          "p50_ms": 7.74,
+          "max_ms": 18.98,
           "reportes_activos": 0
         },
         "falla": {
           "ok_ratio": 1.0,
-          "p50_ms": 159.16,
-          "max_ms": 337.52,
+          "p50_ms": 13.91,
+          "max_ms": 36.7,
           "reportes_activos": 6
         },
         "despues_kill_switch": {
           "ok_ratio": 1.0,
-          "p50_ms": 24.64,
-          "max_ms": 35.57,
+          "p50_ms": 7.37,
+          "max_ms": 22.18,
           "reportes_activos": 0
         }
       },
@@ -207,24 +207,24 @@
         "pool_max": 10
       },
       "5_reversible": true,
-      "kill_switch_ms": 662.6,
+      "kill_switch_ms": 340.6,
       "sondas": {
         "baseline": {
           "ok_ratio": 1.0,
-          "p50_ms": 7.42,
-          "max_ms": 26.75,
+          "p50_ms": 1.58,
+          "max_ms": 2.18,
           "indice_existe": true
         },
         "falla": {
           "ok_ratio": 1.0,
-          "p50_ms": 3.14,
-          "max_ms": 9.44,
+          "p50_ms": 2.14,
+          "max_ms": 8.57,
           "indice_existe": false
         },
         "despues_kill_switch": {
           "ok_ratio": 1.0,
-          "p50_ms": 2.75,
-          "max_ms": 7.24,
+          "p50_ms": 1.76,
+          "max_ms": 25.77,
           "indice_existe": true
         }
       },
@@ -245,20 +245,20 @@
       "sondas": {
         "baseline": {
           "ok_ratio": 1.0,
-          "p50_ms": 2.21,
-          "max_ms": 2.6,
+          "p50_ms": 1.61,
+          "max_ms": 1.9,
           "locks_exclusivos": 0
         },
         "falla": {
           "ok_ratio": 1.0,
-          "p50_ms": 5.36,
-          "max_ms": 7.11,
+          "p50_ms": 2.4,
+          "max_ms": 7.36,
           "locks_exclusivos": 1
         },
         "despues_kill_switch": {
           "ok_ratio": 1.0,
-          "p50_ms": 2.6,
-          "max_ms": 3.3,
+          "p50_ms": 5.2,
+          "max_ms": 7.03,
           "locks_exclusivos": 0
         }
       },
@@ -268,16 +268,16 @@
   "expiracion_automatica": {
     "durante": {
       "ok_ratio": 1.0,
-      "p50_ms": 203.53,
-      "max_ms": 203.72
+      "p50_ms": 207.18,
+      "max_ms": 218.62
     },
     "despues": {
       "ok_ratio": 1.0,
-      "p50_ms": 2.12,
-      "max_ms": 3.17
+      "p50_ms": 2.82,
+      "max_ms": 4.42
     },
     "activa_despues": false
   },
-  "container_started_at_final": "2026-10-16T07:17:50.669154097Z",
+  "container_started_at_final": "2026-10-16T12:34:42.582556024Z",
   "todas_cumplen": true
 }

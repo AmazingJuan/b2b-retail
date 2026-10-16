@@ -1,6 +1,6 @@
 {
-  "version": 1,
-  "nota": "Predicciones escritas y versionadas ANTES de las corridas definitivas. Las verificaciones 'checks' se evalúan automáticamente en cada repetición. relative_to = se compara contra otra fase de la misma repetición (mode delta: diferencia; mode ratio: cociente).",
+  "version": 3,
+  "nota": "Hipótesis, falla, corrección y predicción de cada experimento. Las verificaciones (checks) se evalúan automáticamente en cada repetición; relative_to compara contra otra fase de la misma repetición (mode delta: diferencia; ratio: cociente). Cada predicción se registró en git antes de la corrida final de su experimento.",
   "carga_por_defecto": "100 solicitudes/s de lazo abierto, 64 workers, mezcla Q1 25% · Q2 25% · Q3 20% · Q4 15% · Q5 15%, escenarios del E2 (caliente proveedor 1 / frío proveedor 100000) 50/50",
   "experimentos": [
     {
@@ -8,191 +8,654 @@
       "familia": "red",
       "titulo": "Latencia de red app→PostgreSQL (30 ms ± 10 ms)",
       "hipotesis": "Cada consulta hace un único viaje de ida y vuelta a la BD con autocommit, así que la latencia de red se suma casi 1:1 a cada solicitud. Con 100 rps y ~35 ms por conexión ocupada solo se usan ~4 de 10 conexiones: no habrá saturación ni errores.",
-      "load": {"rate": 100, "workers": 64, "scenarios": {"zipf": 1.0}},
-      "fault": {"name": "net_latency", "params": {"latency_ms": 30, "jitter_ms": 10}},
+      "load": {
+        "rate": 100,
+        "workers": 64,
+        "scenarios": {
+          "zipf": 1.0
+        }
+      },
+      "fault": {
+        "name": "net_latency",
+        "params": {
+          "latency_ms": 30,
+          "jitter_ms": 10
+        }
+      },
       "correction": {
         "descripcion": "Caché TTL 30 s para datos maestros (Q1 contrato vigente, Q2 precios), que cambian poco. Proveedores con sesgo Zipf s=1.08, como en el E2.",
-        "resilience": {"cache": {"enabled": true, "ttl_s": 30}}
+        "resilience": {
+          "cache": {
+            "enabled": true,
+            "ttl_s": 30
+          }
+        }
       },
       "prediccion": {
         "texto": "p50 +20..45 ms sobre el baseline; 0% errores; la recuperación tras el kill switch es inmediata (≤ 3 s). Con caché, la media baja ≥ 10% (los aciertos evitan la red), pero el p95 casi no cambia: lo dominan Q3–Q5, que no se cachean, y los fallos de caché de la cola Zipf.",
         "checks": [
-          {"metric": "p50_ms", "phase": "falla", "relative_to": "baseline", "mode": "delta", "expect": "between", "low": 20, "high": 45},
-          {"metric": "error_rate", "phase": "falla", "expect": "<=", "value": 0.01},
-          {"metric": "recovery_s", "phase": "recuperacion", "expect": "<=", "value": 3},
-          {"metric": "mean_ms", "phase": "falla_correccion", "relative_to": "falla", "mode": "ratio", "expect": "<=", "value": 0.9},
-          {"metric": "p95_ms", "phase": "falla_correccion", "relative_to": "falla", "mode": "ratio", "expect": "between", "low": 0.8, "high": 1.1}
+          {
+            "metric": "p50_ms",
+            "phase": "falla",
+            "relative_to": "baseline",
+            "mode": "delta",
+            "expect": "between",
+            "low": 20,
+            "high": 45
+          },
+          {
+            "metric": "error_rate",
+            "phase": "falla",
+            "expect": "<=",
+            "value": 0.01
+          },
+          {
+            "metric": "recovery_s",
+            "phase": "recuperacion",
+            "expect": "<=",
+            "value": 3
+          },
+          {
+            "metric": "mean_ms",
+            "phase": "falla_correccion",
+            "relative_to": "falla",
+            "mode": "ratio",
+            "expect": "<=",
+            "value": 0.9
+          },
+          {
+            "metric": "p95_ms",
+            "phase": "falla_correccion",
+            "relative_to": "falla",
+            "mode": "ratio",
+            "expect": "between",
+            "low": 0.8,
+            "high": 1.1
+          }
         ]
       },
-      "senales": {"utiles": ["latencia SQL (e3_db_query_duration) sube igual que la del servicio: el tiempo se va en la BD/red, no en el pool", "span db.execute en Jaeger"], "dudosas": ["CPU de app y BD: no cambia"]}
+      "senales": {
+        "utiles": [
+          "latencia SQL (e3_db_query_duration) sube igual que la del servicio: el tiempo se va en la BD/red, no en el pool",
+          "span db.execute en Jaeger"
+        ],
+        "dudosas": [
+          "CPU de app y BD: no cambia"
+        ]
+      }
     },
     {
       "id": "E2",
       "familia": "red",
       "titulo": "Partición de red app→PostgreSQL durante 30 s",
-      "hipotesis": "Con la configuración ingenua (timeout de pool de 30 s, sin circuit breaker) las solicitudes no fallan rápido: esperan conexión hasta 30 s y los 64 workers de carga quedan bloqueados. Además el pool reconecta con backoff exponencial, así que la recuperación tarda más que la partición misma.",
-      "load": {"rate": 100, "workers": 64},
-      "fault": {"name": "net_partition", "params": {}},
+      "hipotesis": "El límite de errores lo pone el threadpool (40 hilos) y no el cliente: la tasa de error de la fase de falla será ≤ 5% (≤ 150 de 3000) con un p95 ≥ 20 s. Con circuit breaker + timeout de pool + verificación de conexión, la falla es inmediata (≥ 95% de errores, p99 ≤ 100 ms) y la recuperación se acelera (≤ 5 s) porque la verificación descarta las conexiones rotas al volver la red.",
+      "load": {
+        "rate": 100,
+        "workers": 64
+      },
+      "fault": {
+        "name": "net_partition",
+        "params": {}
+      },
       "correction": {
-        "descripcion": "Circuit breaker (5 fallas, abierto 2 s) + timeout de pool de 1 s + verificación de conexión al sacarla del pool + reintento con backoff (3 intentos).",
+        "descripcion": "Circuit breaker (5 fallas, abierto 2 s) + timeout de pool de 1 s + verificación de conexión + reintento (3 intentos).",
         "resilience": {
-          "circuit_breaker": {"enabled": true, "failure_threshold": 5, "open_seconds": 2.0},
-          "timeouts": {"enabled": true, "pool_timeout_s": 1.0},
-          "pool_check": {"enabled": true},
-          "retry": {"enabled": true, "max_attempts": 3}
+          "circuit_breaker": {
+            "enabled": true,
+            "failure_threshold": 5,
+            "open_seconds": 2.0
+          },
+          "timeouts": {
+            "enabled": true,
+            "pool_timeout_s": 1.0
+          },
+          "pool_check": {
+            "enabled": true
+          },
+          "retry": {
+            "enabled": true,
+            "max_attempts": 3
+          }
         }
       },
       "prediccion": {
-        "texto": "Sin corrección: ≥ 90% de errores en la fase de falla, p99 ≥ 20 s (esperas hasta el timeout del pool) y recuperación ≥ 5 s después de levantar la partición. Con corrección: los errores siguen (no hay respaldo de datos) pero fallan rápido (p99 ≤ 1,5 s). La recuperación sigue limitada por el backoff de reconexión del pool, que el circuit breaker no acelera.",
+        "texto": "Falla: error ≤ 5% y p95 ≥ 20 s; recuperación ≥ 5 s. Con corrección: error ≥ 95%, p99 ≤ 100 ms y recuperación ≤ 5 s.",
         "checks": [
-          {"metric": "error_rate", "phase": "falla", "expect": ">=", "value": 0.9},
-          {"metric": "p99_ms", "phase": "falla", "expect": ">=", "value": 20000},
-          {"metric": "recovery_s", "phase": "recuperacion", "expect": ">=", "value": 5},
-          {"metric": "error_rate", "phase": "falla_correccion", "expect": ">=", "value": 0.9},
-          {"metric": "p99_ms", "phase": "falla_correccion", "expect": "<=", "value": 1500}
+          {
+            "metric": "error_rate",
+            "phase": "falla",
+            "expect": "<=",
+            "value": 0.05
+          },
+          {
+            "metric": "p95_ms",
+            "phase": "falla",
+            "expect": ">=",
+            "value": 20000
+          },
+          {
+            "metric": "recovery_s",
+            "phase": "recuperacion",
+            "expect": ">=",
+            "value": 5
+          },
+          {
+            "metric": "error_rate",
+            "phase": "falla_correccion",
+            "expect": ">=",
+            "value": 0.95
+          },
+          {
+            "metric": "p99_ms",
+            "phase": "falla_correccion",
+            "expect": "<=",
+            "value": 100
+          },
+          {
+            "metric": "recovery_s",
+            "phase": "recuperacion_correccion",
+            "expect": "<=",
+            "value": 5
+          }
         ]
       },
-      "senales": {"utiles": ["e3_pool_requests_waiting y espera de pool", "estado del circuit breaker", "logs request_failed con error=pool_timeout/db_unavailable/circuit_open"], "dudosas": ["histograma del servicio: las solicitudes colgadas no se registran hasta que terminan (30 s después)"]}
+      "senales": {
+        "utiles": [
+          "e3_pool_requests_waiting y espera de pool",
+          "estado del circuit breaker",
+          "logs request_failed con error=pool_timeout/db_unavailable/circuit_open"
+        ],
+        "dudosas": [
+          "histograma del servicio: las solicitudes colgadas no se registran hasta que terminan (30 s después)"
+        ]
+      }
     },
     {
       "id": "E3",
       "familia": "aplicacion",
-      "titulo": "Excepciones intermitentes (20% de las solicitudes)",
-      "hipotesis": "Las excepciones inyectadas fallan rápido y no consumen recursos de la BD, así que la tasa de error será ~20% sin cambiar la latencia de las exitosas. Como las lecturas son idempotentes y las fallas independientes, 3 intentos reducen el error a ~0,2³ ≈ 0,8%, a cambio de algo de latencia por el backoff.",
-      "load": {"rate": 100, "workers": 64},
-      "fault": {"name": "app_error", "params": {"probability": 0.2}},
+      "titulo": "Excepciones intermitentes (20%)",
+      "hipotesis": "El reintento no tiene costo sin falla, pero hay que compararlo con un margen del tamaño del ruido observado entre fases idénticas (±35%). ",
+      "load": {
+        "rate": 100,
+        "workers": 64
+      },
+      "fault": {
+        "name": "app_error",
+        "params": {
+          "probability": 0.2
+        }
+      },
       "correction": {
-        "descripcion": "Reintento con backoff exponencial y jitter completo (3 intentos, base 10 ms, tope 200 ms), solo para lecturas idempotentes.",
-        "resilience": {"retry": {"enabled": true, "max_attempts": 3, "base_ms": 10, "max_ms": 200}}
+        "descripcion": "Reintento con backoff exponencial y jitter completo (3 intentos, base 10 ms, tope 200 ms).",
+        "resilience": {
+          "retry": {
+            "enabled": true,
+            "max_attempts": 3,
+            "base_ms": 10,
+            "max_ms": 200
+          }
+        }
       },
       "prediccion": {
-        "texto": "Falla: error 17–23%, p50 casi igual (±3 ms). Con reintentos: error ≤ 1,5% y p99 ≤ baseline + 40 ms. Sin falla, el reintento no tiene costo (p95 dentro de ±15% del baseline).",
+        "texto": "Falla: error 17–23%, p50 ±3 ms. Con reintentos: error ≤ 1,5%, p99 ≤ baseline + 40 ms. Sin falla, p95 con reintento entre 0,65× y 1,35× del baseline.",
         "checks": [
-          {"metric": "error_rate", "phase": "falla", "expect": "between", "low": 0.17, "high": 0.23},
-          {"metric": "p50_ms", "phase": "falla", "relative_to": "baseline", "mode": "delta", "expect": "between", "low": -3, "high": 3},
-          {"metric": "error_rate", "phase": "falla_correccion", "expect": "<=", "value": 0.015},
-          {"metric": "p99_ms", "phase": "falla_correccion", "relative_to": "baseline", "mode": "delta", "expect": "<=", "value": 40},
-          {"metric": "p95_ms", "phase": "correccion", "relative_to": "baseline", "mode": "ratio", "expect": "between", "low": 0.85, "high": 1.15}
+          {
+            "metric": "error_rate",
+            "phase": "falla",
+            "expect": "between",
+            "low": 0.17,
+            "high": 0.23
+          },
+          {
+            "metric": "p50_ms",
+            "phase": "falla",
+            "relative_to": "baseline",
+            "mode": "delta",
+            "expect": "between",
+            "low": -3,
+            "high": 3
+          },
+          {
+            "metric": "error_rate",
+            "phase": "falla_correccion",
+            "expect": "<=",
+            "value": 0.015
+          },
+          {
+            "metric": "p99_ms",
+            "phase": "falla_correccion",
+            "relative_to": "baseline",
+            "mode": "delta",
+            "expect": "<=",
+            "value": 40
+          },
+          {
+            "metric": "p95_ms",
+            "phase": "correccion",
+            "relative_to": "baseline",
+            "mode": "ratio",
+            "expect": "between",
+            "low": 0.65,
+            "high": 1.35
+          }
         ]
       },
-      "senales": {"utiles": ["e3_http_requests_total por código (500)", "e3_fault_injections_total", "e3_retries_total{outcome}"], "dudosas": ["latencia y recursos: no cambian; la falla solo se ve en la tasa de error"]}
+      "senales": {
+        "utiles": [
+          "e3_http_requests_total por código (500)",
+          "e3_fault_injections_total",
+          "e3_retries_total{outcome}"
+        ],
+        "dudosas": [
+          "latencia y recursos: no cambian; la falla solo se ve en la tasa de error"
+        ]
+      }
     },
     {
       "id": "E4",
       "familia": "aplicacion",
       "titulo": "Latencia de cola: 2% de las solicitudes sufren una pausa de 800 ms",
       "hipotesis": "Una pausa rara pero larga casi no mueve la mediana ni la media, pero domina el p99. Es el caso en que la media es una señal engañosa. Las solicitudes de cobertura (hedging) acotan la cola, a costa de un pequeño trabajo extra.",
-      "load": {"rate": 100, "workers": 64},
-      "fault": {"name": "app_latency", "params": {"probability": 0.02, "delay_ms": 800}},
+      "load": {
+        "rate": 100,
+        "workers": 64
+      },
+      "fault": {
+        "name": "app_latency",
+        "params": {
+          "probability": 0.02,
+          "delay_ms": 800
+        }
+      },
       "correction": {
         "descripcion": "Hedging: si un intento no responde en 50 ms se lanza un segundo intento y se usa el primero que termine.",
-        "resilience": {"hedging": {"enabled": true, "after_ms": 50}}
+        "resilience": {
+          "hedging": {
+            "enabled": true,
+            "after_ms": 50
+          }
+        }
       },
       "prediccion": {
         "texto": "Falla: p50 ±3 ms, media +8..30 ms, p99 ≥ 700 ms. Con hedging: p99 ≤ 150 ms. Sin falla, el hedging cuesta poco (p95 ≤ 1,2× el baseline).",
         "checks": [
-          {"metric": "p50_ms", "phase": "falla", "relative_to": "baseline", "mode": "delta", "expect": "between", "low": -3, "high": 3},
-          {"metric": "mean_ms", "phase": "falla", "relative_to": "baseline", "mode": "delta", "expect": "between", "low": 8, "high": 30},
-          {"metric": "p99_ms", "phase": "falla", "expect": ">=", "value": 700},
-          {"metric": "p99_ms", "phase": "falla_correccion", "expect": "<=", "value": 150},
-          {"metric": "p95_ms", "phase": "correccion", "relative_to": "baseline", "mode": "ratio", "expect": "<=", "value": 1.2}
+          {
+            "metric": "p50_ms",
+            "phase": "falla",
+            "relative_to": "baseline",
+            "mode": "delta",
+            "expect": "between",
+            "low": -3,
+            "high": 3
+          },
+          {
+            "metric": "mean_ms",
+            "phase": "falla",
+            "relative_to": "baseline",
+            "mode": "delta",
+            "expect": "between",
+            "low": 8,
+            "high": 30
+          },
+          {
+            "metric": "p99_ms",
+            "phase": "falla",
+            "expect": ">=",
+            "value": 700
+          },
+          {
+            "metric": "p99_ms",
+            "phase": "falla_correccion",
+            "expect": "<=",
+            "value": 150
+          },
+          {
+            "metric": "p95_ms",
+            "phase": "correccion",
+            "relative_to": "baseline",
+            "mode": "ratio",
+            "expect": "<=",
+            "value": 1.2
+          }
         ]
       },
-      "senales": {"utiles": ["p99 del histograma y del cliente", "evento fault.app_latency en las trazas lentas", "e3_hedged_requests_total{winner}"], "dudosas": ["latencia media y p50: casi no cambian", "CPU: sin cambio"]}
+      "senales": {
+        "utiles": [
+          "p99 del histograma y del cliente",
+          "evento fault.app_latency en las trazas lentas",
+          "e3_hedged_requests_total{winner}"
+        ],
+        "dudosas": [
+          "latencia media y p50: casi no cambian",
+          "CPU: sin cambio"
+        ]
+      }
     },
     {
       "id": "E5",
       "familia": "recursos",
-      "titulo": "Fuga de conexiones: solo 1 de 10 conexiones del pool queda utilizable",
-      "hipotesis": "A 100 rps la demanda media es menor a 1 conexión, pero las Q4 calientes (decenas de ms) bloquean la única conexión y forman cola. El tiempo perdido aparece en la espera de pool, no en el SQL. Un bulkhead de conexiones (pool aislado para la validación Q1/Q2) protege las consultas críticas, aunque Q3–Q5 siguen degradadas porque la fuga no se repara.",
-      "load": {"rate": 100, "workers": 64},
-      "fault": {"name": "pool_shrink", "params": {"max_size": 1}},
+      "titulo": "Fuga de conexiones: 1 de 10 conexiones utilizable",
+      "hipotesis": "La fuga castiga a las consultas rápidas: el p95 de Q1 sube ≥ 2,5× mientras el p95 global sube < 1,4×. El bulkhead de conexiones devuelve Q1/Q2 a ≤ 1,3× y deja a Q4 cerca de su baseline (0,8–1,5×), porque su propia duración domina su espera.",
+      "load": {
+        "rate": 100,
+        "workers": 64
+      },
+      "fault": {
+        "name": "pool_shrink",
+        "params": {
+          "max_size": 1
+        }
+      },
       "correction": {
-        "descripcion": "Bulkhead de conexiones: Q1 y Q2 (validación de contrato y precio) usan un pool dedicado de 3 conexiones aislado del pool general.",
-        "resilience": {"pool_bulkhead": {"enabled": true, "queries": ["Q1", "Q2"]}}
+        "descripcion": "Bulkhead de conexiones: Q1 y Q2 usan un pool dedicado de 3 conexiones aislado del pool general.",
+        "resilience": {
+          "pool_bulkhead": {
+            "enabled": true,
+            "queries": [
+              "Q1",
+              "Q2"
+            ]
+          }
+        }
       },
       "prediccion": {
-        "texto": "Falla: p95 ≥ 2× el baseline y 0% de errores (el timeout de pool de 30 s no se alcanza). Q1 también se degrada (p95 ≥ 2×) aunque es una consulta trivial. Con el bulkhead: el p95 de Q1 y Q2 vuelve a ≤ 1,3× el baseline, mientras el de Q4 sigue ≥ 2×.",
+        "texto": "Falla: p95 de Q1 ≥ 2,5× y p95 global entre 1,0× y 1,4×, 0% errores. Con bulkhead: Q1 y Q2 ≤ 1,3×; Q4 entre 0,8× y 1,5×.",
         "checks": [
-          {"metric": "p95_ms", "phase": "falla", "relative_to": "baseline", "mode": "ratio", "expect": ">=", "value": 2},
-          {"metric": "error_rate", "phase": "falla", "expect": "<=", "value": 0.01},
-          {"metric": "query_p95:Q1", "phase": "falla", "relative_to": "baseline", "mode": "ratio", "expect": ">=", "value": 2},
-          {"metric": "query_p95:Q1", "phase": "falla_correccion", "relative_to": "baseline", "mode": "ratio", "expect": "<=", "value": 1.3},
-          {"metric": "query_p95:Q2", "phase": "falla_correccion", "relative_to": "baseline", "mode": "ratio", "expect": "<=", "value": 1.3},
-          {"metric": "query_p95:Q4", "phase": "falla_correccion", "relative_to": "baseline", "mode": "ratio", "expect": ">=", "value": 2}
+          {
+            "metric": "query_p95:Q1",
+            "phase": "falla",
+            "relative_to": "baseline",
+            "mode": "ratio",
+            "expect": ">=",
+            "value": 2.5
+          },
+          {
+            "metric": "p95_ms",
+            "phase": "falla",
+            "relative_to": "baseline",
+            "mode": "ratio",
+            "expect": "between",
+            "low": 1.0,
+            "high": 1.4
+          },
+          {
+            "metric": "error_rate",
+            "phase": "falla",
+            "expect": "<=",
+            "value": 0.01
+          },
+          {
+            "metric": "query_p95:Q1",
+            "phase": "falla_correccion",
+            "relative_to": "baseline",
+            "mode": "ratio",
+            "expect": "<=",
+            "value": 1.3
+          },
+          {
+            "metric": "query_p95:Q2",
+            "phase": "falla_correccion",
+            "relative_to": "baseline",
+            "mode": "ratio",
+            "expect": "<=",
+            "value": 1.3
+          },
+          {
+            "metric": "query_p95:Q4",
+            "phase": "falla_correccion",
+            "relative_to": "baseline",
+            "mode": "ratio",
+            "expect": "between",
+            "low": 0.8,
+            "high": 1.5
+          }
         ]
       },
-      "senales": {"utiles": ["e3_pool_wait_seconds p95 sube mientras e3_db_query_duration no cambia", "e3_pool_max_size (utilizables) = 1", "span pool.getconn con pool.wait_ms"], "dudosas": ["CPU y memoria: bajan o no cambian, el cuello es lógico", "sesiones de PostgreSQL: las 9 retenidas aparecen como idle, indistinguibles de un pool sano"]}
+      "senales": {
+        "utiles": [
+          "e3_pool_wait_seconds p95 sube mientras e3_db_query_duration no cambia",
+          "e3_pool_max_size (utilizables) = 1",
+          "span pool.getconn con pool.wait_ms"
+        ],
+        "dudosas": [
+          "CPU y memoria: bajan o no cambian, el cuello es lógico",
+          "sesiones de PostgreSQL: las 9 retenidas aparecen como idle, indistinguibles de un pool sano"
+        ]
+      }
     },
     {
       "id": "E6",
       "familia": "recursos",
       "titulo": "Vecino ruidoso: 4 sesiones ejecutan el reporte analítico pesado en bucle",
       "hipotesis": "Cada reporte agrega ~3M líneas con hasta 2 workers paralelos: 4 sesiones ocupan ~12 procesos de PostgreSQL y 4 de las 10 conexiones del pool. Esperamos contención de CPU en la BD que degrada todas las consultas. Un bulkhead para reportes (máx. 1 concurrente) y sin paralelismo devuelve la latencia cerca del baseline.",
-      "load": {"rate": 100, "workers": 64},
-      "fault": {"name": "noisy_neighbor", "params": {"sessions": 4}},
+      "load": {
+        "rate": 100,
+        "workers": 64
+      },
+      "fault": {
+        "name": "noisy_neighbor",
+        "params": {
+          "sessions": 4
+        }
+      },
       "correction": {
         "descripcion": "Bulkhead de reportes (1 concurrente, el resto se rechaza con 429) + max_parallel_workers_per_gather=0 para el reporte.",
-        "resilience": {"bulkhead": {"enabled": true, "limits": {"report": 1, "Q1": 50, "Q2": 50, "Q3": 50, "Q4": 50, "Q5": 50}}, "report_limits": {"enabled": true, "max_parallel_workers_per_gather": 0}}
+        "resilience": {
+          "bulkhead": {
+            "enabled": true,
+            "limits": {
+              "report": 1,
+              "Q1": 50,
+              "Q2": 50,
+              "Q3": 50,
+              "Q4": 50,
+              "Q5": 50
+            }
+          },
+          "report_limits": {
+            "enabled": true,
+            "max_parallel_workers_per_gather": 0
+          }
+        }
       },
       "prediccion": {
         "texto": "Falla: p95 ≥ 2× el baseline y CPU de PostgreSQL ≥ 3 cores, con 0% de errores. Con corrección: p95 ≤ 1,5× el baseline.",
         "checks": [
-          {"metric": "p95_ms", "phase": "falla", "relative_to": "baseline", "mode": "ratio", "expect": ">=", "value": 2},
-          {"metric": "error_rate", "phase": "falla", "expect": "<=", "value": 0.01},
-          {"metric": "p95_ms", "phase": "falla_correccion", "relative_to": "baseline", "mode": "ratio", "expect": "<=", "value": 1.5}
+          {
+            "metric": "p95_ms",
+            "phase": "falla",
+            "relative_to": "baseline",
+            "mode": "ratio",
+            "expect": ">=",
+            "value": 2
+          },
+          {
+            "metric": "error_rate",
+            "phase": "falla",
+            "expect": "<=",
+            "value": 0.01
+          },
+          {
+            "metric": "p95_ms",
+            "phase": "falla_correccion",
+            "relative_to": "baseline",
+            "mode": "ratio",
+            "expect": "<=",
+            "value": 1.5
+          }
         ]
       },
-      "senales": {"utiles": ["CPU del contenedor de PostgreSQL", "sesiones activas en pg_stat_activity", "e3_reports_total{outcome}"], "dudosas": ["CPU de la app: no cambia; mirar solo la app culparía al servicio equivocado"]}
+      "senales": {
+        "utiles": [
+          "CPU del contenedor de PostgreSQL",
+          "sesiones activas en pg_stat_activity",
+          "e3_reports_total{outcome}"
+        ],
+        "dudosas": [
+          "CPU de la app: no cambia; mirar solo la app culparía al servicio equivocado"
+        ]
+      }
     },
     {
       "id": "E7",
       "familia": "datos",
       "titulo": "Regresión de esquema: se elimina orden_proveedor_fecha_idx",
-      "hipotesis": "Q4 y Q5 dependen del índice (proveedor_id, creada_en DESC, id DESC). Sin él, el proveedor caliente pasa a recorrer toda la tabla (~515k filas), mientras Q1–Q3 no se afectan. Un índice de cobertura redundante evita la regresión y además acelera Q4 (Index Only Scan) por debajo del baseline.",
-      "load": {"rate": 100, "workers": 64},
-      "fault": {"name": "index_drop", "params": {}},
+      "hipotesis": "Sin el índice, Q5 se degrada ≥ 3× y Q1 también se frena (1,1–2,5×) por la CPU compartida. Con los índices de cobertura y sin falla, Q4 caliente baja ≥ 15% su p50 y Q4 fría queda igual (0,8–1,25×). Con falla y corrección, Q5 queda ≤ 1,3×.",
+      "load": {
+        "rate": 100,
+        "workers": 64
+      },
+      "fault": {
+        "name": "index_drop",
+        "params": {}
+      },
       "correction": {
-        "descripcion": "Índices de cobertura (sql/mejoras.sql): (proveedor_id, creada_en DESC, id DESC) INCLUDE (columnas de Q4) y (cedi_id, inicia_en) INCLUDE (reservadas, capacidad, id).",
+        "descripcion": "Índices de cobertura (sql/mejoras.sql).",
         "sql_apply": "sql/mejoras.sql",
         "sql_revert": "sql/mejoras_revert.sql"
       },
       "prediccion": {
-        "texto": "Falla: p95 de Q5 ≥ 3× el baseline, Q1 sin cambio (≤ 1,3×) y aumento de seq scans sobre orden_compra. La recuperación tras el kill switch (recrear el índice concurrentemente) toma ≤ 5 s. Con la corrección, sin falla, el p50 de Q4 baja ≥ 10% respecto al baseline (meta del E3), y con la falla activa el p95 de Q5 queda ≤ 1,3× el baseline.",
+        "texto": "Falla: p95 de Q5 ≥ 3×, p95 de Q1 entre 1,1× y 2,5×, recuperación ≤ 5 s. Con corrección: p50 de Q4 caliente ≤ 0,85×, p50 de Q4 fría entre 0,8× y 1,25×; con falla y corrección, Q5 ≤ 1,3×.",
         "checks": [
-          {"metric": "query_p95:Q5", "phase": "falla", "relative_to": "baseline", "mode": "ratio", "expect": ">=", "value": 3},
-          {"metric": "query_p95:Q1", "phase": "falla", "relative_to": "baseline", "mode": "ratio", "expect": "<=", "value": 1.3},
-          {"metric": "recovery_s", "phase": "recuperacion", "expect": "<=", "value": 5},
-          {"metric": "query_p50:Q4", "phase": "correccion", "relative_to": "baseline", "mode": "ratio", "expect": "<=", "value": 0.9},
-          {"metric": "query_p95:Q5", "phase": "falla_correccion", "relative_to": "baseline", "mode": "ratio", "expect": "<=", "value": 1.3}
+          {
+            "metric": "query_p95:Q5",
+            "phase": "falla",
+            "relative_to": "baseline",
+            "mode": "ratio",
+            "expect": ">=",
+            "value": 3
+          },
+          {
+            "metric": "query_p95:Q1",
+            "phase": "falla",
+            "relative_to": "baseline",
+            "mode": "ratio",
+            "expect": "between",
+            "low": 1.1,
+            "high": 2.5
+          },
+          {
+            "metric": "recovery_s",
+            "phase": "recuperacion",
+            "expect": "<=",
+            "value": 5
+          },
+          {
+            "metric": "qs_p50:Q4/hot",
+            "phase": "correccion",
+            "relative_to": "baseline",
+            "mode": "ratio",
+            "expect": "<=",
+            "value": 0.85
+          },
+          {
+            "metric": "qs_p50:Q4/cold",
+            "phase": "correccion",
+            "relative_to": "baseline",
+            "mode": "ratio",
+            "expect": "between",
+            "low": 0.8,
+            "high": 1.25
+          },
+          {
+            "metric": "query_p95:Q5",
+            "phase": "falla_correccion",
+            "relative_to": "baseline",
+            "mode": "ratio",
+            "expect": "<=",
+            "value": 1.3
+          }
         ]
       },
-      "senales": {"utiles": ["pg_stat_user_tables seq_scan/seq_tup_read de orden_compra", "p95 por consulta (solo Q4/Q5)", "db.statement en el span lento"], "dudosas": ["tasa de error: 0%, la regresión es silenciosa", "latencia global: se diluye porque Q4+Q5 son el 30% de la mezcla"]}
+      "senales": {
+        "utiles": [
+          "pg_stat_user_tables seq_scan/seq_tup_read de orden_compra",
+          "p95 por consulta (solo Q4/Q5)",
+          "db.statement en el span lento"
+        ],
+        "dudosas": [
+          "tasa de error: 0%, la regresión es silenciosa",
+          "latencia global: se diluye porque Q4+Q5 son el 30% de la mezcla"
+        ]
+      }
     },
     {
       "id": "E8",
       "familia": "datos",
       "titulo": "Contención de bloqueos: lock ACCESS EXCLUSIVE sobre logistica.franja_descargue",
       "hipotesis": "Sin lock_timeout, cada Q3 espera el lock indefinidamente mientras retiene una conexión. A ~20 Q3/s las 10 conexiones se agotan en menos de un segundo, y Q1, Q2, Q4 y Q5, que no tocan esa tabla, quedan esperando pool: una falla local se vuelve una caída total en cascada. Con lock_timeout, timeout de pool y un bulkhead para Q3, la falla queda confinada a Q3.",
-      "load": {"rate": 100, "workers": 64},
-      "fault": {"name": "table_lock", "params": {}},
+      "load": {
+        "rate": 100,
+        "workers": 64
+      },
+      "fault": {
+        "name": "table_lock",
+        "params": {}
+      },
       "correction": {
         "descripcion": "lock_timeout 250 ms + statement_timeout 2 s + timeout de pool 1 s + bulkhead de Q3 (máx. 3 concurrentes).",
         "resilience": {
-          "timeouts": {"enabled": true, "pool_timeout_s": 1.0, "statement_ms": 2000, "lock_ms": 250},
-          "bulkhead": {"enabled": true, "limits": {"Q3": 3, "Q1": 50, "Q2": 50, "Q4": 50, "Q5": 50, "report": 1}}
+          "timeouts": {
+            "enabled": true,
+            "pool_timeout_s": 1.0,
+            "statement_ms": 2000,
+            "lock_ms": 250
+          },
+          "bulkhead": {
+            "enabled": true,
+            "limits": {
+              "Q3": 3,
+              "Q1": 50,
+              "Q2": 50,
+              "Q4": 50,
+              "Q5": 50,
+              "report": 1
+            }
+          }
         }
       },
       "prediccion": {
         "texto": "Falla: el p95 de Q1 (que no toca la tabla bloqueada) sube ≥ 1 000 ms por la cascada en el pool, y la latencia global también. Con corrección: el p95 de Q1 ≤ 1,5× el baseline; los errores se concentran en Q3 (504 por lock_timeout o 429 por el bulkhead), entre 10% y 25% del total.",
         "checks": [
-          {"metric": "query_p95:Q1", "phase": "falla", "expect": ">=", "value": 1000},
-          {"metric": "p95_ms", "phase": "falla", "expect": ">=", "value": 1000},
-          {"metric": "query_p95:Q1", "phase": "falla_correccion", "relative_to": "baseline", "mode": "ratio", "expect": "<=", "value": 1.5},
-          {"metric": "error_rate", "phase": "falla_correccion", "expect": "between", "low": 0.1, "high": 0.25}
+          {
+            "metric": "query_p95:Q1",
+            "phase": "falla",
+            "expect": ">=",
+            "value": 1000
+          },
+          {
+            "metric": "p95_ms",
+            "phase": "falla",
+            "expect": ">=",
+            "value": 1000
+          },
+          {
+            "metric": "query_p95:Q1",
+            "phase": "falla_correccion",
+            "relative_to": "baseline",
+            "mode": "ratio",
+            "expect": "<=",
+            "value": 1.5
+          },
+          {
+            "metric": "error_rate",
+            "phase": "falla_correccion",
+            "expect": "between",
+            "low": 0.1,
+            "high": 0.25
+          }
         ]
       },
-      "senales": {"utiles": ["pg_locks por modo (AccessExclusiveLock) y sesiones en espera", "e3_pool_requests_waiting", "logs con error=lock_timeout"], "dudosas": ["CPU de BD y app: bajan; la falla es de espera, no de cómputo"]}
+      "senales": {
+        "utiles": [
+          "pg_locks por modo (AccessExclusiveLock) y sesiones en espera",
+          "e3_pool_requests_waiting",
+          "logs con error=lock_timeout"
+        ],
+        "dudosas": [
+          "CPU de BD y app: bajan; la falla es de espera, no de cómputo"
+        ]
+      }
     }
   ]
 }

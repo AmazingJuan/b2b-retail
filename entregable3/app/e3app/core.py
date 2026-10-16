@@ -93,14 +93,22 @@ class Engine:
                 waited = time.perf_counter() - started
                 t.POOL_WAIT.labels(query).observe(waited)
                 span.set_attribute('pool.wait_ms', round(waited * 1000, 3))
-            if self.config.get('pool_check')['enabled']:
-                try:
-                    ConnectionPool.check_connection(conn)
-                except Exception:
-                    span.add_event('pool.check_failed')
-                    pool.putconn(conn)
-                    conn = pool.getconn(timeout=wait)
-            self._apply_session(conn, timeouts)
+            # Todo lo que ocurre entre getconn y el try/finally de _attempt debe devolver la conexión si falla:
+            # antes, un SET sobre una conexión muerta (p. ej. tras una partición) la dejaba fuera del pool para
+            # siempre (fuga). Tras una partición, el pool crítico (ocioso) perdía así todas sus conexiones.
+            try:
+                if self.config.get('pool_check')['enabled']:
+                    try:
+                        ConnectionPool.check_connection(conn)
+                    except Exception:
+                        span.add_event('pool.check_failed')
+                        pool.putconn(conn)
+                        conn = pool.getconn(timeout=wait)
+                self._apply_session(conn, timeouts)
+            except Exception:
+                conn._e3_settings = None
+                pool.putconn(conn)      # el pool detecta la conexión rota, la descarta y crea otra
+                raise
             return conn
 
     def _apply_session(self, conn, timeouts):

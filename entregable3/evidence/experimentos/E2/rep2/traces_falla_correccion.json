@@ -1,27 +1,28 @@
 [
  {
-  "trace_id": "d02b72f9136a15fe396a574ec34da7c8",
-  "duration_ms": 1029.04,
+  "trace_id": "ce20fc5d1530fcaefe26e92736d73ebd",
+  "duration_ms": 1017.72,
   "root": "GET /consultas/{query_id}",
   "spans": [
    {
     "op": "GET /consultas/{query_id}",
-    "ms": 1029.04,
+    "ms": 1017.72,
     "offset_ms": 0.0,
     "tags": {
      "e3.error": "circuit_open",
-     "e3.query": "Q5",
+     "e3.query": "Q3",
      "e3.scenario": "hot",
      "error": true
     },
     "events": [
+     "retry",
      "retry"
     ]
    },
    {
     "op": "consulta.intento",
-    "ms": 1002.66,
-    "offset_ms": 0.82,
+    "ms": 5.72,
+    "offset_ms": 0.49,
     "tags": {
      "error": true,
      "pool.name": "app"
@@ -32,11 +33,70 @@
    },
    {
     "op": "pool.getconn",
-    "ms": 1001.94,
-    "offset_ms": 0.89,
+    "ms": 3.73,
+    "offset_ms": 0.53,
+    "tags": {
+     "pool.wait_ms": 0.039
+    },
+    "events": [
+     "pool.check_failed"
+    ]
+   },
+   {
+    "op": "retail",
+    "ms": 3.5,
+    "offset_ms": 0.62,
+    "tags": {
+     "db.statement": "",
+     "error": true
+    },
+    "events": [
+     "exception"
+    ]
+   },
+   {
+    "op": "db.execute",
+    "ms": 1.35,
+    "offset_ms": 4.31,
+    "tags": {
+     "db.statement": "SELECT id FROM logistica.franja_descargue WHERE cedi_id = 1 AND inicia_en::date = DATE '2026-09-20' AND reservadas < capacidad ORDER BY inicia_en",
+     "error": true
+    },
+    "events": [
+     "exception"
+    ]
+   },
+   {
+    "op": "SELECT",
+    "ms": 1.05,
+    "offset_ms": 4.37,
+    "tags": {
+     "db.statement": "SELECT id FROM logistica.franja_descargue WHERE cedi_id = 1 AND inicia_en::date = DATE '2026-09-20' AND reservadas < capacidad ORDER BY inicia_en",
+     "error": true
+    },
+    "events": [
+     "exception"
+    ]
+   },
+   {
+    "op": "consulta.intento",
+    "ms": 1000.67,
+    "offset_ms": 10.38,
     "tags": {
      "error": true,
-     "pool.wait_ms": 1000.523
+     "pool.name": "app"
+    },
+    "events": [
+     "exception"
+    ]
+   },
+   {
+    "op": "pool.getconn",
+    "ms": 1000.4,
+    "offset_ms": 10.4,
+    "tags": {
+     "error": true,
+     "pool.wait_ms": 1000.144
     },
     "events": [
      "exception"
@@ -44,8 +104,8 @@
    },
    {
     "op": "GET /consultas/{query_id} http send",
-    "ms": 0.05,
-    "offset_ms": 1012.89,
+    "ms": 0.01,
+    "offset_ms": 1017.33,
     "tags": {
      "error": true
     },
@@ -53,21 +113,21 @@
    },
    {
     "op": "GET /consultas/{query_id} http send",
-    "ms": 0.03,
-    "offset_ms": 1013.24,
+    "ms": 0.01,
+    "offset_ms": 1017.41,
     "tags": {},
     "events": []
    }
   ]
  },
  {
-  "trace_id": "062e79e324f200798684eddea8e98980",
-  "duration_ms": 1015.42,
+  "trace_id": "881c2f2632d31a6cacdbd09625071c29",
+  "duration_ms": 1015.03,
   "root": "GET /consultas/{query_id}",
   "spans": [
    {
     "op": "GET /consultas/{query_id}",
-    "ms": 1015.42,
+    "ms": 1015.03,
     "offset_ms": 0.0,
     "tags": {
      "e3.error": "circuit_open",
@@ -81,8 +141,8 @@
    },
    {
     "op": "consulta.intento",
-    "ms": 1003.51,
-    "offset_ms": 0.92,
+    "ms": 1003.63,
+    "offset_ms": 0.44,
     "tags": {
      "error": true,
      "pool.name": "app"
@@ -93,11 +153,11 @@
    },
    {
     "op": "pool.getconn",
-    "ms": 1002.53,
-    "offset_ms": 1.0,
+    "ms": 1002.96,
+    "offset_ms": 0.47,
     "tags": {
      "error": true,
-     "pool.wait_ms": 1000.873
+     "pool.wait_ms": 1001.306
     },
     "events": [
      "exception"
@@ -105,8 +165,8 @@
    },
    {
     "op": "GET /consultas/{query_id} http send",
-    "ms": 0.06,
-    "offset_ms": 1014.64,
+    "ms": 0.08,
+    "offset_ms": 1014.07,
     "tags": {
      "error": true
     },
@@ -114,21 +174,21 @@
    },
    {
     "op": "GET /consultas/{query_id} http send",
-    "ms": 0.02,
-    "offset_ms": 1014.87,
+    "ms": 0.03,
+    "offset_ms": 1014.44,
     "tags": {},
     "events": []
    }
   ]
  },
  {
-  "trace_id": "a7652aa57c986d4b6fbd2efa7e675715",
-  "duration_ms": 1014.48,
+  "trace_id": "e59983d81ddd2488d27d9409a035a10b",
+  "duration_ms": 1014.89,
   "root": "GET /consultas/{query_id}",
   "spans": [
    {
     "op": "GET /consultas/{query_id}",
-    "ms": 1014.48,
+    "ms": 1014.89,
     "offset_ms": 0.0,
     "tags": {
      "e3.error": "circuit_open",
@@ -142,8 +202,8 @@
    },
    {
     "op": "consulta.intento",
-    "ms": 1003.24,
-    "offset_ms": 0.89,
+    "ms": 1003.68,
+    "offset_ms": 0.4,
     "tags": {
      "error": true,
      "pool.name": "app"
@@ -154,107 +214,46 @@
    },
    {
     "op": "pool.getconn",
-    "ms": 1001.95,
-    "offset_ms": 0.97,
+    "ms": 1003.33,
+    "offset_ms": 0.45,
     "tags": {
      "error": true,
-     "pool.wait_ms": 1000.378
+     "pool.wait_ms": 1001.361
     },
     "events": [
      "exception"
     ]
-   },
-   {
-    "op": "GET /consultas/{query_id} http send",
-    "ms": 0.05,
-    "offset_ms": 1013.74,
-    "tags": {
-     "error": true
-    },
-    "events": []
-   },
-   {
-    "op": "GET /consultas/{query_id} http send",
-    "ms": 0.02,
-    "offset_ms": 1013.94,
-    "tags": {},
-    "events": []
-   }
-  ]
- },
- {
-  "trace_id": "cad5a6ab42160bd0c3a06a980c52c779",
-  "duration_ms": 1013.67,
-  "root": "GET /consultas/{query_id}",
-  "spans": [
-   {
-    "op": "GET /consultas/{query_id}",
-    "ms": 1013.67,
-    "offset_ms": 0.0,
-    "tags": {
-     "e3.error": "circuit_open",
-     "e3.query": "Q4",
-     "e3.scenario": "cold",
-     "error": true
-    },
-    "events": [
-     "retry"
-    ]
-   },
-   {
-    "op": "consulta.intento",
-    "ms": 1001.74,
-    "offset_ms": 1.03,
-    "tags": {
-     "error": true,
-     "pool.name": "app"
-    },
-    "events": [
-     "exception"
-    ]
-   },
-   {
-    "op": "pool.getconn",
-    "ms": 1000.97,
-    "offset_ms": 1.12,
-    "tags": {
-     "error": true,
-     "pool.wait_ms": 1000.257
-    },
-    "events": [
-     "exception"
-    ]
-   },
-   {
-    "op": "GET /consultas/{query_id} http send",
-    "ms": 0.06,
-    "offset_ms": 1012.83,
-    "tags": {
-     "error": true
-    },
-    "events": []
    },
    {
     "op": "GET /consultas/{query_id} http send",
     "ms": 0.03,
-    "offset_ms": 1013.05,
+    "offset_ms": 1014.46,
+    "tags": {
+     "error": true
+    },
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.01,
+    "offset_ms": 1014.58,
     "tags": {},
     "events": []
    }
   ]
  },
  {
-  "trace_id": "5695df1bf6a14689a6ac1eb86424842b",
-  "duration_ms": 1013.41,
+  "trace_id": "f6995e21fb5eec60f673f453ff35a63c",
+  "duration_ms": 1011.36,
   "root": "GET /consultas/{query_id}",
   "spans": [
    {
     "op": "GET /consultas/{query_id}",
-    "ms": 1013.41,
+    "ms": 1011.36,
     "offset_ms": 0.0,
     "tags": {
      "e3.error": "circuit_open",
-     "e3.query": "Q1",
+     "e3.query": "Q5",
      "e3.scenario": "cold",
      "error": true
     },
@@ -264,8 +263,8 @@
    },
    {
     "op": "consulta.intento",
-    "ms": 1002.55,
-    "offset_ms": 0.95,
+    "ms": 1001.03,
+    "offset_ms": 0.58,
     "tags": {
      "error": true,
      "pool.name": "app"
@@ -276,11 +275,11 @@
    },
    {
     "op": "pool.getconn",
-    "ms": 1001.46,
-    "offset_ms": 1.39,
+    "ms": 1000.58,
+    "offset_ms": 0.82,
     "tags": {
      "error": true,
-     "pool.wait_ms": 1000.697
+     "pool.wait_ms": 1000.489
     },
     "events": [
      "exception"
@@ -288,8 +287,8 @@
    },
    {
     "op": "GET /consultas/{query_id} http send",
-    "ms": 0.04,
-    "offset_ms": 1011.87,
+    "ms": 0.01,
+    "offset_ms": 1010.76,
     "tags": {
      "error": true
     },
@@ -297,8 +296,69 @@
    },
    {
     "op": "GET /consultas/{query_id} http send",
-    "ms": 0.02,
-    "offset_ms": 1012.16,
+    "ms": 0.01,
+    "offset_ms": 1010.97,
+    "tags": {},
+    "events": []
+   }
+  ]
+ },
+ {
+  "trace_id": "8f1ae238d09de8860fda611feecd9fe7",
+  "duration_ms": 1010.87,
+  "root": "GET /consultas/{query_id}",
+  "spans": [
+   {
+    "op": "GET /consultas/{query_id}",
+    "ms": 1010.87,
+    "offset_ms": 0.0,
+    "tags": {
+     "e3.error": "circuit_open",
+     "e3.query": "Q2",
+     "e3.scenario": "cold",
+     "error": true
+    },
+    "events": [
+     "retry"
+    ]
+   },
+   {
+    "op": "consulta.intento",
+    "ms": 1002.2,
+    "offset_ms": 1.35,
+    "tags": {
+     "error": true,
+     "pool.name": "app"
+    },
+    "events": [
+     "exception"
+    ]
+   },
+   {
+    "op": "pool.getconn",
+    "ms": 1001.49,
+    "offset_ms": 1.44,
+    "tags": {
+     "error": true,
+     "pool.wait_ms": 1000.575
+    },
+    "events": [
+     "exception"
+    ]
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.01,
+    "offset_ms": 1010.43,
+    "tags": {
+     "error": true
+    },
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.01,
+    "offset_ms": 1010.51,
     "tags": {},
     "events": []
    }

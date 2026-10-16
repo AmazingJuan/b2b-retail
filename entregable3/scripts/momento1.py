@@ -167,7 +167,7 @@ def environment():
 
 
 def power_state():
-    """Estado de energía/CPU: en batería con governor powersave la latencia se triplica (ver baseline_bateria_invalida)."""
+    """Estado de energía/CPU: en batería con governor powersave la latencia se triplica."""
     def read(path):
         try:
             return Path(path).read_text().strip()

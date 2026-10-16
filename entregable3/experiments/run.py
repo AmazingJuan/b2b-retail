@@ -174,6 +174,24 @@ def ensure_host_ok():
     raise RuntimeError(f'host sin recursos para medir: {host_state()}')
 
 
+def ensure_pools_ok():
+    """Sin carga, el pool general debe tener 10/10 conexiones libres y el crítico 3/3. Si no (p. ej. por la fuga de
+    conexiones tras una partición), se reinicia la app y se registra: cada repetición parte de pools sanos."""
+    for attempt in range(2):
+        time.sleep(1)
+        health = http('GET', '/health')
+        pool, critical = health['pool'], health.get('critical_pool', {})
+        if pool.get('pool_available') == pool.get('pool_max') and critical.get('pool_available') == critical.get('pool_max'):
+            return {'reinicio_app': bool(attempt), 'pool': pool.get('pool_available'), 'critico': critical.get('pool_available')}
+        log(f'pools no sanos antes de medir (general {pool.get("pool_available")}/{pool.get("pool_max")}, '
+            f'crítico {critical.get("pool_available")}/{critical.get("pool_max")}): reiniciando la app')
+        subprocess.run(['docker', 'restart', 'b2b-e3-app'], capture_output=True)
+        wait_healthy()
+        time.sleep(3)
+        reset_system()
+    raise RuntimeError('los pools no quedaron sanos tras reiniciar la app')
+
+
 def reset_system(experiment=None):
     http('POST', '/admin/kill-switch')
     http('POST', '/admin/resilience/reset')
@@ -187,6 +205,7 @@ def run_once(experiment, rep, out_dir, phase_s, warmup_s):
     host_before = ensure_host_ok()
     reset_system(experiment)
     wait_healthy()
+    pool_before = ensure_pools_ok()
     load = experiment['load']
     warm = LoadGenerator(API, load['rate'], load.get('workers', 64), load.get('mix'), load.get('scenarios'), seed=7)
     warm.start()
@@ -236,6 +255,7 @@ def run_once(experiment, rep, out_dir, phase_s, warmup_s):
     summary['recovery'] = {p: recovery_time(series, summary['bounds'][p][0], base_p95) for p in ('recuperacion', 'recuperacion_correccion')}
     summary['predictions'] = [check_prediction(summary, c) for c in experiment['prediccion']['checks']]
     summary['host'] = {'antes': host_before, 'despues': host_state()}
+    summary['pools_antes'] = pool_before
     (out_dir / 'summary.json').write_text(json.dumps(summary, indent=2, ensure_ascii=False), encoding='utf-8')
     (out_dir / 'timeline.json').write_text(json.dumps(series), encoding='utf-8')
     (out_dir / 'prometheus.json').write_text(json.dumps(prometheus_range(t_begin, t_end)), encoding='utf-8')

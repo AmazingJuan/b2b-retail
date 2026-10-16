@@ -1,294 +1,343 @@
 [
  {
-  "trace_id": "c27b857f481c591d32525eb6cb203790",
-  "duration_ms": 30007.59,
+  "trace_id": "1dc585c16b73648e74b97120ad5b3c71",
+  "duration_ms": 30000.9,
   "root": "GET /consultas/{query_id}",
   "spans": [
    {
     "op": "GET /consultas/{query_id}",
-    "ms": 30007.59,
+    "ms": 30000.9,
     "offset_ms": 0.0,
     "tags": {
-     "e3.error": "pool_timeout",
-     "e3.query": "Q3",
-     "e3.scenario": "hot",
-     "error": true
-    },
-    "events": []
-   },
-   {
-    "op": "consulta.intento",
-    "ms": 30001.8,
-    "offset_ms": 3.52,
-    "tags": {
-     "error": true,
-     "pool.name": "app"
-    },
-    "events": [
-     "exception"
-    ]
-   },
-   {
-    "op": "pool.getconn",
-    "ms": 30001.07,
-    "offset_ms": 3.6,
-    "tags": {
-     "error": true,
-     "pool.wait_ms": 30000.284
-    },
-    "events": [
-     "exception"
-    ]
-   },
-   {
-    "op": "GET /consultas/{query_id} http send",
-    "ms": 0.08,
-    "offset_ms": 30006.18,
-    "tags": {
-     "error": true
-    },
-    "events": []
-   },
-   {
-    "op": "GET /consultas/{query_id} http send",
-    "ms": 0.03,
-    "offset_ms": 30006.54,
-    "tags": {},
-    "events": []
-   }
-  ]
- },
- {
-  "trace_id": "4834b1ec4d68f07fdc1ffd8ae0534c14",
-  "duration_ms": 30005.57,
-  "root": "GET /consultas/{query_id}",
-  "spans": [
-   {
-    "op": "GET /consultas/{query_id}",
-    "ms": 30005.57,
-    "offset_ms": 0.0,
-    "tags": {
-     "e3.error": "pool_timeout",
-     "e3.query": "Q4",
-     "e3.scenario": "hot",
-     "error": true
-    },
-    "events": []
-   },
-   {
-    "op": "consulta.intento",
-    "ms": 30001.77,
-    "offset_ms": 1.73,
-    "tags": {
-     "error": true,
-     "pool.name": "app"
-    },
-    "events": [
-     "exception"
-    ]
-   },
-   {
-    "op": "pool.getconn",
-    "ms": 30001.06,
-    "offset_ms": 1.81,
-    "tags": {
-     "error": true,
-     "pool.wait_ms": 30000.273
-    },
-    "events": [
-     "exception"
-    ]
-   },
-   {
-    "op": "GET /consultas/{query_id} http send",
-    "ms": 0.07,
-    "offset_ms": 30004.32,
-    "tags": {
-     "error": true
-    },
-    "events": []
-   },
-   {
-    "op": "GET /consultas/{query_id} http send",
-    "ms": 0.03,
-    "offset_ms": 30004.63,
-    "tags": {},
-    "events": []
-   }
-  ]
- },
- {
-  "trace_id": "891c34fb851e80d07845fe4acfab00dd",
-  "duration_ms": 30005.56,
-  "root": "GET /consultas/{query_id}",
-  "spans": [
-   {
-    "op": "GET /consultas/{query_id}",
-    "ms": 30005.56,
-    "offset_ms": 0.0,
-    "tags": {
-     "e3.error": "pool_timeout",
-     "e3.query": "Q3",
-     "e3.scenario": "cold",
-     "error": true
-    },
-    "events": []
-   },
-   {
-    "op": "consulta.intento",
-    "ms": 30001.69,
-    "offset_ms": 1.57,
-    "tags": {
-     "error": true,
-     "pool.name": "app"
-    },
-    "events": [
-     "exception"
-    ]
-   },
-   {
-    "op": "pool.getconn",
-    "ms": 30001.01,
-    "offset_ms": 1.65,
-    "tags": {
-     "error": true,
-     "pool.wait_ms": 30000.261
-    },
-    "events": [
-     "exception"
-    ]
-   },
-   {
-    "op": "GET /consultas/{query_id} http send",
-    "ms": 0.07,
-    "offset_ms": 30004.16,
-    "tags": {
-     "error": true
-    },
-    "events": []
-   },
-   {
-    "op": "GET /consultas/{query_id} http send",
-    "ms": 0.03,
-    "offset_ms": 30004.53,
-    "tags": {},
-    "events": []
-   }
-  ]
- },
- {
-  "trace_id": "5de7e37b1b68845f7f3bfac8089bd960",
-  "duration_ms": 30005.42,
-  "root": "GET /consultas/{query_id}",
-  "spans": [
-   {
-    "op": "GET /consultas/{query_id}",
-    "ms": 30005.42,
-    "offset_ms": 0.0,
-    "tags": {
-     "e3.error": "pool_timeout",
-     "e3.query": "Q3",
-     "e3.scenario": "cold",
-     "error": true
-    },
-    "events": []
-   },
-   {
-    "op": "consulta.intento",
-    "ms": 30001.68,
-    "offset_ms": 1.41,
-    "tags": {
-     "error": true,
-     "pool.name": "app"
-    },
-    "events": [
-     "exception"
-    ]
-   },
-   {
-    "op": "pool.getconn",
-    "ms": 30000.97,
-    "offset_ms": 1.5,
-    "tags": {
-     "error": true,
-     "pool.wait_ms": 30000.244
-    },
-    "events": [
-     "exception"
-    ]
-   },
-   {
-    "op": "GET /consultas/{query_id} http send",
-    "ms": 0.07,
-    "offset_ms": 30003.92,
-    "tags": {
-     "error": true
-    },
-    "events": []
-   },
-   {
-    "op": "GET /consultas/{query_id} http send",
-    "ms": 0.03,
-    "offset_ms": 30004.23,
-    "tags": {},
-    "events": []
-   }
-  ]
- },
- {
-  "trace_id": "eeaa81c41d9c0d18d7a5fea5a7620835",
-  "duration_ms": 30005.41,
-  "root": "GET /consultas/{query_id}",
-  "spans": [
-   {
-    "op": "GET /consultas/{query_id}",
-    "ms": 30005.41,
-    "offset_ms": 0.0,
-    "tags": {
-     "e3.error": "pool_timeout",
      "e3.query": "Q2",
-     "e3.scenario": "hot",
-     "error": true
+     "e3.scenario": "cold"
     },
     "events": []
    },
    {
     "op": "consulta.intento",
-    "ms": 30001.8,
-    "offset_ms": 1.3,
+    "ms": 29997.19,
+    "offset_ms": 0.36,
     "tags": {
-     "error": true,
      "pool.name": "app"
     },
-    "events": [
-     "exception"
-    ]
+    "events": []
    },
    {
     "op": "pool.getconn",
-    "ms": 30001.05,
-    "offset_ms": 1.39,
+    "ms": 29993.84,
+    "offset_ms": 0.39,
     "tags": {
-     "error": true,
-     "pool.wait_ms": 30000.261
+     "pool.wait_ms": 29992.753
     },
-    "events": [
-     "exception"
-    ]
+    "events": []
+   },
+   {
+    "op": "SET",
+    "ms": 0.79,
+    "offset_ms": 29993.39,
+    "tags": {
+     "db.statement": "SET statement_timeout = 0; SET lock_timeout = 0"
+    },
+    "events": []
+   },
+   {
+    "op": "db.execute",
+    "ms": 3.13,
+    "offset_ms": 29994.34,
+    "tags": {
+     "db.statement": "SELECT id, precio FROM catalogo.sku WHERE proveedor_id = 100000 AND vigente_desde <= DATE '2026-09-20' AND vigente_hasta >= DATE '2026-09-20' LIMIT 20"
+    },
+    "events": []
+   },
+   {
+    "op": "SELECT",
+    "ms": 2.95,
+    "offset_ms": 29994.46,
+    "tags": {
+     "db.statement": "SELECT id, precio FROM catalogo.sku WHERE proveedor_id = 100000 AND vigente_desde <= DATE '2026-09-20' AND vigente_hasta >= DATE '2026-09-20' LIMIT 20"
+    },
+    "events": []
    },
    {
     "op": "GET /consultas/{query_id} http send",
     "ms": 0.07,
-    "offset_ms": 30004.02,
+    "offset_ms": 29998.82,
+    "tags": {},
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.03,
+    "offset_ms": 29999.18,
+    "tags": {},
+    "events": []
+   }
+  ]
+ },
+ {
+  "trace_id": "339a259a4fe610b5540375452582d41e",
+  "duration_ms": 29992.38,
+  "root": "GET /consultas/{query_id}",
+  "spans": [
+   {
+    "op": "GET /consultas/{query_id}",
+    "ms": 29992.38,
+    "offset_ms": 0.0,
     "tags": {
-     "error": true
+     "e3.query": "Q2",
+     "e3.scenario": "cold"
+    },
+    "events": []
+   },
+   {
+    "op": "consulta.intento",
+    "ms": 29989.18,
+    "offset_ms": 0.48,
+    "tags": {
+     "pool.name": "app"
+    },
+    "events": []
+   },
+   {
+    "op": "pool.getconn",
+    "ms": 29987.19,
+    "offset_ms": 0.51,
+    "tags": {
+     "pool.wait_ms": 29987.098
+    },
+    "events": []
+   },
+   {
+    "op": "db.execute",
+    "ms": 1.73,
+    "offset_ms": 29987.87,
+    "tags": {
+     "db.statement": "SELECT id, precio FROM catalogo.sku WHERE proveedor_id = 100000 AND vigente_desde <= DATE '2026-09-20' AND vigente_hasta >= DATE '2026-09-20' LIMIT 20"
+    },
+    "events": []
+   },
+   {
+    "op": "SELECT",
+    "ms": 1.55,
+    "offset_ms": 29987.99,
+    "tags": {
+     "db.statement": "SELECT id, precio FROM catalogo.sku WHERE proveedor_id = 100000 AND vigente_desde <= DATE '2026-09-20' AND vigente_hasta >= DATE '2026-09-20' LIMIT 20"
+    },
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.02,
+    "offset_ms": 29991.19,
+    "tags": {},
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.01,
+    "offset_ms": 29991.39,
+    "tags": {},
+    "events": []
+   }
+  ]
+ },
+ {
+  "trace_id": "9a6828ab3db0d9fe3a521cd78245e66a",
+  "duration_ms": 29984.51,
+  "root": "GET /consultas/{query_id}",
+  "spans": [
+   {
+    "op": "GET /consultas/{query_id}",
+    "ms": 29984.51,
+    "offset_ms": 0.0,
+    "tags": {
+     "e3.query": "Q5",
+     "e3.scenario": "cold"
+    },
+    "events": []
+   },
+   {
+    "op": "consulta.intento",
+    "ms": 29982.83,
+    "offset_ms": 0.47,
+    "tags": {
+     "pool.name": "app"
+    },
+    "events": []
+   },
+   {
+    "op": "pool.getconn",
+    "ms": 29980.55,
+    "offset_ms": 0.53,
+    "tags": {
+     "pool.wait_ms": 29980.509
+    },
+    "events": []
+   },
+   {
+    "op": "db.execute",
+    "ms": 2.08,
+    "offset_ms": 29981.2,
+    "tags": {
+     "db.statement": "SELECT id FROM ordenes.orden_compra WHERE proveedor_id = 100000 ORDER BY creada_en DESC, id DESC LIMIT 50"
+    },
+    "events": []
+   },
+   {
+    "op": "SELECT",
+    "ms": 1.95,
+    "offset_ms": 29981.31,
+    "tags": {
+     "db.statement": "SELECT id FROM ordenes.orden_compra WHERE proveedor_id = 100000 ORDER BY creada_en DESC, id DESC LIMIT 50"
     },
     "events": []
    },
    {
     "op": "GET /consultas/{query_id} http send",
     "ms": 0.03,
-    "offset_ms": 30004.41,
+    "offset_ms": 29983.74,
+    "tags": {},
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.01,
+    "offset_ms": 29983.89,
+    "tags": {},
+    "events": []
+   }
+  ]
+ },
+ {
+  "trace_id": "ecaf9f762adbb6bf71675e4fd5909108",
+  "duration_ms": 29975.9,
+  "root": "GET /consultas/{query_id}",
+  "spans": [
+   {
+    "op": "GET /consultas/{query_id}",
+    "ms": 29975.9,
+    "offset_ms": 0.0,
+    "tags": {
+     "e3.query": "Q1",
+     "e3.scenario": "cold"
+    },
+    "events": []
+   },
+   {
+    "op": "consulta.intento",
+    "ms": 29973.6,
+    "offset_ms": 0.69,
+    "tags": {
+     "pool.name": "app"
+    },
+    "events": []
+   },
+   {
+    "op": "pool.getconn",
+    "ms": 29972.76,
+    "offset_ms": 0.73,
+    "tags": {
+     "pool.wait_ms": 29972.757
+    },
+    "events": []
+   },
+   {
+    "op": "db.execute",
+    "ms": 0.74,
+    "offset_ms": 29973.53,
+    "tags": {
+     "db.statement": "SELECT id FROM proveedores.contrato WHERE proveedor_id = 100000 AND inicia_en <= DATE '2026-09-20' AND vence_en >= DATE '2026-09-20' LIMIT 1"
+    },
+    "events": []
+   },
+   {
+    "op": "SELECT",
+    "ms": 0.68,
+    "offset_ms": 29973.58,
+    "tags": {
+     "db.statement": "SELECT id FROM proveedores.contrato WHERE proveedor_id = 100000 AND inicia_en <= DATE '2026-09-20' AND vence_en >= DATE '2026-09-20' LIMIT 1"
+    },
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.02,
+    "offset_ms": 29974.9,
+    "tags": {},
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.01,
+    "offset_ms": 29975.06,
+    "tags": {},
+    "events": []
+   }
+  ]
+ },
+ {
+  "trace_id": "95fd4aea96214819dd393a882bd13bdd",
+  "duration_ms": 29967.0,
+  "root": "GET /consultas/{query_id}",
+  "spans": [
+   {
+    "op": "GET /consultas/{query_id}",
+    "ms": 29967.0,
+    "offset_ms": 0.0,
+    "tags": {
+     "e3.query": "Q1",
+     "e3.scenario": "cold"
+    },
+    "events": []
+   },
+   {
+    "op": "consulta.intento",
+    "ms": 29964.51,
+    "offset_ms": 0.41,
+    "tags": {
+     "pool.name": "app"
+    },
+    "events": []
+   },
+   {
+    "op": "pool.getconn",
+    "ms": 29964.12,
+    "offset_ms": 0.43,
+    "tags": {
+     "pool.wait_ms": 29964.112
+    },
+    "events": []
+   },
+   {
+    "op": "db.execute",
+    "ms": 0.32,
+    "offset_ms": 29964.58,
+    "tags": {
+     "db.statement": "SELECT id FROM proveedores.contrato WHERE proveedor_id = 100000 AND inicia_en <= DATE '2026-09-20' AND vence_en >= DATE '2026-09-20' LIMIT 1"
+    },
+    "events": []
+   },
+   {
+    "op": "SELECT",
+    "ms": 0.27,
+    "offset_ms": 29964.62,
+    "tags": {
+     "db.statement": "SELECT id FROM proveedores.contrato WHERE proveedor_id = 100000 AND inicia_en <= DATE '2026-09-20' AND vence_en >= DATE '2026-09-20' LIMIT 1"
+    },
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.02,
+    "offset_ms": 29966.0,
+    "tags": {},
+    "events": []
+   },
+   {
+    "op": "GET /consultas/{query_id} http send",
+    "ms": 0.01,
+    "offset_ms": 29966.21,
     "tags": {},
     "events": []
    }

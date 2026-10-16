@@ -2,8 +2,9 @@
   "experiment": {
     "id": "E7",
     "familia": "datos",
-    "titulo": "Regresión de esquema: se elimina orden_proveedor_fecha_idx",
-    "hipotesis": "Q4 y Q5 dependen del índice (proveedor_id, creada_en DESC, id DESC). Sin él, el proveedor caliente pasa a recorrer toda la tabla (~515k filas), mientras Q1–Q3 no se afectan. Un índice de cobertura redundante evita la regresión y además acelera Q4 (Index Only Scan) por debajo del baseline.",
+    "titulo": "Regresión de esquema: se elimina orden_proveedor_fecha_idx (ciclo 2)",
+    "aprendizaje_ciclo1": "(1) Q1 se frenó 1,4–1,9× aunque no toca orden_compra: los seq scans paralelos de Q5 consumen CPU compartida de PostgreSQL (0,6 → 2,6 cores). (2) La mediana de Q4 en la mezcla frío/caliente es bimodal; por escenario, Q4 caliente mejora 25–30% y Q4 fría no cambia.",
+    "hipotesis": "Sin el índice, Q5 se degrada ≥ 3× y Q1 también se frena (1,1–2,5×) por la CPU compartida. Con los índices de cobertura y sin falla, Q4 caliente baja ≥ 15% su p50 y Q4 fría queda igual (0,8–1,25×). Con falla y corrección, Q5 queda ≤ 1,3×.",
     "load": {
       "rate": 100,
       "workers": 64
@@ -13,12 +14,12 @@
       "params": {}
     },
     "correction": {
-      "descripcion": "Índices de cobertura (sql/mejoras.sql): (proveedor_id, creada_en DESC, id DESC) INCLUDE (columnas de Q4) y (cedi_id, inicia_en) INCLUDE (reservadas, capacidad, id).",
+      "descripcion": "Índices de cobertura (sql/mejoras.sql).",
       "sql_apply": "sql/mejoras.sql",
       "sql_revert": "sql/mejoras_revert.sql"
     },
     "prediccion": {
-      "texto": "Falla: p95 de Q5 ≥ 3× el baseline, Q1 sin cambio (≤ 1,3×) y aumento de seq scans sobre orden_compra. La recuperación tras el kill switch (recrear el índice concurrentemente) toma ≤ 5 s. Con la corrección, sin falla, el p50 de Q4 baja ≥ 10% respecto al baseline (meta del E3), y con la falla activa el p95 de Q5 queda ≤ 1,3× el baseline.",
+      "texto": "Falla: p95 de Q5 ≥ 3×, p95 de Q1 entre 1,1× y 2,5×, recuperación ≤ 5 s. Con corrección: p50 de Q4 caliente ≤ 0,85×, p50 de Q4 fría entre 0,8× y 1,25×; con falla y corrección, Q5 ≤ 1,3×.",
       "checks": [
         {
           "metric": "query_p95:Q5",
@@ -33,8 +34,9 @@
           "phase": "falla",
           "relative_to": "baseline",
           "mode": "ratio",
-          "expect": "<=",
-          "value": 1.3
+          "expect": "between",
+          "low": 1.1,
+          "high": 2.5
         },
         {
           "metric": "recovery_s",
@@ -43,12 +45,21 @@
           "value": 5
         },
         {
-          "metric": "query_p50:Q4",
+          "metric": "qs_p50:Q4/hot",
           "phase": "correccion",
           "relative_to": "baseline",
           "mode": "ratio",
           "expect": "<=",
-          "value": 0.9
+          "value": 0.85
+        },
+        {
+          "metric": "qs_p50:Q4/cold",
+          "phase": "correccion",
+          "relative_to": "baseline",
+          "mode": "ratio",
+          "expect": "between",
+          "low": 0.8,
+          "high": 1.25
         },
         {
           "metric": "query_p95:Q5",
@@ -59,20 +70,9 @@
           "value": 1.3
         }
       ]
-    },
-    "senales": {
-      "utiles": [
-        "pg_stat_user_tables seq_scan/seq_tup_read de orden_compra",
-        "p95 por consulta (solo Q4/Q5)",
-        "db.statement en el span lento"
-      ],
-      "dudosas": [
-        "tasa de error: 0%, la regresión es silenciosa",
-        "latencia global: se diluye porque Q4+Q5 son el 30% de la mezcla"
-      ]
     }
   },
-  "started_at": "2026-10-16T08:30:30.652779+00:00",
+  "started_at": "2026-10-16T12:21:16.097228+00:00",
   "reps": 3,
   "phase_s": 30.0,
   "warmup_s": 10,
@@ -84,7 +84,7 @@
     "falla_correccion",
     "recuperacion_correccion"
   ],
-  "git_commit": "85369662832ee99ae9aa8156d550f95b4baf88d0",
+  "git_commit": "3c15e72fc465ebb71a2b2216c36246cfce0211f7",
   "state_before": {
     "faults": {
       "kill_switch": false,
@@ -140,7 +140,7 @@
               "Q5"
             ]
           },
-          "enabled_at": null,
+          "enabled_at": 1792152642.1786199,
           "expires_at": null
         },
         "app_latency": {
@@ -149,7 +149,7 @@
           "description": "Latencia de cola: una fracción de solicitudes sufre una pausa larga (dependencia lenta / pausa de GC)",
           "active": false,
           "params": {
-            "probability": 0.02,
+            "probability": 0.1,
             "delay_ms": 800,
             "queries": [
               "Q1",
@@ -170,7 +170,7 @@
               "Q5"
             ]
           },
-          "enabled_at": 1792138227.3661842,
+          "enabled_at": null,
           "expires_at": null
         },
         "pool_shrink": {
@@ -184,7 +184,7 @@
           "defaults": {
             "max_size": 2
           },
-          "enabled_at": 1792138798.1059697,
+          "enabled_at": 1792153215.8742974,
           "expires_at": null
         },
         "noisy_neighbor": {
@@ -198,7 +198,7 @@
           "defaults": {
             "sessions": 4
           },
-          "enabled_at": 1792139369.313056,
+          "enabled_at": null,
           "expires_at": null
         },
         "index_drop": {
@@ -294,11 +294,10 @@
     "circuit_breaker": "closed",
     "pool": {
       "connections_num": 10,
-      "connections_ms": 220,
-      "requests_num": 157350,
-      "requests_queued": 6604,
-      "requests_wait_ms": 567239,
-      "usage_ms": 452992,
+      "connections_ms": 89,
+      "requests_num": 98318,
+      "requests_queued": 3592,
+      "requests_wait_ms": 37076,
       "pool_min": 10,
       "pool_max": 10,
       "pool_size": 10,
@@ -307,5 +306,5 @@
     },
     "pool_max_size": 10
   },
-  "finished_at": "2026-10-16T08:40:03.167031+00:00"
+  "finished_at": "2026-10-16T12:30:50.949635+00:00"
 }

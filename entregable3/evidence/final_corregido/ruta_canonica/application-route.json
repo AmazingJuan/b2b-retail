@@ -1,0 +1,12 @@
+{
+  "attempted_rows": 5000,
+  "accepted_rows": 5000,
+  "rejected_rows": 0,
+  "seconds": 1.041,
+  "rows_per_second": 4804.32,
+  "validations": [
+    "proveedor existente",
+    "SKU del proveedor",
+    "capacidad de franja"
+  ]
+}

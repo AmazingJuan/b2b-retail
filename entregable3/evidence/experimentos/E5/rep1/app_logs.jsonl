@@ -1,12 +1,12 @@
-{"ts": "2026-10-16T08:12:07.644Z", "level": "INFO", "logger": "e3.faults", "msg": "fault_enabled", "trace_id": "23ddc16fd0ab4785c80c59a9ed690f32", "span_id": "6113f5e83aca40e3", "fault": "pool_shrink", "family": "recursos", "params": {"max_size": 1}, "duration_s": null}
-{"ts": "2026-10-16T08:12:07.645Z", "level": "INFO", "logger": "e3", "msg": "admin_call", "method": "POST", "path": "/admin/faults/pool_shrink", "status": 200}
-{"ts": "2026-10-16T08:12:37.640Z", "level": "WARNING", "logger": "e3.faults", "msg": "kill_switch_engaged", "trace_id": "d8eb43ff3cd9b88406d205948c7f648c", "span_id": "4b92c50892619e25", "elapsed_ms": 0.1, "errors": {}}
-{"ts": "2026-10-16T08:12:37.640Z", "level": "INFO", "logger": "e3", "msg": "admin_call", "method": "POST", "path": "/admin/kill-switch", "status": 200}
-{"ts": "2026-10-16T08:13:07.640Z", "level": "INFO", "logger": "e3.faults", "msg": "faults_armed", "trace_id": "a0a0f4985e16584896245c11b7dd48d6", "span_id": "91276c234d87022d"}
-{"ts": "2026-10-16T08:13:07.640Z", "level": "INFO", "logger": "e3", "msg": "admin_call", "method": "POST", "path": "/admin/arm", "status": 200}
-{"ts": "2026-10-16T08:13:07.642Z", "level": "INFO", "logger": "e3", "msg": "resilience_updated", "trace_id": "ef0f961bb14524735edb597eeb8a15a2", "span_id": "bb1330d5cee3653b", "patch": {"pool_bulkhead": {"enabled": true, "queries": ["Q1", "Q2"]}}}
-{"ts": "2026-10-16T08:13:07.642Z", "level": "INFO", "logger": "e3", "msg": "admin_call", "method": "PUT", "path": "/admin/resilience", "status": 200}
-{"ts": "2026-10-16T08:13:37.648Z", "level": "INFO", "logger": "e3.faults", "msg": "fault_enabled", "trace_id": "ac96af02726ab3e6fcb08b45bae89b1d", "span_id": "9a29709c68ddac5f", "fault": "pool_shrink", "family": "recursos", "params": {"max_size": 1}, "duration_s": null}
-{"ts": "2026-10-16T08:13:37.649Z", "level": "INFO", "logger": "e3", "msg": "admin_call", "method": "POST", "path": "/admin/faults/pool_shrink", "status": 200}
-{"ts": "2026-10-16T08:14:07.642Z", "level": "WARNING", "logger": "e3.faults", "msg": "kill_switch_engaged", "trace_id": "c7f630e4e158953b323480f514899437", "span_id": "f38796fc69a29100", "elapsed_ms": 0.1, "errors": {}}
-{"ts": "2026-10-16T08:14:07.644Z", "level": "INFO", "logger": "e3", "msg": "admin_call", "method": "POST", "path": "/admin/kill-switch", "status": 200}
+{"ts": "2026-10-16T12:12:23.416Z", "level": "INFO", "logger": "e3.faults", "msg": "fault_enabled", "trace_id": "2c16a976cc11f8e8585857128f62d004", "span_id": "472e9b026735ffe1", "fault": "pool_shrink", "family": "recursos", "params": {"max_size": 1}, "duration_s": null}
+{"ts": "2026-10-16T12:12:23.416Z", "level": "INFO", "logger": "e3", "msg": "admin_call", "method": "POST", "path": "/admin/faults/pool_shrink", "status": 200}
+{"ts": "2026-10-16T12:12:53.413Z", "level": "WARNING", "logger": "e3.faults", "msg": "kill_switch_engaged", "trace_id": "b3dad976d2e2218bc71adbd9c6a72a3d", "span_id": "03dd879ab8fe1a0e", "elapsed_ms": 0.1, "errors": {}}
+{"ts": "2026-10-16T12:12:53.413Z", "level": "INFO", "logger": "e3", "msg": "admin_call", "method": "POST", "path": "/admin/kill-switch", "status": 200}
+{"ts": "2026-10-16T12:13:23.412Z", "level": "INFO", "logger": "e3.faults", "msg": "faults_armed", "trace_id": "114a99fbb6e301157fc70cd1de98faca", "span_id": "18971473a0791ca3"}
+{"ts": "2026-10-16T12:13:23.412Z", "level": "INFO", "logger": "e3", "msg": "admin_call", "method": "POST", "path": "/admin/arm", "status": 200}
+{"ts": "2026-10-16T12:13:23.414Z", "level": "INFO", "logger": "e3", "msg": "resilience_updated", "trace_id": "d014f40e3afe27ea8a89f70e6d65f798", "span_id": "9907bbdd3206abc3", "patch": {"pool_bulkhead": {"enabled": true, "queries": ["Q1", "Q2"]}}}
+{"ts": "2026-10-16T12:13:23.414Z", "level": "INFO", "logger": "e3", "msg": "admin_call", "method": "PUT", "path": "/admin/resilience", "status": 200}
+{"ts": "2026-10-16T12:13:53.413Z", "level": "INFO", "logger": "e3.faults", "msg": "fault_enabled", "trace_id": "6f23c3999cc5cce20ad06b20a35ae9fe", "span_id": "da74bff1396f9c02", "fault": "pool_shrink", "family": "recursos", "params": {"max_size": 1}, "duration_s": null}
+{"ts": "2026-10-16T12:13:53.413Z", "level": "INFO", "logger": "e3", "msg": "admin_call", "method": "POST", "path": "/admin/faults/pool_shrink", "status": 200}
+{"ts": "2026-10-16T12:14:23.414Z", "level": "WARNING", "logger": "e3.faults", "msg": "kill_switch_engaged", "trace_id": "a75b1549f4f58a34073824469bc9930f", "span_id": "efe8c93b00ea8a47", "elapsed_ms": 0.1, "errors": {}}
+{"ts": "2026-10-16T12:14:23.415Z", "level": "INFO", "logger": "e3", "msg": "admin_call", "method": "POST", "path": "/admin/kill-switch", "status": 200}

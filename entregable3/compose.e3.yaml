@@ -36,6 +36,12 @@ services:
       FAULT_INJECTION_ENABLED: "true"
       OTEL_SERVICE_NAME: b2b-e3-api
       OTEL_EXPORTER_OTLP_ENDPOINT: http://jaeger:4318
+      # Muestreo de trazas: 1.0 en los experimentos (toda la evidencia); el estado corregido usa 0.1.
+      # Exportar el 100% congela ~12-15 ms el 1-2% de las solicitudes (GIL durante la serialización del lote).
+      OTEL_TRACES_SAMPLER: parentbased_traceidratio
+      OTEL_TRACES_SAMPLER_ARG: ${E3_TRACE_RATIO:-1.0}
+      OTEL_BSP_SCHEDULE_DELAY: ${E3_BSP_DELAY_MS:-5000}
+      OTEL_BSP_MAX_EXPORT_BATCH_SIZE: ${E3_BSP_BATCH:-512}
     ports:
       - "8000:8000"
     cpus: 2
