@@ -40,6 +40,7 @@ PROM_SIGNALS = {
     'svc_mean': 'sum(rate(e3_request_duration_seconds_sum[5s])) / clamp_min(sum(rate(e3_request_duration_seconds_count[5s])), 1e-9)',
     'db_p95_by_query': 'histogram_quantile(0.95, sum by (le, query) (rate(e3_db_query_duration_seconds_bucket[5s])))',
     'pool_wait_p95': 'histogram_quantile(0.95, sum by (le) (rate(e3_pool_wait_seconds_bucket[5s])))',
+    'critical_pool_available': 'e3_critical_pool_available', 'critical_pool_waiting': 'e3_critical_pool_requests_waiting',
     'pool_available': 'e3_pool_available', 'pool_waiting': 'e3_pool_requests_waiting', 'pool_size': 'e3_pool_size',
     'fault_active': 'max by (fault) (e3_fault_active)',
     'cb_state': 'e3_circuit_breaker_state',
@@ -234,13 +235,14 @@ def main():
     parser.add_argument('--phase-s', type=float, default=30)
     parser.add_argument('--warmup-s', type=float, default=10)
     parser.add_argument('--definitions', type=Path, default=HERE / 'experiments.json')
+    parser.add_argument('--output-dir', type=Path, default=EVIDENCE)
     args = parser.parse_args()
     definitions = {e['id']: e for e in json.loads(args.definitions.read_text())['experimentos']}
     selected = list(definitions) if args.experiments == ['all'] else args.experiments
     wait_healthy()
     for experiment_id in selected:
         experiment = definitions[experiment_id]
-        exp_dir = EVIDENCE / experiment_id
+        exp_dir = args.output_dir / experiment_id
         manifest = {'experiment': experiment, 'started_at': datetime.now(timezone.utc).isoformat(), 'reps': args.reps,
                     'phase_s': args.phase_s, 'warmup_s': args.warmup_s, 'phases': PHASES,
                     'git_commit': subprocess.run(['git', '-C', str(REPO), 'rev-parse', 'HEAD'], capture_output=True, text=True).stdout.strip(),

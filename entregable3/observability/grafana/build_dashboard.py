@@ -23,7 +23,8 @@ PANELS = [
     ('Dónde se va el tiempo: pool vs SQL', [
         ('Pool: tamaño, libres y en espera', [
             ('e3_pool_size', 'abiertas'), ('e3_pool_available', 'libres'),
-            ('e3_pool_requests_waiting', 'en espera'), ('e3_pool_max_size', 'máximo')], None, 'short'),
+            ('e3_pool_requests_waiting', 'en espera'), ('e3_pool_max_size', 'utilizables'),
+            ('e3_critical_pool_available', 'crítico libres'), ('e3_critical_pool_requests_waiting', 'crítico en espera')], None, 'short'),
         ('Espera de pool p95', 'histogram_quantile(0.95, sum by (le) (rate(e3_pool_wait_seconds_bucket[10s])))', 'pool wait p95', 's'),
         ('SQL p95 por consulta', 'histogram_quantile(0.95, sum by (le, query) (rate(e3_db_query_duration_seconds_bucket[10s])))', '{{query}}', 's'),
     ]),

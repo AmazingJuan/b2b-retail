@@ -24,6 +24,8 @@ DEFAULTS = {
     'cache': {'enabled': False, 'ttl_s': 30, 'queries': ['Q1', 'Q2']},
     # Compartimentos (bulkheads): concurrencia máxima por tipo de carga; el excedente se rechaza (429).
     'bulkhead': {'enabled': False, 'limits': {'Q1': 8, 'Q2': 8, 'Q3': 3, 'Q4': 4, 'Q5': 8, 'report': 1}},
+    # Bulkhead de conexiones: pool dedicado y aislado para las consultas críticas de validación.
+    'pool_bulkhead': {'enabled': False, 'queries': ['Q1', 'Q2']},
     # Solicitudes de cobertura (hedging): si el primer intento no responde en after_ms se lanza otro.
     'hedging': {'enabled': False, 'after_ms': 40},
     # Límite de paralelismo para el reporte pesado (protege CPU de la BD).

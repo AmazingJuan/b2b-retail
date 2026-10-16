@@ -437,7 +437,17 @@
         {
           "refId": "D",
           "expr": "e3_pool_max_size",
-          "legendFormat": "máximo"
+          "legendFormat": "utilizables"
+        },
+        {
+          "refId": "E",
+          "expr": "e3_critical_pool_available",
+          "legendFormat": "crítico libres"
+        },
+        {
+          "refId": "F",
+          "expr": "e3_critical_pool_requests_waiting",
+          "legendFormat": "crítico en espera"
         }
       ]
     },

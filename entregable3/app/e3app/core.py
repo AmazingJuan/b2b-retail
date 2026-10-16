@@ -25,6 +25,7 @@ log = logging.getLogger('e3.core')
 tracer = trace.get_tracer('e3app.core')
 APP_DSN = os.getenv('APP_DSN', 'host=toxiproxy port=6432 dbname=retail user=retail password=retail')
 POOL_SIZE = int(os.getenv('POOL_SIZE', '10'))
+CRITICAL_POOL_SIZE = int(os.getenv('CRITICAL_POOL_SIZE', '3'))
 
 
 def is_connection_error(error):
@@ -42,6 +43,10 @@ class Engine:
         self.pool = ConnectionPool(APP_DSN, min_size=POOL_SIZE, max_size=POOL_SIZE, name='app', open=False,
                                    timeout=POOL_TIMEOUT_DEFAULT_S,
                                    kwargs={'autocommit': True, 'prepare_threshold': None, 'connect_timeout': 3})
+        # Pool crítico: solo se usa si el mecanismo pool_bulkhead está habilitado.
+        self.critical_pool = ConnectionPool(APP_DSN, min_size=CRITICAL_POOL_SIZE, max_size=CRITICAL_POOL_SIZE, name='critical',
+                                            open=False, timeout=POOL_TIMEOUT_DEFAULT_S,
+                                            kwargs={'autocommit': True, 'prepare_threshold': None, 'connect_timeout': 3})
         self.breaker = CircuitBreaker(self.config)
         self.bulkheads = Bulkheads(self.config)
         self.cache = TtlCache()
@@ -52,12 +57,14 @@ class Engine:
 
     def start(self):
         self.pool.open(wait=False)
+        self.critical_pool.open(wait=False)
         threading.Thread(target=self._pool_stats_loop, daemon=True, name='pool-stats').start()
 
     def stop(self):
         self._stop.set()
         self.faults.engage_kill_switch()
         self.pool.close()
+        self.critical_pool.close()
 
     def _pool_stats_loop(self):
         while not self._stop.wait(0.5):
@@ -65,16 +72,23 @@ class Engine:
             t.POOL_SIZE.set(stats.get('pool_size', 0))
             t.POOL_AVAILABLE.set(stats.get('pool_available', 0))
             t.POOL_WAITING.set(stats.get('requests_waiting', 0))
+            critical = self.critical_pool.get_stats()
+            t.CRITICAL_POOL_AVAILABLE.set(critical.get('pool_available', 0))
+            t.CRITICAL_POOL_WAITING.set(critical.get('requests_waiting', 0))
 
     # ------------------------------------------------------------------ conexiones
 
-    def _getconn(self, query):
+    def _pool_for(self, query):
+        bulkhead = self.config.get('pool_bulkhead')
+        return self.critical_pool if bulkhead['enabled'] and query in bulkhead['queries'] else self.pool
+
+    def _getconn(self, query, pool):
         timeouts = self.config.get('timeouts')
         wait = timeouts['pool_timeout_s'] if timeouts['enabled'] else POOL_TIMEOUT_DEFAULT_S
         started = time.perf_counter()
         with tracer.start_as_current_span('pool.getconn') as span:
             try:
-                conn = self.pool.getconn(timeout=wait)
+                conn = pool.getconn(timeout=wait)
             finally:
                 waited = time.perf_counter() - started
                 t.POOL_WAIT.labels(query).observe(waited)
@@ -84,8 +98,8 @@ class Engine:
                     ConnectionPool.check_connection(conn)
                 except Exception:
                     span.add_event('pool.check_failed')
-                    self.pool.putconn(conn)
-                    conn = self.pool.getconn(timeout=wait)
+                    pool.putconn(conn)
+                    conn = pool.getconn(timeout=wait)
             self._apply_session(conn, timeouts)
             return conn
 
@@ -102,7 +116,9 @@ class Engine:
             self.faults.get('app_error').maybe_inject(query)
             if self.faults.get('app_latency').maybe_inject(query):
                 span.add_event('fault.app_latency', {'delay_ms': self.faults.get('app_latency').params['delay_ms']})
-            conn = self._getconn(query)
+            pool = self._pool_for(query)
+            span.set_attribute('pool.name', pool.name)
+            conn = self._getconn(query, pool)
             try:
                 started = time.perf_counter()
                 with tracer.start_as_current_span('db.execute') as db_span:
@@ -114,7 +130,7 @@ class Engine:
                 conn._e3_settings = None
                 raise
             finally:
-                self.pool.putconn(conn)
+                pool.putconn(conn)
 
     def _hedged(self, query, sql):
         cfg = self.config.get('hedging')
