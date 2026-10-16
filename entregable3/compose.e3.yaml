@@ -1,0 +1,99 @@
+# Extensión del compose del E2 para el E3. Uso (desde la raíz del repo):
+#   docker compose -f compose.yaml -f entregable3/compose.e3.yaml up -d
+# El servicio postgres y su volumen son los mismos del E2; solo se agrega pg_stat_statements.
+services:
+  postgres:
+    command:
+      - postgres
+      - -c
+      - shared_preload_libraries=pg_stat_statements
+      - -c
+      - pg_stat_statements.track=all
+      - -c
+      - track_io_timing=on
+
+  toxiproxy:
+    image: ghcr.io/shopify/toxiproxy:2.9.0
+    container_name: b2b-e3-toxiproxy
+    command: ["-host=0.0.0.0", "-config=/config/toxiproxy.json"]
+    volumes:
+      - ./entregable3/observability/toxiproxy.json:/config/toxiproxy.json:ro
+    ports:
+      - "8474:8474"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  app:
+    build: ./entregable3/app
+    image: b2b-e3-app:latest
+    container_name: b2b-e3-app
+    environment:
+      APP_DSN: host=toxiproxy port=6432 dbname=retail user=retail password=retail
+      ADMIN_DSN: host=postgres port=5432 dbname=retail user=retail password=retail
+      TOXIPROXY_URL: http://toxiproxy:8474
+      POOL_SIZE: "10"
+      FAULT_INJECTION_ENABLED: "true"
+      OTEL_SERVICE_NAME: b2b-e3-api
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://jaeger:4318
+    ports:
+      - "8000:8000"
+    cpus: 2
+    depends_on:
+      - toxiproxy
+      - jaeger
+
+  postgres-exporter:
+    image: quay.io/prometheuscommunity/postgres-exporter:v0.16.0
+    container_name: b2b-e3-postgres-exporter
+    environment:
+      DATA_SOURCE_NAME: postgresql://retail:retail@postgres:5432/retail?sslmode=disable
+    command: ["--collector.stat_statements", "--collector.locks", "--collector.stat_user_tables", "--collector.stat_activity_autovacuum"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  docker-exporter:
+    # Reemplaza a cAdvisor (no asocia cgroups a contenedores con el image store de containerd).
+    image: python:3.12-alpine
+    container_name: b2b-e3-docker-exporter
+    command: ["python", "/exporter/docker_exporter.py"]
+    volumes:
+      - ./entregable3/observability/docker_exporter.py:/exporter/docker_exporter.py:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+  prometheus:
+    image: prom/prometheus:v2.55.1
+    container_name: b2b-e3-prometheus
+    command: ["--config.file=/etc/prometheus/prometheus.yml", "--storage.tsdb.retention.time=7d", "--web.enable-lifecycle"]
+    volumes:
+      - ./entregable3/observability/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.62.0
+    container_name: b2b-e3-jaeger
+    environment:
+      COLLECTOR_OTLP_ENABLED: "true"
+    ports:
+      - "16686:16686"
+
+  grafana:
+    image: grafana/grafana:11.3.1
+    container_name: b2b-e3-grafana
+    environment:
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
+      GF_AUTH_DISABLE_LOGIN_FORM: "true"
+    volumes:
+      - ./entregable3/observability/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./entregable3/observability/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+
+volumes:
+  prometheus_data:

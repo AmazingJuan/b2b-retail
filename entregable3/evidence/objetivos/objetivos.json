@@ -1,0 +1,223 @@
+{
+  "factor": 0.9,
+  "fuente": "evidence/e2_referencia (commit d9d4910, medido 2026-09-27)",
+  "objetivos": [
+    {
+      "carga": "Q1",
+      "escenario": "cold",
+      "metrica": "p50_ms",
+      "valor_e2": 11.67,
+      "objetivo_e3": 10.503
+    },
+    {
+      "carga": "Q1",
+      "escenario": "cold",
+      "metrica": "p95_ms",
+      "valor_e2": 12.679,
+      "objetivo_e3": 11.411
+    },
+    {
+      "carga": "Q1",
+      "escenario": "cold",
+      "metrica": "p99_ms",
+      "valor_e2": 13.509,
+      "objetivo_e3": 12.158
+    },
+    {
+      "carga": "Q1",
+      "escenario": "hot",
+      "metrica": "p50_ms",
+      "valor_e2": 11.798,
+      "objetivo_e3": 10.618
+    },
+    {
+      "carga": "Q1",
+      "escenario": "hot",
+      "metrica": "p95_ms",
+      "valor_e2": 13.409,
+      "objetivo_e3": 12.068
+    },
+    {
+      "carga": "Q1",
+      "escenario": "hot",
+      "metrica": "p99_ms",
+      "valor_e2": 14.401,
+      "objetivo_e3": 12.961
+    },
+    {
+      "carga": "Q2",
+      "escenario": "cold",
+      "metrica": "p50_ms",
+      "valor_e2": 12.051,
+      "objetivo_e3": 10.846
+    },
+    {
+      "carga": "Q2",
+      "escenario": "cold",
+      "metrica": "p95_ms",
+      "valor_e2": 13.96,
+      "objetivo_e3": 12.564
+    },
+    {
+      "carga": "Q2",
+      "escenario": "cold",
+      "metrica": "p99_ms",
+      "valor_e2": 16.832,
+      "objetivo_e3": 15.149
+    },
+    {
+      "carga": "Q2",
+      "escenario": "hot",
+      "metrica": "p50_ms",
+      "valor_e2": 12.023,
+      "objetivo_e3": 10.821
+    },
+    {
+      "carga": "Q2",
+      "escenario": "hot",
+      "metrica": "p95_ms",
+      "valor_e2": 13.258,
+      "objetivo_e3": 11.932
+    },
+    {
+      "carga": "Q2",
+      "escenario": "hot",
+      "metrica": "p99_ms",
+      "valor_e2": 13.904,
+      "objetivo_e3": 12.514
+    },
+    {
+      "carga": "Q3",
+      "escenario": "cold",
+      "metrica": "p50_ms",
+      "valor_e2": 18.716,
+      "objetivo_e3": 16.844
+    },
+    {
+      "carga": "Q3",
+      "escenario": "cold",
+      "metrica": "p95_ms",
+      "valor_e2": 21.447,
+      "objetivo_e3": 19.302
+    },
+    {
+      "carga": "Q3",
+      "escenario": "cold",
+      "metrica": "p99_ms",
+      "valor_e2": 24.875,
+      "objetivo_e3": 22.387
+    },
+    {
+      "carga": "Q3",
+      "escenario": "hot",
+      "metrica": "p50_ms",
+      "valor_e2": 18.621,
+      "objetivo_e3": 16.759
+    },
+    {
+      "carga": "Q3",
+      "escenario": "hot",
+      "metrica": "p95_ms",
+      "valor_e2": 19.834,
+      "objetivo_e3": 17.851
+    },
+    {
+      "carga": "Q3",
+      "escenario": "hot",
+      "metrica": "p99_ms",
+      "valor_e2": 20.361,
+      "objetivo_e3": 18.325
+    },
+    {
+      "carga": "Q4",
+      "escenario": "cold",
+      "metrica": "p50_ms",
+      "valor_e2": 13.254,
+      "objetivo_e3": 11.929
+    },
+    {
+      "carga": "Q4",
+      "escenario": "cold",
+      "metrica": "p95_ms",
+      "valor_e2": 14.593,
+      "objetivo_e3": 13.134
+    },
+    {
+      "carga": "Q4",
+      "escenario": "cold",
+      "metrica": "p99_ms",
+      "valor_e2": 15.167,
+      "objetivo_e3": 13.65
+    },
+    {
+      "carga": "Q4",
+      "escenario": "hot",
+      "metrica": "p50_ms",
+      "valor_e2": 40.67,
+      "objetivo_e3": 36.603
+    },
+    {
+      "carga": "Q4",
+      "escenario": "hot",
+      "metrica": "p95_ms",
+      "valor_e2": 43.907,
+      "objetivo_e3": 39.516
+    },
+    {
+      "carga": "Q4",
+      "escenario": "hot",
+      "metrica": "p99_ms",
+      "valor_e2": 47.171,
+      "objetivo_e3": 42.454
+    },
+    {
+      "carga": "Q5",
+      "escenario": "cold",
+      "metrica": "p50_ms",
+      "valor_e2": 14.653,
+      "objetivo_e3": 13.188
+    },
+    {
+      "carga": "Q5",
+      "escenario": "cold",
+      "metrica": "p95_ms",
+      "valor_e2": 15.687,
+      "objetivo_e3": 14.118
+    },
+    {
+      "carga": "Q5",
+      "escenario": "cold",
+      "metrica": "p99_ms",
+      "valor_e2": 16.011,
+      "objetivo_e3": 14.41
+    },
+    {
+      "carga": "Q5",
+      "escenario": "hot",
+      "metrica": "p50_ms",
+      "valor_e2": 14.792,
+      "objetivo_e3": 13.313
+    },
+    {
+      "carga": "Q5",
+      "escenario": "hot",
+      "metrica": "p95_ms",
+      "valor_e2": 15.82,
+      "objetivo_e3": 14.238
+    },
+    {
+      "carga": "Q5",
+      "escenario": "hot",
+      "metrica": "p99_ms",
+      "valor_e2": 16.718,
+      "objetivo_e3": 15.046
+    },
+    {
+      "carga": "RUTA",
+      "escenario": "5000 órdenes por ruta transaccional",
+      "metrica": "seconds",
+      "valor_e2": 0.452,
+      "objetivo_e3": 0.407
+    }
+  ]
+}

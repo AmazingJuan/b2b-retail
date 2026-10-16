@@ -1,0 +1,19 @@
+{
+  "seed": 42,
+  "as_of_date": "2026-09-20",
+  "orders": 510000,
+  "lines": 3066892,
+  "zipf_s": 1.08,
+  "catalog_top_pct": 0.1,
+  "catalog_top_concentration": 0.6,
+  "checksum_ordenes": "18bf26ccb930ce004875a9d1d3c2d79c9336ab97020e47276dbdaaf511c5acc5",
+  "checksums_csv": {
+    "contratos.csv": "4ab5cdc8bf51deb7f06e86858d0259794e15ecbe1f2084d10d3a8255eb03a61f",
+    "eventos.csv": "ae09d65c0070ce69d91ad6c0a700030cb7018906f6353a6f56b60de5808d35bd",
+    "franjas.csv": "80026fa9b0b9e17a1730f8170e46b502525f43d3474f7dbf2371a21d27ef7b0b",
+    "lineas.csv": "409123cd65f7586d7bf7089e7bdd960c5e14a075f4bde30e9585c68e5a77366f",
+    "ordenes.csv": "18bf26ccb930ce004875a9d1d3c2d79c9336ab97020e47276dbdaaf511c5acc5",
+    "proveedores.csv": "1902fa9f6bf6adb8edb0113b3729b72fa254e6b995007f0a0b15d6dacf6a0ece",
+    "skus.csv": "cb4f8038b618a22cdd022dbb6384c319c7bda69e039e6d781ddf493dd549839f"
+  }
+}
